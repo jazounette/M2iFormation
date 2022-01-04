@@ -1,0 +1,15 @@
+D:\codage\dotnet\csharp\conway\bin\Debug\net6.0\conway.exe
+D:\codage\dotnet\csharp\conway\bin\Debug\net6.0\conway.deps.json
+D:\codage\dotnet\csharp\conway\bin\Debug\net6.0\conway.runtimeconfig.json
+D:\codage\dotnet\csharp\conway\bin\Debug\net6.0\conway.dll
+D:\codage\dotnet\csharp\conway\bin\Debug\net6.0\ref\conway.dll
+D:\codage\dotnet\csharp\conway\bin\Debug\net6.0\conway.pdb
+D:\codage\dotnet\csharp\conway\obj\Debug\net6.0\conway.csproj.AssemblyReference.cache
+D:\codage\dotnet\csharp\conway\obj\Debug\net6.0\conway.GeneratedMSBuildEditorConfig.editorconfig
+D:\codage\dotnet\csharp\conway\obj\Debug\net6.0\conway.AssemblyInfoInputs.cache
+D:\codage\dotnet\csharp\conway\obj\Debug\net6.0\conway.AssemblyInfo.cs
+D:\codage\dotnet\csharp\conway\obj\Debug\net6.0\conway.csproj.CoreCompileInputs.cache
+D:\codage\dotnet\csharp\conway\obj\Debug\net6.0\conway.dll
+D:\codage\dotnet\csharp\conway\obj\Debug\net6.0\ref\conway.dll
+D:\codage\dotnet\csharp\conway\obj\Debug\net6.0\conway.pdb
+D:\codage\dotnet\csharp\conway\obj\Debug\net6.0\conway.genruntimeconfig.cache

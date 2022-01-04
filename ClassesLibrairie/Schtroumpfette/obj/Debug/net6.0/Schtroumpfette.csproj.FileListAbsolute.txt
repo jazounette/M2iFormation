@@ -1,0 +1,12 @@
+D:\codage\dotnet\csharp\ClassesLibrairie\Schtroumpfette\bin\Debug\net6.0\Schtroumpfette.deps.json
+D:\codage\dotnet\csharp\ClassesLibrairie\Schtroumpfette\bin\Debug\net6.0\Schtroumpfette.dll
+D:\codage\dotnet\csharp\ClassesLibrairie\Schtroumpfette\bin\Debug\net6.0\ref\Schtroumpfette.dll
+D:\codage\dotnet\csharp\ClassesLibrairie\Schtroumpfette\bin\Debug\net6.0\Schtroumpfette.pdb
+D:\codage\dotnet\csharp\ClassesLibrairie\Schtroumpfette\obj\Debug\net6.0\Schtroumpfette.csproj.AssemblyReference.cache
+D:\codage\dotnet\csharp\ClassesLibrairie\Schtroumpfette\obj\Debug\net6.0\Schtroumpfette.GeneratedMSBuildEditorConfig.editorconfig
+D:\codage\dotnet\csharp\ClassesLibrairie\Schtroumpfette\obj\Debug\net6.0\Schtroumpfette.AssemblyInfoInputs.cache
+D:\codage\dotnet\csharp\ClassesLibrairie\Schtroumpfette\obj\Debug\net6.0\Schtroumpfette.AssemblyInfo.cs
+D:\codage\dotnet\csharp\ClassesLibrairie\Schtroumpfette\obj\Debug\net6.0\Schtroumpfette.csproj.CoreCompileInputs.cache
+D:\codage\dotnet\csharp\ClassesLibrairie\Schtroumpfette\obj\Debug\net6.0\Schtroumpfette.dll
+D:\codage\dotnet\csharp\ClassesLibrairie\Schtroumpfette\obj\Debug\net6.0\ref\Schtroumpfette.dll
+D:\codage\dotnet\csharp\ClassesLibrairie\Schtroumpfette\obj\Debug\net6.0\Schtroumpfette.pdb
