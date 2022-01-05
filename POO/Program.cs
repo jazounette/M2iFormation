@@ -205,15 +205,15 @@ SalariéHéritage[] esclave = new SalariéHéritage[99];
 Startup[] titi = {
    new Startup("Martinez", "Raoul", 2400),
    new Startup("Rantanplan", "Chien", 3300),
-   new Startup("Lagaffe", "Gaston", 1500),
+   new Startup("Lagaffe", "Gaston", 1500.55F),
    new Startup("Grognon", "Strounph", 1900),
    new Startup("Kent", "Clark", 0)    };
 for (int i = 0; i<titi.Length; i++) esclave[i] = new SalariéHéritage(0, 0, 0, titi[i].nom, titi[i].prenom, titi[i].salaire);
-esclave[5] = new Commerciale(0, 0, 0, "Jean-Claude", "Convenant", 1700, 5, 97536);
+esclave[5] = new Commerciale(0, 0, 0, "Jean-Claude", "Convenant", 1700, 5.55F, 97536);
 
 
 int choix = 0;
-string? nom = "", prénom = "";     float salaire=0, commission=0, chiffreAff=0;
+string? nom = "  ", prénom = "";     float salaire=0, commission=0, chiffreAff=0;
 bool trouvé = false;
 while (true) {
    choix = IHMsalarié.MenuPrincipal();
@@ -244,7 +244,7 @@ while (true) {
          for (int i = 0; i<SalariéHéritage.Compteur; i++) {  Konzolo.Affiche($"{i+1}- {esclave[i].AfficherSalaire()}\n");   }
          Konzolo.Affiche($"\nnombre d'employés:{SalariéHéritage.Compteur}\n", "cyan");
          Konzolo.Couleur("blanc");
-         Konzolo.Affiche($"le montant total des salaire de ma petite entreprise est de: {SalariéHéritage.SalaireSom}E\n\n");
+         Konzolo.Affiche($"le montant total des salaire de ma petite entreprise est de: {SalariéHéritage.SalaireSom:F2}E\n\n");
          Konzolo.Attendre();
          break;
       case 3:

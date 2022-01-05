@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\codage\\dotnet\\csharp\\helloworld\\HelloWorld.csproj": {}
+    "D:\\codage\\dotnet\\csharp\\HelloWorld\\HelloWorld.csproj": {}
   },
   "projects": {
-    "D:\\codage\\dotnet\\csharp\\helloworld\\HelloWorld.csproj": {
+    "D:\\codage\\dotnet\\csharp\\HelloWorld\\HelloWorld.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\codage\\dotnet\\csharp\\helloworld\\HelloWorld.csproj",
+        "projectUniqueName": "D:\\codage\\dotnet\\csharp\\HelloWorld\\HelloWorld.csproj",
         "projectName": "HelloWorld",
-        "projectPath": "D:\\codage\\dotnet\\csharp\\helloworld\\HelloWorld.csproj",
+        "projectPath": "D:\\codage\\dotnet\\csharp\\HelloWorld\\HelloWorld.csproj",
         "packagesPath": "C:\\Users\\JC\\.nuget\\packages\\",
-        "outputPath": "D:\\codage\\dotnet\\csharp\\helloworld\\obj\\",
+        "outputPath": "D:\\codage\\dotnet\\csharp\\HelloWorld\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\JC\\AppData\\Roaming\\NuGet\\NuGet.Config"

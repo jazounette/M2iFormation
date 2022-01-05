@@ -36,14 +36,14 @@ internal class SalariéHéritage {
    public static float SalaireSom { get => salaireSom; set => salaireSom = value; }
    public static int Compteur { get => compteur; set => compteur = value; }
 
-   public virtual string AfficherSalaire(){ return $"{Prenom} {Nom} - Salaire: {Salaire}E";  }
+   public virtual string AfficherSalaire(){ return $"{Prenom} {Nom} - Salaire: {Salaire:F2}E";  }
    public static void ResetCompteur() { compteur = 0; }
 
    //// override permet de changer la method par defaut ToString
    public override string ToString() { return $"{matricule}\n{categorie}\n{service}\n{nom}\n{prenom}\n{salaire}\n";  }
-
 }
 
+////////////////////////////////////////////////////////////////////classe commercial
 internal class Commerciale : SalariéHéritage {
    private float commission;
    private float chiffreAff;
@@ -51,17 +51,18 @@ internal class Commerciale : SalariéHéritage {
    public Commerciale(int mat, byte cat, byte ser, string? nom, string? pré, float sal, float commission, float chiffreAff) : base (mat, cat, ser, nom, pré, sal)
    {
       Salaire += chiffreAff * commission / 100F;
-      SalaireSom += sal;
+      SalaireSom += chiffreAff * commission / 100F;
       Commission = commission;
       ChiffreAff = chiffreAff;
    }
 
-   public override string AfficherSalaire(){ return $"{Prenom} {Nom} - Salaire: {Salaire:F2}E (commission:{Commission}%, chiffre d'affaire:{chiffreAff}E)";  }
+   public override string AfficherSalaire(){ return $"{Prenom} {Nom} - Salaire: {Salaire:F2}E (commission:{Commission:F2}%, chiffre d'affaire:{chiffreAff:F2}E)";  }
 
    public float Commission { get => commission; set => commission = value; }
    public float ChiffreAff { get => chiffreAff; set => chiffreAff = value; }
 }
 
+//////////////////////////////////////////////////////////////////////classe IHM
 internal static class IHMsalarié {
    public static int MenuPrincipal() {
       int choix = 0;

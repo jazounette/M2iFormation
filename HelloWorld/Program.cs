@@ -1031,9 +1031,5 @@ static string asterix (int obelix){
 
 
 
-// voir pour surveiller le dossier par git, et faire des commits sur github
-// tester "terminal" sur win7
-// voir comment afficher les accents sur la console powershell win7
-
 
 

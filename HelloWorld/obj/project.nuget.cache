@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CalxxK6O6LAI5sd2t9QpWpF2kfMUeXjVXIkP8XsbFGYm+R6Qd27RPRdOasxaU2rDjeNVG+y8ZBCSAepYAy4WBQ==",
+  "dgSpecHash": "yWKQ3ydJaNjDH6eTFr01IIvqMip6/V7rVJTcK6BN26GxtL2pUJvzz1usAHbECWhzw4hei5j2Frp283fkk3va8g==",
   "success": true,
-  "projectFilePath": "D:\\codage\\dotnet\\csharp\\helloworld\\HelloWorld.csproj",
+  "projectFilePath": "D:\\codage\\dotnet\\csharp\\HelloWorld\\HelloWorld.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
