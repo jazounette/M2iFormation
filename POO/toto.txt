@@ -1,0 +1,7 @@
+[{"nom":"Lagaffe","prénom":"Gaston","courriel":"Lagaffe.G@spiroumag.net","age":25,"tailleDeLaQuéquétte":22,"cheveux":true,"genre":"1"},
+{"nom":"Hache","prénom":"Coralie","courriel":"Coralie.chachache@wanadoo.fr","age":47,"tailleDeLaQuéquétte":0,"cheveux":true,"genre":"2"},
+{"nom":"Chamousse","prénom":"Géronimousse","courriel":"toto@free.fr","age":49,"tailleDeLaQuéquétte":55,"cheveux":false,"genre":"1"},
+{"nom":"Chirac","prénom":"Bernadette","courriel":"Berna.chichi@gmail.com","age":88,"tailleDeLaQuéquétte":0,"cheveux":true,"genre":"2"},
+{"nom":"Potter","prénom":"Harry","courriel":"Mister.Potter@poudelard.en","age":15,"tailleDeLaQuéquétte":11,"cheveux":true,"genre":"1"},
+{"nom":"Macron","prénom":"Emanuelle","courriel":"-","age":0,"tailleDeLaQuéquétte":0,"cheveux":false,"genre":"1"},
+{"nom":"LeFou","prénom":"Pierro","courriel":"-","age":0,"tailleDeLaQuéquétte":0,"cheveux":false,"genre":"1"}]

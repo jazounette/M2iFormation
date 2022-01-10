@@ -1,0 +1,15 @@
+D:\codage\dotnet\csharp\TpClasseSalarieHeritage\bin\Debug\net6.0\TpClasseSalarieHeritage.exe
+D:\codage\dotnet\csharp\TpClasseSalarieHeritage\bin\Debug\net6.0\TpClasseSalarieHeritage.deps.json
+D:\codage\dotnet\csharp\TpClasseSalarieHeritage\bin\Debug\net6.0\TpClasseSalarieHeritage.runtimeconfig.json
+D:\codage\dotnet\csharp\TpClasseSalarieHeritage\bin\Debug\net6.0\TpClasseSalarieHeritage.dll
+D:\codage\dotnet\csharp\TpClasseSalarieHeritage\bin\Debug\net6.0\ref\TpClasseSalarieHeritage.dll
+D:\codage\dotnet\csharp\TpClasseSalarieHeritage\bin\Debug\net6.0\TpClasseSalarieHeritage.pdb
+D:\codage\dotnet\csharp\TpClasseSalarieHeritage\obj\Debug\net6.0\TpClasseSalarieHeritage.csproj.AssemblyReference.cache
+D:\codage\dotnet\csharp\TpClasseSalarieHeritage\obj\Debug\net6.0\TpClasseSalarieHeritage.GeneratedMSBuildEditorConfig.editorconfig
+D:\codage\dotnet\csharp\TpClasseSalarieHeritage\obj\Debug\net6.0\TpClasseSalarieHeritage.AssemblyInfoInputs.cache
+D:\codage\dotnet\csharp\TpClasseSalarieHeritage\obj\Debug\net6.0\TpClasseSalarieHeritage.AssemblyInfo.cs
+D:\codage\dotnet\csharp\TpClasseSalarieHeritage\obj\Debug\net6.0\TpClasseSalarieHeritage.csproj.CoreCompileInputs.cache
+D:\codage\dotnet\csharp\TpClasseSalarieHeritage\obj\Debug\net6.0\TpClasseSalarieHeritage.dll
+D:\codage\dotnet\csharp\TpClasseSalarieHeritage\obj\Debug\net6.0\ref\TpClasseSalarieHeritage.dll
+D:\codage\dotnet\csharp\TpClasseSalarieHeritage\obj\Debug\net6.0\TpClasseSalarieHeritage.pdb
+D:\codage\dotnet\csharp\TpClasseSalarieHeritage\obj\Debug\net6.0\TpClasseSalarieHeritage.genruntimeconfig.cache

@@ -1,7 +1,7 @@
 namespace UtilitaireJC;
 
 public static class Konzolo{
-   static string[] coulUS = {  "black", "darlblue", "darkgreen", "darkcyan", "darkred", "darkmagenta", "darkyellow", "gray", 
+   static string[] coulUS = {  "black", "darkblue", "darkgreen", "darkcyan", "darkred", "darkmagenta", "darkyellow", "gray", 
                                "darkgray", "blue", "green", "cyan", "red", "magenta", "yellow", "white"  };
    static string[] coulFR = {  "noir", "bleupale", "vertpale", "cyanpale", "rougepale", "magentapale", "jaunepale", "gris", 
                                "grispale", "bleu", "vert", "cyan", "rouge", "magenta", "jaune", "blanc"  };

@@ -23,6 +23,14 @@ internal class Compte {
    internal Operation[] Operation { get => operation; set => operation = value; }
 
    public bool Opération(float argent)  {
+      if (Client.Type == 3) {// compte payant, toutes les opérations son payante en fonction de la valeur de taux du compte
+         float tuCasque;
+         tuCasque = (argent<0) ? argent * -1 : argent;
+         tuCasque *= Client.Taux / 100;
+         argent -= tuCasque;
+         Konzolo.Affiche($"compte PAYANT\n", "rouge");
+         Konzolo.Affiche($"taux: {Client.Taux:0.00}%\ncoup de l'opération: {tuCasque:0.00}\nOpération sur le compte: {argent:0.00}\n", "blanc");
+      }
       if ((solde + argent) >= 0) {
          DateTime tatadadate = DateTime.Now;
          solde += argent;

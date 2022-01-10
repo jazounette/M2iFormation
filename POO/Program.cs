@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using POO.Classes;
 using UtilitaireJC;
+using Newtonsoft.Json;
 
 /////////////////////////////////////////////////////exemple poo
 // Voiture voitureDeNico = new Voiture();
@@ -163,7 +164,7 @@ using UtilitaireJC;
 //    Konzolo.Attendre();
 // } while (true);
 
-////////////////////////////////////////////////////////////TPX1 (la banque peu populaire)
+////////////////////////////////////////////////////////////TPX1 (la banque peu populaire)version1
 // Compte[] clienTest = new Compte[99];
 // clienTest[0] = new Compte(new Client("rodriguez", "raoul", "06.12.33.80.75"));
 // clienTest[1] = new Compte(new Client("fabre", "denize", "06.22.33.44.55"));
@@ -198,101 +199,177 @@ using UtilitaireJC;
 // } while(true);
 
 ///////////////////////////////////////////////////TP04 (ClasseSalarieHéritage)
-SalariéHéritage[] esclave = new SalariéHéritage[99];
-// string[] nom = {"Raoul Martinez", "Rantanplan", "Gaston Lagaffe", "Stroumph Grognon", "Clark \"S\" Kent"};
-// float[] salaire = {2500, 3300, 1500, 1900, 0};
+// SalariéHéritage[] esclave = new SalariéHéritage[99];
 
-Startup[] titi = {
-   new Startup("Martinez", "Raoul", 2400),
-   new Startup("Rantanplan", "Chien", 3300),
-   new Startup("Lagaffe", "Gaston", 1500.55F),
-   new Startup("Grognon", "Strounph", 1900),
-   new Startup("Kent", "Clark", 0)    };
-for (int i = 0; i<titi.Length; i++) esclave[i] = new SalariéHéritage(0, 0, 0, titi[i].nom, titi[i].prenom, titi[i].salaire);
-esclave[5] = new Commerciale(0, 0, 0, "Jean-Claude", "Convenant", 1700, 5.55F, 97536);
+// Startup[] titi = {
+//    new Startup("Martinez", "Raoul", 2400),
+//    new Startup("Rantanplan", "Chien", 3300),
+//    new Startup("Lagaffe", "Gaston", 1500.55F),
+//    new Startup("Grognon", "Strounph", 1900),
+//    new Startup("Kent", "Clark", 0)    };
+// for (int i = 0; i<titi.Length; i++) esclave[i] = new SalariéHéritage(0, 0, 0, titi[i].nom, titi[i].prenom, titi[i].salaire);
+// esclave[5] = new Commerciale(0, 0, 0, "Jean-Claude", "Convenant", 1700, 5.55F, 97536);
 
 
-int choix = 0;
-string? nom = "  ", prénom = "";     float salaire=0, commission=0, chiffreAff=0;
-bool trouvé = false;
-while (true) {
-   choix = IHMsalarié.MenuPrincipal();
-   switch (choix) {
-      case 1:
-         do {
-            choix = IHMsalarié.MenuAjouter();
-            if (choix == 1) {
-               nom = Konzolo.LireString("nom: ");
-               prénom = Konzolo.LireString("prénom: ");
-               Konzolo.LireFloat36("salaire: ", ref salaire);
-               esclave[SalariéHéritage.Compteur] = new SalariéHéritage(0, 0, 0, nom, prénom, salaire);
-               Konzolo.Attendre();
-            }
-            if (choix == 2) {
-               nom = Konzolo.LireString("nom: ");
-               prénom = Konzolo.LireString("prénom: ");
-               Konzolo.LireFloat36("salaire: ", ref salaire);
-               Konzolo.LireFloat36("commission: ", ref commission);
-               Konzolo.LireFloat36("chiffre d'affaire: ", ref chiffreAff);
-               esclave[SalariéHéritage.Compteur] = new Commerciale(0, 0, 0, nom, prénom, salaire, commission, chiffreAff);
-            }
-         } while (choix != 0);
-         break;
-      case 2:
-         Console.Clear();
-         Konzolo.Affiche($"==== Salaire des employés ====\n\n");
-         for (int i = 0; i<SalariéHéritage.Compteur; i++) {  Konzolo.Affiche($"{i+1}- {esclave[i].AfficherSalaire()}\n");   }
-         Konzolo.Affiche($"\nnombre d'employés:{SalariéHéritage.Compteur}\n", "cyan");
-         Konzolo.Couleur("blanc");
-         Konzolo.Affiche($"le montant total des salaire de ma petite entreprise est de: {SalariéHéritage.SalaireSom:F2}E\n\n");
-         Konzolo.Attendre();
-         break;
-      case 3:
-         Console.Clear();
-         Konzolo.Affiche($"==== Recherche employé par nom ====\n\n");
-         nom = Konzolo.LireString("nom/prénom: ").ToLower();
-         trouvé = false;
-         for (int i=0; i<SalariéHéritage.Compteur; i++) 
-            if (esclave[i].Nom.ToLower() == nom  || esclave[i].Prenom.ToLower() == nom) {
-               Konzolo.Affiche($"{esclave[i].AfficherSalaire()}\n\n");
-               trouvé = true;
-               break;    }
-         if (!trouvé) Konzolo.Affiche($"Cet esclave ne fait pas parti de notre petite entreprise\n\n");
-         Konzolo.Attendre();
-         break;
-      case 0: Environment.Exit(0); break;
-   }
-}
-
-
-// for (int i = 0; i<titi.Length; i++) {
-//    esclave[i] = new SalariéHéritage(0, 0, 0, titi[i].nom, titi[i].prenom, titi[i].salaire);
-//    Konzolo.Affiche($"{esclave[i].AfficherSalaire(titi[i].prepos)}Euro\n");
-//    Konzolo.Affiche($"--------------------compteur:{SalariéHéritage.Compteur}\n\n", "cyan");
-//    Konzolo.Couleur("blanc");
+// int choix = 0;
+// string? nom = "  ", prénom = "";     float salaire=0, commission=0, chiffreAff=0;
+// bool trouvé = false;
+// while (true) {
+//    choix = IHMsalarié.MenuPrincipal();
+//    switch (choix) {
+//       case 1:
+//          do {
+//             choix = IHMsalarié.MenuAjouter();
+//             if (choix == 1) {
+//                nom = Konzolo.LireString("nom: ");
+//                prénom = Konzolo.LireString("prénom: ");
+//                Konzolo.LireFloat36("salaire: ", ref salaire);
+//                esclave[SalariéHéritage.Compteur] = new SalariéHéritage(0, 0, 0, nom, prénom, salaire);
+//                Konzolo.Attendre();
+//             }
+//             if (choix == 2) {
+//                nom = Konzolo.LireString("nom: ");
+//                prénom = Konzolo.LireString("prénom: ");
+//                Konzolo.LireFloat36("salaire: ", ref salaire);
+//                Konzolo.LireFloat36("commission: ", ref commission);
+//                Konzolo.LireFloat36("chiffre d'affaire: ", ref chiffreAff);
+//                esclave[SalariéHéritage.Compteur] = new Commerciale(0, 0, 0, nom, prénom, salaire, commission, chiffreAff);
+//             }
+//          } while (choix != 0);
+//          break;
+//       case 2:
+//          Console.Clear();
+//          Konzolo.Affiche($"==== Salaire des employés ====\n\n");
+//          for (int i = 0; i<SalariéHéritage.Compteur; i++) {  Konzolo.Affiche($"{i+1}- {esclave[i].AfficherSalaire()}\n");   }
+//          Konzolo.Affiche($"\nnombre d'employés:{SalariéHéritage.Compteur}\n", "cyan");
+//          Konzolo.Couleur("blanc");
+//          Konzolo.Affiche($"le montant total des salaire de ma petite entreprise est de: {SalariéHéritage.SalaireSom:F2}E\n\n");
+//          Konzolo.Attendre();
+//          break;
+//       case 3:
+//          Console.Clear();
+//          Konzolo.Affiche($"==== Recherche employé par nom ====\n\n");
+//          nom = Konzolo.LireString("nom/prénom: ").ToLower();
+//          trouvé = false;
+//          for (int i=0; i<SalariéHéritage.Compteur; i++) 
+//             if (esclave[i].Nom.ToLower() == nom  || esclave[i].Prenom.ToLower() == nom) {
+//                Konzolo.Affiche($"{esclave[i].AfficherSalaire()}\n\n");
+//                trouvé = true;
+//                break;    }
+//          if (!trouvé) Konzolo.Affiche($"Cet esclave ne fait pas parti de notre petite entreprise\n\n");
+//          Konzolo.Attendre();
+//          break;
+//       case 0: Environment.Exit(0); break;
+//    }
 // }
-// Konzolo.Affiche($"le montant total des salaire de ma petite startup est de: {SalariéHéritage.SalaireSom}Euro\n");
 
-// // float budgetEsclave = 0;
-// // for (int i=0; i<(Salarie.Compteur-1); i++) budgetEsclave += esclave[i].Salaire;
-// // print($"le montant total des salaire de ma petite startup est de: {budgetEsclave}Euro\n");
 
-// // Salarie.Compteur = 0;
-// SalariéHéritage.ResetCompteur();
-// Konzolo.Affiche($"nouveau compteur vaut {SalariéHéritage.Compteur} tout le monde est viré!!!\n");
-// Konzolo.Affiche($"{esclave[0]}");
+// struct Startup  {
+//    public string nom;
+//    public string prenom;
+//    public float salaire;
 
-struct Startup  {
-   public string nom;
-   public string prenom;
-   public float salaire;
+//    public Startup(string nom, string prenom, float salaire)
+//    {
+//       this.nom = nom;
+//       this.prenom = prenom;
+//       this.salaire = salaire;
+//    }
+// }
 
-   public Startup(string nom, string prenom, float salaire)
-   {
-      this.nom = nom;
-      this.prenom = prenom;
-      this.salaire = salaire;
+
+///////////////////////////////////////////////test fichier JSON
+// List<int> toto = new List<int>{1, 2, 3, 4};
+// Konzolo.Affiche($"{toto[1]}\n");
+// List<Goudale> lesClowns = new List<Goudale>{
+//    new Goudale("Lagaffe", "Gaston", '1', 25, true, "lagaffe.g@spiroumag.net", 22), 
+//    new Goudale("Hache", "Coralie", '2', 47, true, "coralie.chachache@wanadoo.fr", 0), 
+//    new Goudale("Chamousse", "Géronimousse", '1', 49, false, "toto@free.fr", 55), 
+//    new Goudale("Chirac", "Bernadette", '2', 88, true, "berna.chichi@gmail.com", 0), 
+//    new Goudale("Potter", "Harry", '1', 15, true, "mister.Potter@poudelard.en", 11),
+//    new Goudale("Macron", "Emanuelle")   };
+
+//    lesClowns.Add(new Goudale("LeFou", "Pierro"));
+
+// ////////////////// écriture du fichier
+// // StreamWriter écriteur = new StreamWriter("toto.txt");
+// // écriteur.WriteLine(JsonConvert.SerializeObject(lesClowns));
+// // écriteur.Close();
+
+// ////////////////// lecture fichier
+// List<Goudale>? titi = new List<Goudale>();
+// StreamReader lecteur = new StreamReader("toto.txt");
+// string toto = lecteur.ReadToEnd();
+// Konzolo.Affiche($"{toto}\n\n");
+// titi = JsonConvert.DeserializeObject<List<Goudale>>(toto);
+// lecteur.Close();
+
+// string genre, cheveux, kékette, tutapelle;
+// foreach(Goudale val in titi) {
+//    genre = (val.genre == '1') ? "Male" : "Femelle";
+//    cheveux = (val.cheveux) ? "Chevelu" : "Chauve";
+//    kékette = (val.tailleDeLaQuéquétte == 0) ? "" : $", biroute: {val.tailleDeLaQuéquétte}cm";
+//    tutapelle = $"{val.prénom}, {val.nom}";
+//    Konzolo.Affiche($"{tutapelle,-25}{val.courriel,29}{val.age,5}ans {genre}, {cheveux}{kékette}\n");
+// }
+
+
+// struct Goudale {
+//    public string nom, prénom, courriel;
+//    public byte age, tailleDeLaQuéquétte;
+//    public bool cheveux;
+//    public char genre;
+//    public Goudale(string Nom = "-", string Prénom = "-", char Genre = '1', byte Age = 0, bool Cheveux = false, string Courriel= "-", byte TailleQQ = 0){
+//       nom = Nom; prénom = Prénom; courriel = Courriel;
+//       age = Age; tailleDeLaQuéquétte = TailleQQ;
+//       cheveux = Cheveux;
+//       genre = Genre;
+//    }
+// }
+
+
+////////////////////////////////////////////////////////////TPX1 (la banque peu populaire)version2
+Compte[] clienTest = new Compte[99];
+// List<Compte> clienTest = new List<Compte> { 
+//       new Compte(new Client("rodriguez", "raoul", "06.12.33.80.75", 1, 1F)),
+//       new Compte(new Client("fabre", "denize", "06.22.33.44.55", 2, 5.5F))    };
+
+clienTest[0] = new Compte(new Client("rodriguez", "raoul", "06.12.33.80.75", 1, 1F));
+clienTest[1] = new Compte(new Client("fabre", "denize", "06.22.33.44.55", 2, 5.5F));
+clienTest[2] = new Compte(new Client("Lagaffe", "Gaston", "03.32.46.57.39", 3, 2.2F));
+
+// Konzolo.Affiche($"{clienTest[0].Numéro}\n");
+// Konzolo.Affiche($"{clienTest[1].Numéro}\n");
+
+//////////////gérer les comptes en négatif
+//////////////gérer la persistance avec un fichier json
+//////////////mettre dans afficher compte, le taux pour les différents compte
+
+
+clienTest[0].Opération(1111.11F);
+clienTest[0].Opération(-222.1234F);
+clienTest[0].Opération(333F);
+clienTest[0].Opération(-11);
+clienTest[1].Opération(3333);
+clienTest[1].Opération(-444);
+clienTest[1].Opération(-55);
+
+
+int choix = -1;
+do {
+   Console.Clear();
+   Konzolo.Couleur("blanc");
+   choix = IHM.Menu();
+   switch (choix) {
+      case 1: IHM.NouveauClient(clienTest); break;
+      case 2: IHM.Opération("dépot", clienTest); break;
+      case 3: IHM.Opération("retrait", clienTest); break;
+      case 4: IHM.AfficherCompte(clienTest); break;
+      case 5: IHM.ListeCompte(clienTest); break;
+      case 6: IHM.CalculInterets(clienTest); break;
+      case 0: IHM.Quitter(clienTest); break;
+      default: Konzolo.Affiche("ya rien à voir ici, circulé\n"); break;
    }
-}
 
+} while(true);
 

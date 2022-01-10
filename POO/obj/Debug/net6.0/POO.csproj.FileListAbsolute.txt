@@ -16,3 +16,4 @@ D:\codage\dotnet\csharp\poo\obj\Debug\net6.0\POO.genruntimeconfig.cache
 D:\codage\dotnet\csharp\poo\bin\Debug\net6.0\Schtroumpfette.dll
 D:\codage\dotnet\csharp\poo\bin\Debug\net6.0\Schtroumpfette.pdb
 D:\codage\dotnet\csharp\poo\obj\Debug\net6.0\POO.csproj.CopyComplete
+D:\codage\dotnet\csharp\poo\bin\Debug\net6.0\Newtonsoft.Json.dll
