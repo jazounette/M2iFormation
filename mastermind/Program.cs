@@ -14,6 +14,9 @@ sbyte[,] plateau = new sbyte[12,4];
 sbyte[] secret = new sbyte[4] ;
 for(int i=0; i<4; i++) {  secret[i] = (sbyte)hazard.Next(0,6);    for (int j=0; j<12; j++)  plateau[j,i] = -1;    }
 
+Console.SetWindowSize(88, 33);
+Konzolo.Couleur("magentapale", true);//couleur du fond
+Konzolo.Couleur("blanc");//couleur du texte
 Console.Clear();
 
 Affiche.Grille();
@@ -33,10 +36,23 @@ while (true) {
 
          VérifCodeSicréte(secret, plateau, curseurY, ref noirNbre, ref blanNbre);
 
-
          // Affiche.PionFin(curseurX, curseurY, "noir");
          for (int i=0; i<noirNbre; i++) Affiche.PionFin(i,curseurY, "noir");
          for (int i=noirNbre; i<noirNbre+blanNbre; i++) Affiche.PionFin(i, curseurY, "blanc");
+
+         if (noirNbre == 4  || curseurY >= 11) {
+            string hermionegranger = (noirNbre == 4) ? "TU AS VINGTCUL LE MASTER MIND" : "LE MASTER MIND TA VINGTCUL";
+            string harrypotter = " ";
+            for (int i=0; i<((Affiche.xMax - hermionegranger.Length) / 2); i++) harrypotter += " ";
+            hermionegranger = harrypotter + hermionegranger + harrypotter;
+            Konzolo.Couleur("blanc", true);
+            Console.SetCursorPosition(0, 0);
+            Konzolo.Affiche($"{hermionegranger}", "noir");
+            for(int i=0; i<4; i++) Affiche.Pion(i, 12, coulPion[secret[i]]);
+            Console.SetCursorPosition(0, Affiche.yMax-1);
+            Affiche.RestaureCouleur();
+            Environment.Exit(0);
+         }
 
          Affiche.Curseur(curseurX, curseurY, "efface");
          curseurX = 0;   curseurY++;
@@ -61,7 +77,7 @@ while (true) {
          curseurX--; if (curseurX < 0) curseurX = 3;
          Affiche.Curseur(curseurX, curseurY, "chevron");           }
 
-      Affiche.Test01(plateau, curseurY);
+      // Affiche.Test01(plateau, curseurY);
 
       Affiche.ResetConsCur();
    }
@@ -100,24 +116,23 @@ void VérifCodeSicréte(sbyte[] secret, sbyte[,] plateau, int cy, ref byte noire
          }
    }
 
-   Affiche.test02(secret, cache, essai);
+   // Affiche.test02(secret, cache, essai);
 }
 
 
 
 static class Affiche {
-   static int xMax = Console.WindowWidth;
-   static int yMax = Console.WindowHeight;
-   static int xRef = xMax/2 - 11;
-   static int yRef = yMax-4;
+   public static int xMax = Console.WindowWidth;
+   public static int yMax = Console.WindowHeight;
+   public static int xRef = xMax/2 - 11;
+   public static int yRef = yMax-4;
    static public ConsoleColor sauveCoulTexte;
    static public ConsoleColor sauveCoulFond;
-   static string régles = "Régles:\nTrouvé les quatres couleurs caché\npar le Master Mind (espace pour tricher)\n" +
-   "Le Master Mind vous aide lorsque\nvous faite un essai\n"+
-   "S'il répond noir, l'une des couleurs\nde votre essai est bien placée\n"+
-   "S'il répond blanc, une couleur est\nprésente mais au mauvaise emplecement\n\n"+
-   "Haut/Bas: change couleur\nGauche/Droite: change position\nEntré: valider";
-/////////////////////////// recup la fonction printL de projet tramiel pour affiché les régles proprement////////////////
+   static string régles = "Régles:\nTrouvé les quatres couleurs\ncaché par le Master Mind\n\n" +
+   "Le Master Mind vous aide\nlorsque vous faite un essai.\n\n"+
+   "S'il répond noir:\nl'une des couleurs de votre\nessai est bien placée\n\n"+
+   "S'il répond blanc:\nune couleur est présente\nmais au mauvaise emplacement\n\n"+
+   "Haut/Bas: change couleur\nGauche/Droite: change position\nEntré: valider\nEspace: tricher\n";
 
    static Affiche(){
       sauveCoulTexte = Console.ForegroundColor;
@@ -170,7 +185,7 @@ static class Affiche {
          Affiche.Pion (j, i, "grispale");
          Affiche.PionFin(j, i, "grispale");     }
       Konzolo.Couleur(sauveCoulFond.ToString(), true);
-      Console.SetCursorPosition(0, yMax-13);
+      Console.SetCursorPosition(0, 3);
       Konzolo.Affiche($"{régles}");
    }
 

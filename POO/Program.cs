@@ -344,6 +344,7 @@ clienTest[2] = new Compte(new Client("Lagaffe", "Gaston", "03.32.46.57.39", 3, 2
 //////////////gérer les comptes en négatif
 //////////////gérer la persistance avec un fichier json
 //////////////mettre dans afficher compte, le taux pour les différents compte
+//////////////lire fichier ligne par ligne et bourré le tableau avec jsonconvert (à teste pour recup les données du fichier)
 
 
 clienTest[0].Opération(1111.11F);
