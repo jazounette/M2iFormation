@@ -35,21 +35,24 @@ internal static class Dbm {
          pseudo = Pseudo;
       }
    }
-
+////////////////////////////////////////////////////////////////////////////////////////ouvre,ferme la connexion
    private static void OuvreDBM(){
       try{  conne.Open();  }
       catch (Exception ex){   Konzolo.Affiche($"croustonne? ici base de donnée, ya un problème!!!\n{ex}\n");   }
    }
    private static void FermeDBM(){    conne.Dispose();    conne.Close();    }
 ///////////////////////////////////////////////////////////////////////////////////////////////////lit les topics
-   public static void LireTopic(List<donnée> concombre) {
+   public static void LireTopic(List<donnée> concombre, int début=-1, int fin=-1) {
       string langage, nom_topic, description, nom, prénom, pseudo;
       int id_topic, id_user, nb_rep;
       DateTime date_top;
 
       OuvreDBM();
       requête = conne.CreateCommand();
-      requête.CommandText = "select * from topic join utilisateur on topic.id_user=utilisateur.id_user;";
+      requête.CommandText = $"select * from topic join utilisateur on topic.id_user=utilisateur.id_user{Limite(ref début, fin)};";
+      requête.Parameters.Add(new MySqlParameter("@Deb", début));
+      requête.Parameters.Add(new MySqlParameter("@Fin", fin));
+
       lecteur = requête.ExecuteReader();
       while (lecteur.Read()) {
          id_topic =  lecteur.GetInt16(0);
@@ -76,21 +79,25 @@ internal static class Dbm {
       lecteur.Close();      FermeDBM();
       return topicMax;
    }
+
 /////////////////////////////////////////////////////////////////////////////////////////////////lit les publications
-   public static void LirePubli(int pubNum, List<donnée> mandarine) {
+   public static void LirePubli(int pubNum, List<donnée> mandarine, int début=-1, int fin=-1) {
       string message, nom, prénom, pseudo;
       int id_pub;
       DateTime date_pub;
 
       //select * from publication 
-      //join topic on publication.id_topic=topic.id_topic 
+      //join topic on publication.id_topic=topic.id_topic
       //join utilisateur on publication.id_user=utilisateur.id_user 
-      //where publication.id_topic=6;     //remplacer 6 par @Choix
+      //where publication.id_topic=6     //remplacer 6 par @Choix
+      //limit 2,2;                       //remplacer 2,2 par @Deb,@Fin
 
       OuvreDBM();
       requête = conne.CreateCommand();
-      requête.CommandText = "select * from publication join topic on publication.id_topic=topic.id_topic join utilisateur on publication.id_user=utilisateur.id_user where publication.id_topic=@Choix;";
+      requête.CommandText = $"select * from publication join topic on publication.id_topic=topic.id_topic join utilisateur on publication.id_user=utilisateur.id_user where publication.id_topic=@Choix{Limite(ref début, fin)};";
       requête.Parameters.Add(new MySqlParameter("@Choix", pubNum));
+      requête.Parameters.Add(new MySqlParameter("@Deb", début));
+      requête.Parameters.Add(new MySqlParameter("@Fin", fin));
       lecteur = requête.ExecuteReader();
       while (lecteur.Read()) {
          id_pub = lecteur.GetInt16(0);
@@ -144,6 +151,12 @@ internal static class Dbm {
       int nbLigne = requête.ExecuteNonQuery();
       FermeDBM();
       return nbLigne;
+   }
+///////////////////////////////////compose la chaine qui limite le nombre de ligne renvoyé par la requête
+   static string Limite(ref int début, int fin){
+      if (début>=0 && fin<0) return " limit @Deb"; //un seul param, limite au N première ligne
+      if (début>0 && fin>=0) {   début--;   return " limit @Deb,@Fin";   } //deux param, nombre de ligne à partir d'index(commence à zêro)
+      return "";  //aucun param valide, pas de limite
    }
 
 }

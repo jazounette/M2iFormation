@@ -1,10 +1,11 @@
--- source /Codage/DotNet/CSharp/SQL/filrouge.sql;
+-- source /Codage/DotNet/CSharp/SQL/SQLSources/filrouge.sql;
+-- droper avant les tables avec des clées étrangères (publication et topic).
 
-DROP TABLE IF EXISTS `utilisateur`;
+DROP TABLE IF EXISTS `publication`;
 
 DROP TABLE IF EXISTS `topic`;
 
-DROP TABLE IF EXISTS `publication`;
+DROP TABLE IF EXISTS `utilisateur`;
 
 CREATE TABLE `utilisateur` (
 	`id_user`		INT NOT NULL AUTO_INCREMENT,
@@ -37,7 +38,8 @@ CREATE TABLE `topic` (
    `nom_topic`       VARCHAR(99),
    `description`     VARCHAR(199),
    `nb_rep`          INT,
-	PRIMARY KEY(`id_topic`)
+	PRIMARY KEY(`id_topic`),
+   FOREIGN KEY(`id_user`) REFERENCES `utilisateur`(`id_user`)
 );
 
 INSERT INTO `topic` VALUES
@@ -55,7 +57,9 @@ CREATE TABLE `publication` (
    `id_topic`     INT NOT NULL,
    `id_user`      INT NOT NULL,
    `message`      LONGTEXT,
-	PRIMARY KEY(`id_pub`)
+	PRIMARY KEY(`id_pub`),
+   FOREIGN KEY(`id_topic`) REFERENCES `topic`(`id_topic`),
+   FOREIGN KEY(`id_user`) REFERENCES `utilisateur`(`id_user`)
 );
 
 INSERT INTO `publication` VALUES

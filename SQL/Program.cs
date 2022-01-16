@@ -100,7 +100,8 @@ Console.Clear();
 
 ////////////////////////////////////test methode liretopic
 List<Dbm.donnée> prout = new List<Dbm.donnée>();
-Dbm.LireTopic(prout);
+Dbm.LireTopic(prout); //////////////lit tous les topics
+// Dbm.LireTopic(prout, 3,3); //////lit 3 topics à partir du topic 3
 string nomprén = "";
 foreach (Dbm.donnée val in prout ) {
    nomprén = $"{val.nom}, {val.prénom} dit {val.pseudo}";
@@ -120,7 +121,8 @@ Console.Clear();
 
 ///////////////////////////////////////test methode LirePubli
 List<Dbm.donnée> géraldine = new List<Dbm.donnée>();
-Dbm.LirePubli(choix, géraldine);
+Dbm.LirePubli(choix, géraldine); //////////////////lit toutes les publications
+// Dbm.LirePubli(choix, géraldine, 2, 2); /////////lit deux publis à partir de la publi 2
 foreach(Dbm.donnée val in géraldine) {
    nomprén = $"{val.nom}, {val.prénom} dit {val.pseudo}";
    Console.BackgroundColor = ConsoleColor.Black;
@@ -129,13 +131,13 @@ foreach(Dbm.donnée val in géraldine) {
    Console.WriteLine($"{val.message}\n");
 }
 
-/////////////////////////////////////////test methode utilInject
+// /////////////////////////////////////////test methode utilInject
 // Dbm.InjectUtil("tramiel.jakotte@atari.net", "thejack", "toto", "tramiel", "jack");
 
-/////////////////////////////////////////test methode injecttopic
+// /////////////////////////////////////////test methode injecttopic
 // Dbm.InjectTopic(4, "proutoQ", "ça va les gens?", "comment ça avance pour vous ce fil rouge? bien? ou bien?", 11);
 
-/////////////////////////////////////////test methode injectpubli
+// /////////////////////////////////////////test methode injectpubli
 // Dbm.InjectPubli(1, 4, "il fait super chaud ici, heuresement que j'ai de quoi me désaltéré...");
 
 
