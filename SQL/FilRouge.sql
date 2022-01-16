@@ -1,3 +1,4 @@
+-- source /Codage/DotNet/CSharp/SQL/filrouge.sql;
 
 DROP TABLE IF EXISTS `utilisateur`;
 
@@ -13,7 +14,7 @@ CREATE TABLE `utilisateur` (
    `email`        VARCHAR(55) NOT NULL,
    `telephone`    VARCHAR(55),
    `pseudo`       VARCHAR(55) NOT NULL,
-   `motdepass`    VARCHAR(55) NOT NULL,
+   `motdepasse`   VARCHAR(55) NOT NULL,
    `avatar`       VARCHAR(99),
 	PRIMARY KEY(`id_user`)
 );

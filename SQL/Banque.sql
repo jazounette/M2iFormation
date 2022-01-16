@@ -1,3 +1,5 @@
+--source /Codage/DotNet/CSharp/SQL/Banque.sql;
+
 DROP TABLE IF EXISTS `banqueope`;
 
 DROP TABLE IF EXISTS `banquecompte`;

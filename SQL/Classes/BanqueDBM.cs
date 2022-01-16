@@ -4,7 +4,7 @@ using UtilitaireJC;
 
 
 internal static class DBM {
-   static MySqlConnection? conne;
+   static MySqlConnection conne;
 
    public static void InitDBM() {
    string chaineDeConne = "server=localhost;database=m2iformation;uid=root;pwd=toto;";

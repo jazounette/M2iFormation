@@ -129,7 +129,7 @@ internal static class IHM {
    }
 
    public static bool NouveauClient(Compte[] compte) {
-      string? nom, prénom, téléfoune;// le ? est pour héviter les warnings à cause de retour possible de valeur nul
+      string nom, prénom, téléfoune;// le ? est pour héviter les warnings à cause de retour possible de valeur nul
       int typeCompte = -1;
       float taux = -1;
       Console.Clear();

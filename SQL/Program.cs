@@ -91,93 +91,54 @@ using SQL.Classes;
 
 
 ///////////////////////////////////////////////////projet fil rouge
-MySqlConnection? conne;
-
-string chaineDeConne = "server=localhost;database=m2iformation;uid=root;pwd=toto;";
-conne = new MySqlConnection(chaineDeConne);
-try{  conne.Open();     Konzolo.Affiche($"tout marche bien base de donnée ! \n");   conne.Close();   }
-catch (Exception ex){   Konzolo.Affiche($"croustonne? ici base de donnée, ya un problème!!!\n{ex}\n");   }
-
-string date_top, langage, nom_topic, description, nb_rep;
-string nom, prenom, pseudo, nompren;
-string date_pub, message;
-int id_topic, id_user, id_pub;
-int choix = 0, choixmax = 0; 
+///////////////// voir pour limiter le nombre de retour dans un requête, passer en param le nombre ()
+///////////////// faire les methodes pour les injections (nouveau utilisateur, publication, topic)
+///////////////// ajouter les clées étrangères dans le fichier FileRouge.sql
 
 Console.BackgroundColor = ConsoleColor.DarkCyan;
 Console.Clear();
 
-conne.Open();                 //////////////lit l'ensemble des topics
-MySqlCommand cmd = conne.CreateCommand();
-cmd.CommandText = "select * from topic join utilisateur on topic.id_user=utilisateur.id_user;";
-MySqlDataReader reader = cmd.ExecuteReader();
-while (reader.Read()) {
-   id_topic =  reader.GetInt16(0);
-   date_top =  reader.GetString(1);
-   id_user =  reader.GetInt16(2);
-   langage =  reader.GetString(3);
-   nom_topic =  reader.GetString(4);
-   description =  reader.GetString(5);
-   nb_rep =  reader.GetString(6);
-   nom = reader.GetString(9);
-   prenom = reader.GetString(10);
-   pseudo = reader.GetString(13);
-   nompren = $"{nom}, {prenom} dit {pseudo}";
-
+////////////////////////////////////test methode liretopic
+List<Dbm.donnée> prout = new List<Dbm.donnée>();
+Dbm.LireTopic(prout);
+string nomprén = "";
+foreach (Dbm.donnée val in prout ) {
+   nomprén = $"{val.nom}, {val.prénom} dit {val.pseudo}";
    Console.BackgroundColor = ConsoleColor.Black;
-   Console.WriteLine($"   {id_topic,3} - {nompren,-55} {date_top} {langage,16}   ");
+   Console.WriteLine($"   {val.id_topic,3} - {nomprén,-55} {val.date_top} {val.langage,16}   ");
    Console.BackgroundColor = ConsoleColor.DarkCyan;
-   Console.WriteLine($"\t{nom_topic}");
-   Console.WriteLine($"\t{description}\n");
+   Console.WriteLine($"\t{val.nom_topic}");
+   Console.WriteLine($"\t{val.description}\n");
 }
-reader.Close();
-conne.Dispose();
-conne.Close();
 
-conne.Open();
-cmd.CommandText = "SELECT COUNT(id_topic) FROM topic;";//////lit le nombre de topic
-reader = cmd.ExecuteReader();
-while (reader.Read()) choixmax = reader.GetInt16(0);
-reader.Close();
-conne.Dispose();
-conne.Close();
+/////////////////////////////////////test methode comptetopic
+int choix = 0;
+int choixmax = Dbm.CompteTopic();
+while (Konzolo.LireInt36("\nquel sujet voulez-vous lire: ", ref choix)) {   if (choix>0  && choix<=choixmax) break;   }
 
-
-while (LireInt36("\nquel sujet voulez-vous lire: ", ref choix)) {   if (choix>0  && choix<=choixmax) break;   }
-// Konzolo.Affiche($"{choix}\n");
 Console.Clear();
 
-// select * from publication where id_topic=@Choix;
-// select * from publication join topic on publication.id_topic=topic.id_topic where publication.id_topic=@Choix;
-
-//select * from publication 
-//join topic on publication.id_topic=topic.id_topic 
-//join utilisateur on publication.id_user=utilisateur.id_user 
-//where publication.id_topic=6;     //remplacer 6 par @Choix
-conne.Open();
-cmd = conne.CreateCommand();
-cmd.CommandText = "select * from publication join topic on publication.id_topic=topic.id_topic join utilisateur on publication.id_user=utilisateur.id_user where publication.id_topic=@Choix;";
-cmd.Parameters.Add(new MySqlParameter("@Choix", choix));
-reader = cmd.ExecuteReader();
-while (reader.Read()) {
-   id_pub = reader.GetInt16(0);
-   date_pub = reader.GetString(1);
-   message = reader.GetString(4);
-   nom = reader.GetString(14);
-   prenom = reader.GetString(15);
-   pseudo = reader.GetString(18);
-   nompren = $"{nom}, {prenom} dit {pseudo}";
+///////////////////////////////////////test methode LirePubli
+List<Dbm.donnée> géraldine = new List<Dbm.donnée>();
+Dbm.LirePubli(choix, géraldine);
+foreach(Dbm.donnée val in géraldine) {
+   nomprén = $"{val.nom}, {val.prénom} dit {val.pseudo}";
    Console.BackgroundColor = ConsoleColor.Black;
-   Console.WriteLine($"    pub:{id_pub:000} - {date_pub}{nompren,66}    ");
+   Console.WriteLine($"    pub:{val.id_pub:000} - {val.date_pub}{nomprén,66}    ");
    Console.BackgroundColor = ConsoleColor.DarkCyan;
-   Console.WriteLine($"{message}\n");
+   Console.WriteLine($"{val.message}\n");
 }
-reader.Close();
-conne.Dispose();
-conne.Close();
+
+/////////////////////////////////////////test methode utilInject
+// Dbm.InjectUtil("tramiel.jakotte@atari.net", "thejack", "toto", "tramiel", "jack");
+
+/////////////////////////////////////////test methode injecttopic
+// Dbm.InjectTopic(4, "proutoQ", "ça va les gens?", "comment ça avance pour vous ce fil rouge? bien? ou bien?", 11);
+
+/////////////////////////////////////////test methode injectpubli
+// Dbm.InjectPubli(1, 4, "il fait super chaud ici, heuresement que j'ai de quoi me désaltéré...");
 
 
 
 
-bool LireInt36 (string message, ref int valeur) {   Console.Write(message);  return (int.TryParse(Console.ReadLine(), out valeur));   }
 
