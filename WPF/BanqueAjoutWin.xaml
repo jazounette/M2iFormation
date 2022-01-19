@@ -1,0 +1,50 @@
+<Window x:Class="wpf.BanqueAjoutWin"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:local="clr-namespace:wpf"
+  mc:Ignorable="d"
+  Title="Gestion Compte Bancaire" Height="350" Width="800" KeyDown="OnKeyDownHandler"
+  WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+
+  <Grid ShowGridLines="true">
+    <StackPanel x:Name="StackPanelÀToué" Orientation="Vertical">
+      <GroupBox Header="Création Compte" Margin="5" Padding="5">
+        <StackPanel>
+          <GroupBox Header="Création Client" Margin="5" Padding="5">
+            <StackPanel>
+              <StackPanel Orientation="Horizontal">
+                <Label Content="Nom: " Width="70"/>
+                <TextBox x:Name="ClientNom" Width="200"/>
+                <Label Content="Prénom: " Margin="20, 0, 0, 0"/>
+                <TextBox x:Name="ClientPrenom" Width="200"/>
+              </StackPanel>
+              <StackPanel Orientation="Horizontal">
+                <Label Content="Téléphone: " Width="70"/>
+                <TextBox x:Name="ClientTel" Width="200"/>
+                <TextBlock x:Name="Heidi" Text="ID du compte: " Margin="300, 10, 0, 0"/>
+              </StackPanel>
+              <StackPanel>
+                <Button Margin="0,10,0,0" x:Name="BoutAjoutClient" Content="Ajouter un Client" Click="Click_AjoutClient"/>
+              </StackPanel>
+            </StackPanel>
+          </GroupBox>
+
+          <GroupBox Header="Compte" Margin="5" Padding="5">
+            <StackPanel Orientation="Horizontal">
+              <Label Content="Solde: " Width="70"/>
+              <TextBox x:Name="Solde" Width="200" KeyDown="Press_Entrée"/>
+            </StackPanel>
+          </GroupBox>
+
+          <StackPanel>
+            <Button Margin="15,10,15,0" x:Name="BoutAjoutCréer" Content="Créer le compte" Click="Click_AjoutCréer"/>
+            <Button Margin="15,10,15,0" x:Name="BoutAjoutAnnul" Content="Annuler" Click="Click_AjoutAnnul"/>
+          </StackPanel>
+
+        </StackPanel>
+      </GroupBox>
+    </StackPanel>
+  </Grid>
+</Window>

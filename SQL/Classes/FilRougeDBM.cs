@@ -4,7 +4,7 @@ using UtilitaireJC;
 
 
 internal static class Dbm {
-   static string chaineDeConne = "server=localhost;database=m2iformation;uid=root;pwd=toto;";
+   static string chaineDeConne = "server=localhost;database=m2iformation;uid=root;pwd=toto;"; // c'est des connes et elles sont à la queueleuleu
    static MySqlConnection conne = new MySqlConnection(chaineDeConne);
    static MySqlCommand requête;
    static MySqlDataReader lecteur;
@@ -41,6 +41,16 @@ internal static class Dbm {
       catch (Exception ex){   Konzolo.Affiche($"croustonne? ici base de donnée, ya un problème!!!\n{ex}\n");   }
    }
    private static void FermeDBM(){    conne.Dispose();    conne.Close();    }
+///////////////////////////////////////////////////////////////////////////////////////////lit le nombre de topic
+   public static int CompteTopic () {
+      int topicMax = 0;
+      OuvreDBM();
+      requête.CommandText = "SELECT COUNT(id_topic) FROM topic;";
+      lecteur = requête.ExecuteReader();
+      while (lecteur.Read()) topicMax = lecteur.GetInt16(0);
+      lecteur.Close();      FermeDBM();
+      return topicMax;
+   }
 ///////////////////////////////////////////////////////////////////////////////////////////////////lit les topics
    public static void LireTopic(List<donnée> concombre, int début=-1, int fin=-1) {
       string langage, nom_topic, description, nom, prénom, pseudo;
@@ -69,18 +79,7 @@ internal static class Dbm {
       }
       lecteur.Close();      FermeDBM();
    }
-//////////////////////////////////////////////////////////////////////////////////////////////lit le nombre de topic
-   public static int CompteTopic () {
-      int topicMax = 0;
-      OuvreDBM();
-      requête.CommandText = "SELECT COUNT(id_topic) FROM topic;";
-      lecteur = requête.ExecuteReader();
-      while (lecteur.Read()) topicMax = lecteur.GetInt16(0);
-      lecteur.Close();      FermeDBM();
-      return topicMax;
-   }
-
-/////////////////////////////////////////////////////////////////////////////////////////////////lit les publications
+///////////////////////////////////////////////////////////////////////////////////////////////lit les publications
    public static void LirePubli(int pubNum, List<donnée> mandarine, int début=-1, int fin=-1) {
       string message, nom, prénom, pseudo;
       int id_pub;

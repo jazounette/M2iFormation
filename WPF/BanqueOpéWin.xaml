@@ -1,0 +1,31 @@
+<Window x:Class="wpf.BanqueOpéWin"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:local="clr-namespace:wpf"
+  mc:Ignorable="d"
+  Title="Opération Compte" Height="200" Width="400" KeyDown="OnKeyDownHandler"
+  WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+  x:Name="TitreFenêtre">
+
+  <Grid ShowGridLines="true">
+    <StackPanel x:Name="StackPanelÀSoué">
+      <GroupBox x:Name="GroupTitreOpé" Header="Dépot/Retrait" Margin="5" Padding="5">      <!-- modif le header avec dépot ou retrait-->
+        <StackPanel>
+            <TextBlock Margin="0 5" x:Name="Heidi" Text="ID du compte: "/>
+
+            <StackPanel Orientation="Horizontal" Margin="0 5">
+              <Label x:Name="GroupLabelOpé" Content="Montant de l'opération: " Width="150"/>    <!-- modif le content en fonction du dépot/retrait  -->
+              <TextBox x:Name="YvesMontand" Width="200" KeyDown="Press_Entrée"/>
+            </StackPanel>
+
+            <Button Margin="0 5" x:Name="BoutAjoutValider" Content="Valider" Click="Click_Valider"/>
+            <Button Margin="0 5" x:Name="BoutAjoutAnnul" Content="Annuler" Click="Click_Annuler"/>
+
+
+        </StackPanel>
+      </GroupBox>
+    </StackPanel>
+  </Grid>
+</Window>

@@ -7,6 +7,8 @@ DROP TABLE IF EXISTS `topic`;
 
 DROP TABLE IF EXISTS `utilisateur`;
 
+--ajouter le niveau d'accés utilisateur: admin/enregistré/non-enreg, 
+--mettre à la fin pour éviter les soucis avec les methodes déjà écrite
 CREATE TABLE `utilisateur` (
 	`id_user`		INT NOT NULL AUTO_INCREMENT,
    `date_user`    DATETIME,

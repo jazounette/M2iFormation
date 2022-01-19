@@ -91,9 +91,11 @@ using SQL.Classes;
 
 
 ///////////////////////////////////////////////////projet fil rouge
-///////////////// voir pour limiter le nombre de retour dans un requête, passer en param le nombre ()
-///////////////// faire les methodes pour les injections (nouveau utilisateur, publication, topic)
-///////////////// ajouter les clées étrangères dans le fichier FileRouge.sql
+////////////// faire des methodes update pour les tables utilisateur, publication (quand un utilisateur modifie une publi dont il est l'auteur)
+////////////// methode pour suprimer une publi et un topic avec l'ensemble de ses publi (modération)
+////////////// methode pour lire utilisateur, pour pouvoir modifier ces informations
+////////////// methode recherche utilisateur, par nom ou pseudo, renvoi l'id des utilisateurs dont le nom ou pseudo corresponde
+////////////// ajouter à la table utilisateur le champ niveau d'accès
 
 Console.BackgroundColor = ConsoleColor.DarkCyan;
 Console.Clear();
