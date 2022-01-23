@@ -92,26 +92,27 @@ using SQL.Classes;
 
 ///////////////////////////////////////////////////projet fil rouge
 ////////////// faire des methodes update pour les tables utilisateur, publication (quand un utilisateur modifie une publi dont il est l'auteur)
-////////////// methode pour suprimer une publi et un topic avec l'ensemble de ses publi (modération)
-////////////// methode pour lire utilisateur, pour pouvoir modifier ces informations
-////////////// methode recherche utilisateur, par nom ou pseudo, renvoi l'id des utilisateurs dont le nom ou pseudo corresponde
-////////////// ajouter à la table utilisateur le champ niveau d'accès
+////////////// methode pour mettre à jour les infos utilisateur
+////////////// methode pour changer mot de passe
+////////////// gerer le hash du mot de passe utilisateur
+////////////// ajouter methode pour supprimer(definitivement, pas archivage) utilisateur
+
 
 Console.BackgroundColor = ConsoleColor.DarkCyan;
 Console.Clear();
 
 ////////////////////////////////////test methode liretopic
+string nomprén = "";
 List<Dbm.donnée> prout = new List<Dbm.donnée>();
 Dbm.LireTopic(prout); //////////////lit tous les topics
 // Dbm.LireTopic(prout, 3,3); //////lit 3 topics à partir du topic 3
-string nomprén = "";
 foreach (Dbm.donnée val in prout ) {
-   nomprén = $"{val.nom}, {val.prénom} dit {val.pseudo}";
+   nomprén = $"{val.Nom}, {val.Prénom} dit {val.Pseudo}";
    Console.BackgroundColor = ConsoleColor.Black;
-   Console.WriteLine($"   {val.id_topic,3} - {nomprén,-55} {val.date_top} {val.langage,16}   ");
+   Console.WriteLine($"   {val.Id_topic,3} - {nomprén,-55} {val.Date_top} {val.Langage,16}   ");
    Console.BackgroundColor = ConsoleColor.DarkCyan;
-   Console.WriteLine($"\t{val.nom_topic}");
-   Console.WriteLine($"\t{val.description}\n");
+   Console.WriteLine($"\t{val.Nom_topic}");
+   Console.WriteLine($"\t{val.Description}\n");
 }
 
 /////////////////////////////////////test methode comptetopic
@@ -126,12 +127,42 @@ List<Dbm.donnée> géraldine = new List<Dbm.donnée>();
 Dbm.LirePubli(choix, géraldine); //////////////////lit toutes les publications
 // Dbm.LirePubli(choix, géraldine, 2, 2); /////////lit deux publis à partir de la publi 2
 foreach(Dbm.donnée val in géraldine) {
-   nomprén = $"{val.nom}, {val.prénom} dit {val.pseudo}";
+   nomprén = $"{val.Nom}, {val.Prénom} dit {val.Pseudo}";
    Console.BackgroundColor = ConsoleColor.Black;
-   Console.WriteLine($"    pub:{val.id_pub:000} - {val.date_pub}{nomprén,66}    ");
+   Console.WriteLine($"    pub:{val.Id_pub:000} - {val.Date_pub}{nomprén,66}    ");
    Console.BackgroundColor = ConsoleColor.DarkCyan;
-   Console.WriteLine($"{val.message}\n");
+   Console.WriteLine($"{val.Message}\n");
 }
+
+///////////////////////////////////////////test methode LireUtil
+List<Dbm.donnée> guendoline = new List<Dbm.donnée>();
+string typeCompte="";
+int erreur = Dbm.LireUtil(guendoline, "nom", "chamousse");////////////recherche un utilisateur dont le nom est chamousse
+foreach(Dbm.donnée val in guendoline) {
+   nomprén = $"{val.Nom}, {val.Prénom} dit {val.Pseudo}";
+   switch (val.Accès) {
+      case 0: typeCompte="Administrateur"; break;
+      case 1: typeCompte="Utilisateur"; break;
+      case 2: typeCompte="En attente d'enregistrement"; break;
+   }
+   Console.WriteLine($"utilisateur:{val.Id_user:000}\n{nomprén}\nInscrit le: {val.Date_user}\nCourriel: {val.Courriel}\nTéléphone: {val.Tél}");
+   Console.WriteLine($"Niveau d'accès: {typeCompte}\n");
+}
+
+//////////////////////////////////////////test methode archivage publication
+// Dbm.ArchivPubli(4);////////////////////////archive la publication 4
+// Dbm.ArchivPubli(4, false);///efface définitivement la publication 4
+
+////////////////////////////////////////test methode archivage topic (archive aussi toutes les publis qui en dépende)
+// Dbm.ArchivTopic(1);//////////////////archive le topic 1 et toutes les pubications associées
+// Dbm.ArchivTopic(1, false);///////////efface le topic 1 et toutes ses publications
+
+//////////////////////////////////test methode change droit acces utilisateur (0:admin, 1:utilisateur, 2:non-enreg)
+// Dbm.AccésUtil(2, 0);//////////////change l'accès utilisateur id_user:2 en admin
+// Dbm.AccésUtil(9, 1);//////////////change l'accès utilisateur id_user:5 en utilisateur enregistré
+
+//////////////////////////////////test methode efface un utilisateur;
+// Dbm.EffaceUtil(1);///////////////efface l'utilisateur id_user=1 ainsi que toutes ses publications/topic
 
 // /////////////////////////////////////////test methode utilInject
 // Dbm.InjectUtil("tramiel.jakotte@atari.net", "thejack", "toto", "tramiel", "jack");
@@ -140,7 +171,7 @@ foreach(Dbm.donnée val in géraldine) {
 // Dbm.InjectTopic(4, "proutoQ", "ça va les gens?", "comment ça avance pour vous ce fil rouge? bien? ou bien?", 11);
 
 // /////////////////////////////////////////test methode injectpubli
-// Dbm.InjectPubli(1, 4, "il fait super chaud ici, heuresement que j'ai de quoi me désaltéré...");
+// Dbm.InjectPubli(1, 4, "il fait super chaud ici, heureusement que j'ai de quoi me désaltéré...");
 
 
 

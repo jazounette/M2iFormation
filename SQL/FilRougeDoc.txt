@@ -1,0 +1,7 @@
+pour des exemples d'utilisation des methodes voir le fichier program.cs (à partir de la ligne 107)
+
+int LireUtil(List<Dbm.donnée>, string, string)
+param 1(List<Dbm.donnée>): la liste qui contient les infos demander
+param 2(string): sur quel champ porte la recherche. (nom, prenom, pseudo, id_user...)
+param 3(string): quoi qu'on recherche.
+retourne (int): 0 si tout marche bien navette, 1 si croustonne a un problème.

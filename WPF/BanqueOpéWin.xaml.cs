@@ -38,8 +38,8 @@ public partial class BanqueOpéWin : Window   {
          if (somme >=0)  {  
             MessageBox.Show ($"Le {typeOpé} de {YvesMontand.Text}€ a été effectué.", $"{typeOpé} éffectué", MessageBoxButton.OK, MessageBoxImage.Information);
             this.Close();  }
-         else MessageBox.Show ("Entré une valeur positive.", "Erreur de saisi", MessageBoxButton.OK, MessageBoxImage.Warning);   } 
-      catch {  MessageBox.Show ("Entré une valeur numérique.", "Erreur de saisi", MessageBoxButton.OK, MessageBoxImage.Warning); }
+         else MessageBox.Show ("Entré une valeur positive.", "Erreur de saisi", MessageBoxButton.OK, MessageBoxImage.Stop);   } 
+      catch {  MessageBox.Show ("Entré une valeur numérique.", "Erreur de saisi", MessageBoxButton.OK, MessageBoxImage.Stop); }
    }
    private void Click_Valider(object sender, RoutedEventArgs e)    {  Orangina();  }
    private void Press_Entrée(object sender, KeyEventArgs e)   {  if (e.Key == Key.Enter) Orangina();   }
