@@ -1,4 +1,5 @@
-namespace SQL.Classes;
+////////////////////////////////////////////////////////////////////////////////////////////// Version2
+namespace FilRouge.Classes;
 using MySql.Data.MySqlClient;
 using UtilitaireJC;
 
@@ -9,10 +10,11 @@ internal static class Dbm {
    static MySqlCommand requête;
    static MySqlDataReader lecteur;
 
-   public struct donnée {
+   public class Donnée {
       private string langage="", nom_topic="", description="", nom="", prénom="", pseudo="", message="", courriel="", tél="";
       private DateTime date_top=DateTime.Now, date_pub=DateTime.Now, date_user=DateTime.Now;
       private int id_topic=-1, id_user=-1, id_pub=-1, nb_rep=-1, accès=-1;
+      private string nomprén = "", accèsinfo = "";
 
       public string Langage { get=>langage; set=>langage = value; }
       public string Nom_topic { get=>nom_topic; set=>nom_topic  = value; }
@@ -23,6 +25,8 @@ internal static class Dbm {
       public string Message { get=>message; set=>message  = value; }
       public string Courriel { get=>courriel; set=>courriel  = value; }
       public string Tél { get=>tél; set=>tél  = value; }
+      public string Nomprén { get=>nomprén; set=>nomprén  = value; }
+      public string Accèsinfo { get=>accèsinfo; set=>accèsinfo  = value; }
 
       public DateTime Date_top { get=>date_top; set=>date_top  = value; }
       public DateTime Date_pub { get=>date_pub; set=>date_pub  = value; }
@@ -34,7 +38,7 @@ internal static class Dbm {
       public int Nb_rep { get=>nb_rep; set=>nb_rep  = value; }
       public int Accès { get=>accès; set=>accès  = value; }
 
-      public donnée (int Id_topic, DateTime Date_top, int Id_user, string Langage, string Nom_topic, string Description, int Nb_rep, string Nom, string Prénom, string Pseudo) {
+      public Donnée (int Id_topic, DateTime Date_top, int Id_user, string Langage, string Nom_topic, string Description, int Nb_rep, string Nom, string Prénom, string Pseudo) {
          id_topic = Id_topic;                            ///conctructeur pour le retour lit topic
          date_top = Date_top;
          id_user = Id_user;
@@ -46,7 +50,7 @@ internal static class Dbm {
          prénom = Prénom;
          pseudo = Pseudo;
       }
-      public donnée (int Id_pub, DateTime Date_pub, string Message, string Nom, string Prénom, string Pseudo){
+      public Donnée (int Id_pub, DateTime Date_pub, string Message, string Nom, string Prénom, string Pseudo){
          id_pub = Id_pub;                                ///constructeur pour le retour lit publication
          date_pub = Date_pub;
          message = Message;
@@ -54,7 +58,7 @@ internal static class Dbm {
          prénom = Prénom;
          pseudo = Pseudo;
       }
-      public donnée (int Id_user, DateTime Date_user, string Nom, string Prénom, string Courriel, string Tél, string Pseudo, int Accès){
+      public Donnée (int Id_user, DateTime Date_user, string Nom, string Prénom, string Courriel, string Tél, string Pseudo, int Accès){
          id_user = Id_user;                              ///constructeur pour le retour lit utilisateur
          date_user = Date_user;
          nom = Nom;
@@ -69,6 +73,7 @@ internal static class Dbm {
    private static void OuvreDBM(){
       try{  conne.Open();  }
       catch (Exception ex){   Konzolo.Affiche($"croustonne? ici base de donnée, ya un problème!!!\n{ex}\n");   }
+      /////////////mettre une alerte box en lieu et place du Konzolo///////////////////////////////////////////
    }
    private static void FermeDBM(){    conne.Dispose();    conne.Close();    }
 ///////////////////////////////////////////////////////////////////////////////////////////lit le nombre de topic
@@ -81,15 +86,16 @@ internal static class Dbm {
       lecteur.Close();      FermeDBM();
       return topicMax;
    }
-///////////////////////////////////////////////////////////////////////////////////////////////lit un utilisateur
-   public static int LireUtil(List<donnée> concombre, string champ, string valeur) { //valeur: ce que l'on cherche  /  champ: où on cherche
-      string nom, prénom, courriel, tél, pseudo;
+///////////////////////////////////////////////////////////////////////////////////////////////lit un/des utilisateur(s)
+   public static int LireUtil(List<Donnée> concombre, string champ = "*", string valeur = "*") { //valeur: ce que l'on cherche  /  champ: où on cherche
+      string nom, prénom, courriel, tél, pseudo, skøll;
       int id_user, accès;
       DateTime date_user;
       try {
          OuvreDBM();
+         skøll = !(champ=="*" && valeur=="*") ? $" where {champ}=\"{valeur}\"" : "";
          requête = conne.CreateCommand();
-         requête.CommandText = $"select * from utilisateur where {champ}=\"{valeur}\";";   //fonctionne pas avec les alias, sais pas pourquoi??? lié au faite que les paramètres champ et valeur sont des chaines, surement à cause de mysql.
+         requête.CommandText = $"select * from utilisateur{skøll};";   //fonctionne pas avec les alias, sais pas pourquoi??? lié au faite que les paramètres champ et valeur sont des chaines, surement à cause de mysql.
          lecteur = requête.ExecuteReader();
          while (lecteur.Read()) {
             id_user =  lecteur.GetInt16(0);
@@ -100,14 +106,14 @@ internal static class Dbm {
             tél =  lecteur.GetString(5);
             pseudo =  lecteur.GetString(6);
             accès = lecteur.GetInt16(9);
-            concombre.Add(new donnée(id_user, date_user, nom, prénom, courriel, tél , pseudo, accès));
+            concombre.Add(new Donnée(id_user, date_user, nom, prénom, courriel, tél , pseudo, accès));
          }
          lecteur.Close();      FermeDBM();
          return 0;
       } catch {  return 1;  }
    }
 ///////////////////////////////////////////////////////////////////////////////////////////////////lit les topics
-   public static int LireTopic(List<donnée> concombre, int début=-1, int fin=-1) {
+   public static int LireTopic(List<Donnée> concombre, int début=-1, int fin=-1) {
       string langage, nom_topic, description, nom, prénom, pseudo;
       int id_topic, id_user, nb_rep;
       DateTime date_top;
@@ -130,14 +136,14 @@ internal static class Dbm {
             nom = lecteur.GetString(11);
             prénom = lecteur.GetString(12);
             pseudo = lecteur.GetString(15);
-            concombre.Add(new donnée(id_topic, date_top, id_user, langage, nom_topic, description, nb_rep, nom , prénom, pseudo));
+            concombre.Add(new Donnée(id_topic, date_top, id_user, langage, nom_topic, description, nb_rep, nom , prénom, pseudo));
          }
          lecteur.Close();      FermeDBM();
          return 0;
       } catch {  return 1;  }
    }
 ///////////////////////////////////////////////////////////////////////////////////////////////lit les publications
-   public static int LirePubli(int pubNum, List<donnée> mandarine, int début=-1, int fin=-1) {
+   public static int LirePubli(int pubNum, List<Donnée> mandarine, int début=-1, int fin=-1) {
       string message, nom, prénom, pseudo;
       int id_pub;
       DateTime date_pub;
@@ -162,25 +168,29 @@ internal static class Dbm {
             nom = lecteur.GetString(18);
             prénom = lecteur.GetString(19);
             pseudo = lecteur.GetString(22);
-            mandarine.Add(new donnée(id_pub, date_pub, message, nom, prénom, pseudo));
+            mandarine.Add(new Donnée(id_pub, date_pub, message, nom, prénom, pseudo));
          }
          lecteur.Close();      FermeDBM();
          return 0;
       } catch {  return 1;  }
    }
-////////////////////////////////////////////////////////injecte un utilisateur dans la base de donnée
-   public static int InjectUtil(string email, string pseudo, string mdp, string nom="", string prénom="", string tel="", string avatURL="") {
+////////////////////////////////////////////////////////injecte/update un utilisateur dans la base de donnée
+   public static int InjectUtil(string quoiquonfaitchef, int id_user, string email, string pseudo, string mdp, string nom="", string prénom="", string tel="", string avatURL="", int accès = 2) {
+      string reukékette = "";
+      if (quoiquonfaitchef=="nouv") reukékette = "insert into utilisateur values (NULL, CURRENT_TIMESTAMP, @Nom, @Prenom, @eMail, @Tel, @Pseudo, @MDP, @AvatURL, @Acces);";
+      if (quoiquonfaitchef=="maj") reukékette = "update utilisateur set nom=@Nom, prenom=@Prenom, email=@eMail, telephone=@Tel, pseudo=@Pseudo, motdepasse=@MDP, avatar=@AvatURL, acces=@Acces where id_user=@ID;";
       OuvreDBM();
       requête = conne.CreateCommand();
-      requête.CommandText = "insert into utilisateur values (NULL, CURRENT_TIMESTAMP, @Nom, @Prenom, @eMail, @Tel, @Pseudo, @MDP, @AvatURL, @Acces);";
+      requête.CommandText = reukékette;
+      requête.Parameters.Add(new MySqlParameter("@ID", id_user));
       requête.Parameters.Add(new MySqlParameter("@Nom", nom));
       requête.Parameters.Add(new MySqlParameter("@prenom", prénom));
       requête.Parameters.Add(new MySqlParameter("@eMail", email));
       requête.Parameters.Add(new MySqlParameter("@Tel", tel));
       requête.Parameters.Add(new MySqlParameter("@Pseudo", pseudo));
-      requête.Parameters.Add(new MySqlParameter("@MDP", mdp));///////////////////hash mot de passe à prévoir
+      requête.Parameters.Add(new MySqlParameter("@MDP", mdp));//////////////hash mot de passe à prévoir
       requête.Parameters.Add(new MySqlParameter("@AvatURL", avatURL));
-      requête.Parameters.Add(new MySqlParameter("@Acces", 2));///////////////////2 car pas encore comfirmé par l'admin au moment de l'inscription
+      requête.Parameters.Add(new MySqlParameter("@Acces", accès));//////////2 par défaut car pas encore comfirmé par l'admin au moment de l'inscription
       int nbLigne = requête.ExecuteNonQuery();
       FermeDBM();
       return nbLigne;

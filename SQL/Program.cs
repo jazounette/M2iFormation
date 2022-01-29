@@ -91,11 +91,11 @@ using SQL.Classes;
 
 
 ///////////////////////////////////////////////////projet fil rouge
-////////////// faire des methodes update pour les tables utilisateur, publication (quand un utilisateur modifie une publi dont il est l'auteur)
+////////////// faire des methodes update pour publication (quand un utilisateur modifie une publi dont il est l'auteur)
+////////////// éditer un topic: changer description, titre, langage.
 ////////////// methode pour mettre à jour les infos utilisateur
 ////////////// methode pour changer mot de passe
 ////////////// gerer le hash du mot de passe utilisateur
-////////////// ajouter methode pour supprimer(definitivement, pas archivage) utilisateur
 
 
 Console.BackgroundColor = ConsoleColor.DarkCyan;

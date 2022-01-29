@@ -1,0 +1,23 @@
+@{
+   ViewData["Title"] = "La page à T0T0";
+   Random thierryHazard = new Random();
+   int j;
+   string[] metaSyntaTable = { "TOTO", "TITI", "TUTU", "TATA", "TITOTU", "TATOTI", "TOTUTA", "TOTO666", "TITI22" };
+   @* string couleur = "color: yellow"; *@
+   @* string chainedetoto = ""; *@
+   string couleur, taille;
+   int Re, Gr, Bl, prout;
+}
+
+<div class="toto">
+   @for(int i=0; i<444; i++) {
+      j = thierryHazard.Next(0,metaSyntaTable.Length);
+      Re = thierryHazard.Next(0,255);
+      Gr = thierryHazard.Next(0,255);
+      Bl = thierryHazard.Next(0,255);
+      prout = thierryHazard.Next(5,28);
+      couleur = $"color: rgb({Re}, {Gr}, {Bl})";
+      taille = $"font-size: {prout}px";
+   <span style="@couleur; @taille">@metaSyntaTable[j]</span>
+   }
+</div>

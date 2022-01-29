@@ -18,8 +18,19 @@ public class HomeController : Controller
       return View();
    }
 
-   public IActionResult Privacy()
+   public IActionResult Connexion()
    {
+      return View();
+   }
+   public IActionResult Toto()
+   {
+      return View();
+   }
+   public IActionResult Ratatouille(string courriel, string motdepasse)
+   {
+      // Identifiant marguerite = new Identifiant(courriel, motdepasse);
+      Identifiant.guendoline.Add(new Identifiant(courriel, motdepasse));
+      Identifiant.combien++;
       return View();
    }
 

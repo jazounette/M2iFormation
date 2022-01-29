@@ -1,0 +1,86 @@
+﻿<Window x:Class="filrouge.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:filrouge"
+        mc:Ignorable="d"
+        Title="Stack Underflow" Height="500" Width="1200" KeyDown="OnKeyDownHandler"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+  <Grid>
+    <StackPanel Orientation="Vertical">
+
+      <Menu>
+        <MenuItem Header="Liste Utilisateur" Click="Click_ListeUtil"/>
+        <MenuItem Header="Liste Totopic" Click="Click_ListeTopic"/>
+        <!-- <MenuItem Header="Afficher">
+          <MenuItem Header="Liste Utilisateur" Click="Click_ListeUtil"/>
+          <MenuItem Header="Liste Totopic" Click="Click_ListeTopic"/>
+        </MenuItem> -->
+        <MenuItem Header="Ajout Utilisateur" Click="Click_AjoutUtil"/>
+        <MenuItem Header="Éditer" Click="Click_Édit"/>
+        <MenuItem Header="Archiver" Click="Click_Arch"/>
+        <MenuItem Header="Supprimer" Click="Click_Supp"/>
+        <MenuItem Header="Valider" Click="Click_Vali"/>
+        <MenuItem Header="Déconnexion" Click="Click_Déco"/>
+        <MenuItem Header="Quitter" Click="Click_Quit"/>
+      </Menu>
+      
+      <!--______________________________ panneau liste des utilisateurs(par défaut au démarrage)____________________________ -->
+      <StackPanel x:Name="PanneauUtil" Visibility="Visible">
+        <TextBlock x:Name="TitreUtil" Text="LISTE DES UTILISATEURS" FontWeight="UltraBold" TextAlignment="center" Background="black" Foreground="white" Padding="5"/>
+        <ListView x:Name="ListeUtil" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="390" PreviewMouseLeftButtonUp="Click_Util">
+          <ListView.View>
+            <GridView>
+              <GridViewColumn Width="40" Header="Id" DisplayMemberBinding="{Binding Id_user}"/>
+              <GridViewColumn Width="150" Header="Date Enregistrement" DisplayMemberBinding="{Binding Date_user, StringFormat=dd/MM/yyyy hh:mm:ss}"/>
+              <GridViewColumn Width="310" Header="Prénom &quot;Pseudo&quot; Nom" DisplayMemberBinding="{Binding Nomprén}"/>
+              <GridViewColumn Width="310" Header="Courriel" DisplayMemberBinding="{Binding Courriel}"/>
+              <GridViewColumn Width="175" Header="Téléphone" DisplayMemberBinding="{Binding Tél}"/>
+              <GridViewColumn Width="170" Header="Niveau d'accès" DisplayMemberBinding="{Binding Accèsinfo}"/>
+            </GridView>
+          </ListView.View>
+        </ListView>
+      </StackPanel>
+      <!-- ______________________________________________panneau liste de topics____________________________________________ -->
+      <StackPanel x:Name="PanneauTopic" Visibility="Collapsed">
+        <TextBlock x:Name="TitreTopic" Text="LISTE DES SUJETS" FontWeight="UltraBold" TextAlignment="center" Background="black" Foreground="white" Padding="5"/>
+        <ListView x:Name="ListeTopic" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="390" PreviewMouseLeftButtonUp="Click_Topic">
+          <ListView.View>
+            <GridView>
+              <GridViewColumn Width="40" Header="Id" DisplayMemberBinding="{Binding Id_topic}"/>
+              <GridViewColumn Width="150" Header="Date Création" DisplayMemberBinding="{Binding Date_top, StringFormat=dd/MM/yyyy hh:mm:ss}"/>
+              <GridViewColumn Width="300" Header="Crée Par" DisplayMemberBinding="{Binding Nomprén}"/>
+              <GridViewColumn Width="535" Header="Sujet" DisplayMemberBinding="{Binding Nom_topic}"/>
+              <GridViewColumn Width="70" Header="Langage" DisplayMemberBinding="{Binding Langage}"/>
+              <GridViewColumn Width="60" Header="Réponse" DisplayMemberBinding="{Binding Nb_rep}"/>
+            </GridView>
+          </ListView.View>
+        </ListView>
+      </StackPanel>
+      <!-- __________________________________________panneau liste des publications_________________________________________ -->
+      <StackPanel x:Name="PanneauPubli" Visibility="Collapsed">
+        <StackPanel Orientation="Horizontal">
+          <TextBlock x:Name="TitrePubliA" Width="300" FontWeight="UltraBold" TextAlignment="left" Background="black" Foreground="white" Padding="5"/>
+          <TextBlock x:Name="TitrePubliB" Width="600" FontWeight="UltraBold" TextAlignment="center" Background="black" Foreground="white" Padding="5"/>
+          <TextBlock x:Name="TitrePubliC" Width="290" FontWeight="UltraBold" TextAlignment="right" Background="black" Foreground="white" Padding="5"/>
+        </StackPanel>
+        <TextBlock x:Name="TitrePubliD" Width="1190" FontWeight="UltraBold" TextAlignment="center" Background="black" Foreground="white" Padding="5"/>
+        <ListView x:Name="ListePubli" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="365" PreviewMouseLeftButtonUp="Click_Publi">
+          <ListView.View>
+            <GridView>
+              <GridViewColumn Width="40" Header="Id" DisplayMemberBinding="{Binding Id_pub}"/>
+              <GridViewColumn Width="150" Header="Date Création" DisplayMemberBinding="{Binding Date_pub, StringFormat=dd/MM/yyyy hh:mm:ss}"/>
+              <GridViewColumn Width="300" Header="Crée Par" DisplayMemberBinding="{Binding Nomprén}"/>
+              <GridViewColumn Width="665" Header="Message" DisplayMemberBinding="{Binding Message}"/>
+            </GridView>
+          </ListView.View>
+        </ListView>
+      </StackPanel>
+
+
+      <TextBlock x:Name="BarreÉtat" Text="Salut les gens, c'est moi qui suis la barre des tas." Background="black" Foreground="white" Padding="5"/>
+
+    </StackPanel>
+  </Grid>
+</Window>

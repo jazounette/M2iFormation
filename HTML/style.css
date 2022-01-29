@@ -1,0 +1,8 @@
+
+/* div {  border: 1px solid black;  } */
+body {  background-color: grey;   color: white;  }
+.centrage {  width:800px; margin:0 auto; text-align: center; }
+.image {  width: 44%;  }
+table, th, td {  border: 2px solid white; border-collapse: collapse;  }
+a {  color: white; text-decoration: none;  }
+a:hover {  color: orange;  }

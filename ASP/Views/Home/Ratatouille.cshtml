@@ -1,0 +1,24 @@
+@model Identifiant
+@{
+   ViewData["Title"] = "Ratatouille";
+   string s = (Identifiant.combien > 1) ? "s" : "";
+}
+<h1>@ViewData["Title"]</h1>
+   <div>
+      Identifiant<span>@s</span> enregistré<span>@s</span>: @Identifiant.combien<br>
+   </div>
+   <table>
+      <tr>
+         <th>Login</th>
+         <th>Motte Deux Pache</th>
+      </tr>
+      @foreach (Identifiant val in Identifiant.guendoline)   {
+         <tr>
+            <td>@val.Courriel</td>
+            <td>@val.Motdepasse</td>
+         </tr>
+      }
+   </table>
+   @* <div>
+      @Identifiant.guendoline.Count
+   </div> *@

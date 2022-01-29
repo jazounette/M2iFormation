@@ -15,4 +15,14 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: darkcyan;
+  overflow:hidden;
 }
+.toto {
+   text-align: justify;
+   text-justify: inter-character;
+   font-weight: bolder;
+   height: 222px;
+}
+table, th, td {  border: 2px solid black;   padding: 0 22px;  }
+th {  text-align: center;  }
