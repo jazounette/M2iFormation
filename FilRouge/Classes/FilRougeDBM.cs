@@ -14,6 +14,7 @@ internal static class Dbm {
       private string langage="", nom_topic="", description="", nom="", prénom="", pseudo="", message="", courriel="", tél="";
       private DateTime date_top=DateTime.Now, date_pub=DateTime.Now, date_user=DateTime.Now;
       private int id_topic=-1, id_user=-1, id_pub=-1, nb_rep=-1, accès=-1;
+      private bool arch_top, arch_pub, vali_top, vali_pub;
       private string nomprén = "", accèsinfo = "";
 
       public string Langage { get=>langage; set=>langage = value; }
@@ -38,7 +39,12 @@ internal static class Dbm {
       public int Nb_rep { get=>nb_rep; set=>nb_rep  = value; }
       public int Accès { get=>accès; set=>accès  = value; }
 
-      public Donnée (int Id_topic, DateTime Date_top, int Id_user, string Langage, string Nom_topic, string Description, int Nb_rep, string Nom, string Prénom, string Pseudo) {
+      public bool Arch_top { get=>arch_top; set=>arch_top = value; }
+      public bool Arch_pub { get=>arch_pub; set=>arch_pub = value; }
+      public bool Vali_top { get=>vali_top; set=>vali_top = value; }
+      public bool Vali_pub { get=>vali_pub; set=>vali_pub = value; }
+
+      public Donnée (int Id_topic, DateTime Date_top, int Id_user, string Langage, string Nom_topic, string Description, int Nb_rep, bool Arch_top, bool Vali_top, string Nom, string Prénom, string Pseudo) {
          id_topic = Id_topic;                            ///conctructeur pour le retour lit topic
          date_top = Date_top;
          id_user = Id_user;
@@ -46,13 +52,17 @@ internal static class Dbm {
          nom_topic = Nom_topic;
          description = Description;
          nb_rep = Nb_rep;
+         arch_top = Arch_top;
+         vali_top = Vali_top;
          nom = Nom;
          prénom = Prénom;
          pseudo = Pseudo;
       }
-      public Donnée (int Id_pub, DateTime Date_pub, string Message, string Nom, string Prénom, string Pseudo){
+      public Donnée (int Id_pub, DateTime Date_pub, bool Arch_pub, bool Vali_pub, string Message, string Nom, string Prénom, string Pseudo){
          id_pub = Id_pub;                                ///constructeur pour le retour lit publication
          date_pub = Date_pub;
+         arch_pub = Arch_pub;
+         vali_pub = Vali_pub;
          message = Message;
          nom = Nom;
          prénom = Prénom;
@@ -117,6 +127,7 @@ internal static class Dbm {
       string langage, nom_topic, description, nom, prénom, pseudo;
       int id_topic, id_user, nb_rep;
       DateTime date_top;
+      bool arch_top, vali_top;
 
       try {
          OuvreDBM();
@@ -133,10 +144,12 @@ internal static class Dbm {
             nom_topic =  lecteur.GetString(4);
             description =  lecteur.GetString(5);
             nb_rep =  lecteur.GetInt16(6);
+            arch_top = lecteur.GetBoolean(7);
+            vali_top = lecteur.GetBoolean(8);
             nom = lecteur.GetString(11);
             prénom = lecteur.GetString(12);
             pseudo = lecteur.GetString(15);
-            concombre.Add(new Donnée(id_topic, date_top, id_user, langage, nom_topic, description, nb_rep, nom , prénom, pseudo));
+            concombre.Add(new Donnée(id_topic, date_top, id_user, langage, nom_topic, description, nb_rep, arch_top, vali_top, nom , prénom, pseudo));
          }
          lecteur.Close();      FermeDBM();
          return 0;
@@ -147,6 +160,7 @@ internal static class Dbm {
       string message, nom, prénom, pseudo;
       int id_pub;
       DateTime date_pub;
+      bool arch_pub, vali_pub;
 
       //select * from publication 
       //join topic on publication.id_topic=topic.id_topic
@@ -164,11 +178,13 @@ internal static class Dbm {
          while (lecteur.Read()) {
             id_pub = lecteur.GetInt16(0);
             date_pub = lecteur.GetDateTime(1);
+            arch_pub = lecteur.GetBoolean(4);
+            vali_pub = lecteur.GetBoolean(5);
             message = lecteur.GetString(6);
             nom = lecteur.GetString(18);
             prénom = lecteur.GetString(19);
             pseudo = lecteur.GetString(22);
-            mandarine.Add(new Donnée(id_pub, date_pub, message, nom, prénom, pseudo));
+            mandarine.Add(new Donnée(id_pub, date_pub, arch_pub, vali_pub, message, nom, prénom, pseudo));
          }
          lecteur.Close();      FermeDBM();
          return 0;
@@ -178,7 +194,7 @@ internal static class Dbm {
    public static int InjectUtil(string quoiquonfaitchef, int id_user, string email, string pseudo, string mdp, string nom="", string prénom="", string tel="", string avatURL="", int accès = 2) {
       string reukékette = "";
       if (quoiquonfaitchef=="nouv") reukékette = "insert into utilisateur values (NULL, CURRENT_TIMESTAMP, @Nom, @Prenom, @eMail, @Tel, @Pseudo, @MDP, @AvatURL, @Acces);";
-      if (quoiquonfaitchef=="maj") reukékette = "update utilisateur set nom=@Nom, prenom=@Prenom, email=@eMail, telephone=@Tel, pseudo=@Pseudo, motdepasse=@MDP, avatar=@AvatURL, acces=@Acces where id_user=@ID;";
+      if (quoiquonfaitchef=="maj") reukékette = "update utilisateur set nom=@Nom, prenom=@Prenom, email=@eMail, telephone=@Tel, pseudo=@Pseudo, avatar=@AvatURL, acces=@Acces where id_user=@ID;";
       OuvreDBM();
       requête = conne.CreateCommand();
       requête.CommandText = reukékette;
@@ -226,30 +242,32 @@ internal static class Dbm {
       return nbLigne;
    }
 ////////////////////////////////////////////////////////////////////////////archive/delete une publication
-   public static int ArchivPubli(int id_publication, bool archiv = true){//archive par défaut, si archive vaut false alors delete definitif
-      string reukékette=(archiv) ? "update publication set arch_pub=true where id_pub=@CelleLà;" : "delete from publication where id_pub=@CelleLà;";
+   public static int ArchivPubli(int id_publication, bool archiv = true, bool vrai=true){//archive par défaut, si archive vaut false alors delete definitif
+      string reukékette=(archiv) ? "update publication set arch_pub=@Vrai where id_pub=@CelleLà;" : "delete from publication where id_pub=@CelleLà;";
       try {
          OuvreDBM();
          requête = conne.CreateCommand();
          requête.CommandText = reukékette;
          requête.Parameters.Add(new MySqlParameter("@CelleLà", id_publication));
+         requête.Parameters.Add(new MySqlParameter("@Vrai", vrai));
          int nbLigne = requête.ExecuteNonQuery();
          FermeDBM();
          return 0;
       } catch {  return 1; }
    }
 /////////////////////////////////////////archive où delete un topic et archive où delete toutes ses publications
-   public static int ArchivTopic(int id_topic, bool archiv = true){//archive par défaut, si archive vaut false alors delete définitif
+   public static int ArchivTopic(int id_topic, bool archiv=true, bool vrai=true){//archive par défaut, si archive vaut false alors delete définitif
       (string nom, string champ)[] titotable = {  ("publication", "arch_pub"), ("topic", "arch_top")  };
       string reukékette="";
       try {
          OuvreDBM();
          foreach((string nom, string champ) table in titotable) {
-            reukékette=(archiv) ? $"update {table.nom} set {table.champ}=true where id_topic=@CelleLà;" : $"delete from {table.nom} where id_topic=@CelleLà;";
+            reukékette=(archiv) ? $"update {table.nom} set {table.champ}=@Vrai where id_topic=@CelleLà;" : $"delete from {table.nom} where id_topic=@CelleLà;";
             // Konzolo.Affiche($"{reukékette}\n");
             requête = conne.CreateCommand();
             requête.CommandText = reukékette;
             requête.Parameters.Add(new MySqlParameter("@CelleLà", id_topic));
+            requête.Parameters.Add(new MySqlParameter("@Vrai", vrai));
             requête.ExecuteNonQuery();            }
          FermeDBM();
          return 0;
@@ -266,6 +284,22 @@ internal static class Dbm {
       requête.ExecuteNonQuery();
       FermeDBM();
       return 0;
+   }
+////////////////////////////////////////////////////////////////////////////valide une publication où un topic
+   public static int ValideTruc(string àtable, int id_software, bool état){
+      string genou = "", hibou = "";
+      if (àtable == "publication" ) {  hibou = "id_pub"; genou = "vali_pub";  }
+      if (àtable == "topic") {  hibou = "id_topic"; genou = "vali_top";  }
+      try {
+         OuvreDBM();
+         requête = conne.CreateCommand();
+         requête.CommandText = $"update {àtable} set {genou}=@Etat where {hibou}=@ID";
+         requête.Parameters.Add(new MySqlParameter("@Etat", état));
+         requête.Parameters.Add(new MySqlParameter("@ID", id_software));
+         requête.ExecuteNonQuery();
+         FermeDBM();
+         return 0;
+      } catch { return 1; }
    }
 //////////////////efface (definitivement) un utilisateur et toutes ses publication/topic (because clée étrangère)
 ////////////////////////////doit-on effacer les topic/publications quand on efface l'utilisateur qui les a crées?

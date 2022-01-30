@@ -29,7 +29,21 @@
       <!--______________________________ panneau liste des utilisateurs(par défaut au démarrage)____________________________ -->
       <StackPanel x:Name="PanneauUtil" Visibility="Visible">
         <TextBlock x:Name="TitreUtil" Text="LISTE DES UTILISATEURS" FontWeight="UltraBold" TextAlignment="center" Background="black" Foreground="white" Padding="5"/>
-        <ListView x:Name="ListeUtil" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="390" PreviewMouseLeftButtonUp="Click_Util">
+        <ListView x:Name="ListeUtil" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="390" MouseDoubleClick="DoubleClick_Util">
+
+          <ListView.Resources>
+            <Style TargetType="{x:Type ListViewItem}">
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding Accèsinfo}" Value="Enreg. en attente">
+                  <Setter Property="Background" Value="LightPink" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Accèsinfo}" Value="Administrateur">
+                  <Setter Property="Background" Value="LightBlue" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </ListView.Resources>
+
           <ListView.View>
             <GridView>
               <GridViewColumn Width="40" Header="Id" DisplayMemberBinding="{Binding Id_user}"/>
@@ -45,7 +59,21 @@
       <!-- ______________________________________________panneau liste de topics____________________________________________ -->
       <StackPanel x:Name="PanneauTopic" Visibility="Collapsed">
         <TextBlock x:Name="TitreTopic" Text="LISTE DES SUJETS" FontWeight="UltraBold" TextAlignment="center" Background="black" Foreground="white" Padding="5"/>
-        <ListView x:Name="ListeTopic" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="390" PreviewMouseLeftButtonUp="Click_Topic">
+        <ListView x:Name="ListeTopic" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="390" MouseDoubleClick="DoubleClick_Topic">
+
+          <ListView.Resources>
+            <Style TargetType="{x:Type ListViewItem}">
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding Arch_top}" Value="true">
+                  <Setter Property="Background" Value="LightGreen" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Vali_top}" Value="false">
+                  <Setter Property="Background" Value="LightPink" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </ListView.Resources>
+
           <ListView.View>
             <GridView>
               <GridViewColumn Width="40" Header="Id" DisplayMemberBinding="{Binding Id_topic}"/>
@@ -54,6 +82,8 @@
               <GridViewColumn Width="535" Header="Sujet" DisplayMemberBinding="{Binding Nom_topic}"/>
               <GridViewColumn Width="70" Header="Langage" DisplayMemberBinding="{Binding Langage}"/>
               <GridViewColumn Width="60" Header="Réponse" DisplayMemberBinding="{Binding Nb_rep}"/>
+              <GridViewColumn Width="0" DisplayMemberBinding="{Binding Arch_top}"/>
+              <GridViewColumn Width="0" DisplayMemberBinding="{Binding Vali_top}"/>
             </GridView>
           </ListView.View>
         </ListView>
@@ -66,18 +96,33 @@
           <TextBlock x:Name="TitrePubliC" Width="290" FontWeight="UltraBold" TextAlignment="right" Background="black" Foreground="white" Padding="5"/>
         </StackPanel>
         <TextBlock x:Name="TitrePubliD" Width="1190" FontWeight="UltraBold" TextAlignment="center" Background="black" Foreground="white" Padding="5"/>
-        <ListView x:Name="ListePubli" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="365" PreviewMouseLeftButtonUp="Click_Publi">
+        <ListView x:Name="ListePubli" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="365" MouseDoubleClick="DoubleClick_Publi">
+
+          <ListView.Resources>
+            <Style TargetType="{x:Type ListViewItem}">
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding Arch_pub}" Value="true">
+                  <Setter Property="Background" Value="LightGreen" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Vali_pub}" Value="false">
+                  <Setter Property="Background" Value="LightPink" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </ListView.Resources>
+
           <ListView.View>
             <GridView>
               <GridViewColumn Width="40" Header="Id" DisplayMemberBinding="{Binding Id_pub}"/>
               <GridViewColumn Width="150" Header="Date Création" DisplayMemberBinding="{Binding Date_pub, StringFormat=dd/MM/yyyy hh:mm:ss}"/>
               <GridViewColumn Width="300" Header="Crée Par" DisplayMemberBinding="{Binding Nomprén}"/>
               <GridViewColumn Width="665" Header="Message" DisplayMemberBinding="{Binding Message}"/>
+              <GridViewColumn Width="0" DisplayMemberBinding="{Binding Arch_pub}"/>
+              <GridViewColumn Width="0" DisplayMemberBinding="{Binding Vali_pub}"/>
             </GridView>
           </ListView.View>
         </ListView>
       </StackPanel>
-
 
       <TextBlock x:Name="BarreÉtat" Text="Salut les gens, c'est moi qui suis la barre des tas." Background="black" Foreground="white" Padding="5"/>
 

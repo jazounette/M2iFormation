@@ -9,10 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="stackunderflow.ico" />
+    <Content Include="Images\stackunderflow.ico" />
   </ItemGroup>
   <PropertyGroup>
-    <ApplicationIcon>stackunderflow.ico</ApplicationIcon>
+    <ApplicationIcon>Images\stackunderflow.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup>
