@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using FilRouge.Classes;
 using System.Collections.ObjectModel;
 
@@ -19,13 +20,32 @@ namespace filrouge;
 
 public partial class MainWindow : Window   {
    internal List<Dbm.Donnée> fourreTout;
-   byte bodyActive = 1;/////1-utilisateur 2-topiclist 3-publilist
+   byte bodyActive = 1;/////1-utilisateurlist 2-topiclist 3-publilist
+   int admin_id = -1;
+   string lePatron = "";
 
    public MainWindow()  {
       InitializeComponent();
-      DateTime ilEstExactement = DateTime.Now;
+      ConnexWindow winConnex = new ConnexWindow();////décommenter après les tests
+      winConnex.ShowDialog();////////////////////////décommenter après les tests
+      // admin_id = 4;////////////////////////////////////commenter après les tests
+
+      DispatcherTimer LiveTime = new DispatcherTimer();
+      LiveTime.Interval = TimeSpan.FromSeconds(1);
+      LiveTime.Tick += timer_Tick;
+      LiveTime.Start();      
+
+      string logtime = DateTime.Now.ToString("HH:mm:ss");
+
+      fourreTout = new List<Dbm.Donnée>();
+      Dbm.LireUtil(fourreTout, "id_user", admin_id.ToString());
+      faireAccèsInfo (fourreTout);
+      lePatron = $"{fourreTout[0].Prénom} {fourreTout[0].Nom} ({fourreTout[0].Pseudo}) - {fourreTout[0].Accèsinfo} - logger à: {logtime}";
+
       RefreshUtilList();
    }
+   void timer_Tick(object sender, EventArgs e){  IlEstExactement.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy - HH:mm:ss");  }
+   public void SetAdmin(int admin_id){   this.admin_id = admin_id;   }
    public void RefreshUtilList(){
       fourreTout = new List<Dbm.Donnée>();
       Dbm.LireUtil(fourreTout);
@@ -50,7 +70,8 @@ public partial class MainWindow : Window   {
       ListePubli.ItemsSource = fourreTout;
    }
    private void Click_ListeUtil(object sender, RoutedEventArgs e)    {
-      BarreÉtat.Text = "Rose: utilisateur non validé - Bleu: Admin - Éditer: double click sur un utilisateur";
+      BarreÉtat.Text = lePatron;
+      BarreÉtat.Background = Brushes.Black;  IlEstExactement.Background =  Brushes.Black;
       PanneauUtil.Visibility = Visibility.Visible;
       PanneauTopic.Visibility = Visibility.Collapsed;
       PanneauPubli.Visibility = Visibility.Collapsed;
@@ -58,7 +79,8 @@ public partial class MainWindow : Window   {
       RefreshUtilList();
    }
    private void Click_ListeTopic(object sender, RoutedEventArgs e)    {
-      BarreÉtat.Text = "ROSE: sujet non validé - VERT: sujet archivé - Ctrl+click:valider - Atl+click:archier";
+      BarreÉtat.Text = lePatron;
+      BarreÉtat.Background = Brushes.MidnightBlue;  IlEstExactement.Background =  Brushes.MidnightBlue;
       PanneauUtil.Visibility = Visibility.Collapsed;
       PanneauTopic.Visibility = Visibility.Visible;
       PanneauPubli.Visibility = Visibility.Collapsed;
@@ -66,27 +88,41 @@ public partial class MainWindow : Window   {
       RefreshTopicList();
    }
    private void DoubleClick_Topic(object sender, RoutedEventArgs e)    {
-      BarreÉtat.Text = "ROSE: publication non validée - VERT: publication archivée - Ctrl+click:valider - Atl+click:archier";
+      BarreÉtat.Text = lePatron;
+      BarreÉtat.Background = Brushes.Indigo;  IlEstExactement.Background =  Brushes.Indigo;
       PanneauUtil.Visibility = Visibility.Collapsed;
       PanneauTopic.Visibility = Visibility.Collapsed;
       PanneauPubli.Visibility = Visibility.Visible;
       bodyActive = 3;
       RefreshPubliList();
    }
-   private void DoubleClick_Util(object sender, RoutedEventArgs e)    {
+   private void DoubleClick_Util(object sender, RoutedEventArgs e)    {   ÉditUtil();   }
+   private void DoubleClick_Publi(object sender, RoutedEventArgs e)   {   MessageBox.Show("édition d'une publi");  }
+
+   private void ÉditUtil(){
       Dbm.Donnée toto = (Dbm.Donnée)ListeUtil.SelectedItem;
-      UtilWindow winAjout = new UtilWindow("maj", toto.Id_user, toto.Courriel, toto.Pseudo, toto.Nom, toto.Prénom, toto.Tél, "", toto.Accès );
-      winAjout.Show();
-   }
-   private void DoubleClick_Publi(object sender, RoutedEventArgs e)    {
-   }
-   private void Click_AjoutUtil(object sender, RoutedEventArgs e)    {
-      UtilWindow winAjout = new UtilWindow("nouv");
-      winAjout.Show();
+      if (toto!=null) {
+         UtilWindow winAjout = new UtilWindow("maj", toto.Id_user, toto.Courriel, toto.Pseudo, toto.Nom, toto.Prénom, toto.Tél, "", toto.Accès );
+         winAjout.ShowDialog();
+      }
    }
    private void Click_Édit(object sender, RoutedEventArgs e)    {
+      switch (bodyActive) {
+         case 1: ÉditUtil();  break;
+         case 2: MessageBox.Show("édition d'un toupic"); break;
+         case 3: MessageBox.Show("édition d'une publi"); break;
+      }
    }
-   private void Click_Arch(object sender, RoutedEventArgs e)    {
+   private void Click_Ajout(object sender, RoutedEventArgs e)    {
+      switch (bodyActive) {
+         case 1: UtilWindow winAjout = new UtilWindow("nouv");
+                 winAjout.ShowDialog();
+         break;
+         case 2: MessageBox.Show("ajout d'un toupic"); break;
+         case 3: MessageBox.Show("ajout d'une publi"); break;
+      }
+   }
+   private void Archivage(){
       Dbm.Donnée toto;
       switch (bodyActive) {
          case 2: toto = (Dbm.Donnée)ListeTopic.SelectedItem;
@@ -101,7 +137,7 @@ public partial class MainWindow : Window   {
          break;
       }
    }
-   private void Click_Supp(object sender, RoutedEventArgs e)    {
+   private void Suppression() {
       Dbm.Donnée toto;
       string alertMess = "";
       switch (bodyActive) {
@@ -128,7 +164,7 @@ public partial class MainWindow : Window   {
          break;
       }
    }
-   private void Click_Vali(object sender, RoutedEventArgs e)    {
+   private void Validation(){
       Dbm.Donnée toto;
       switch (bodyActive) {
          case 1:  toto = (Dbm.Donnée)ListeUtil.SelectedItem;
@@ -152,15 +188,22 @@ public partial class MainWindow : Window   {
          break;
       }
    }
-   private void Click_Déco(object sender, RoutedEventArgs e)    {
+   private void Aidationage(){
+      string textAide = System.IO.File.ReadAllText(@".\Aide.txt");
+      MessageBox.Show(textAide);
    }
-
-   private void Click_Quit(object sender, RoutedEventArgs e)    {
-      Environment.Exit(0);
-   }
+   private void Click_Arch(object sender, RoutedEventArgs e)  {  Archivage();    }
+   private void Click_Supp(object sender, RoutedEventArgs e)  {  Suppression();  }
+   private void Click_Vali(object sender, RoutedEventArgs e)  {  Validation();   }
+   private void Click_Aide(object sender, RoutedEventArgs e)  {  Aidationage();  }
+   private void Click_Quit(object sender, RoutedEventArgs e)  {  Environment.Exit(0);  }
 
    private void OnKeyDownHandler(object sender, KeyEventArgs e)     {
-      if (e.Key == Key.Escape)  {  Environment.Exit(0);    }
+      if (e.Key == Key.Escape)  Environment.Exit(0);
+      if (e.Key == Key.Back)    Archivage();
+      if (e.Key == Key.Delete)  Suppression();
+      if (e.Key == Key.Enter)   Validation();
+      if (e.Key == Key.F1)      Aidationage();
    }
 
    private void faireNomPrén(List<Dbm.Donnée> toto){  

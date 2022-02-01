@@ -50,6 +50,15 @@
         <Button Grid.Column="0" Margin="15,10,15,0" x:Name="UtilBoutVal" Content="Valider" Click="Click_UtilBoutVal"/>
         <Button Grid.Column="1" Margin="15,10,15,0" x:Name="UtilBoutAnu" Content="Annuler" Click="Click_UtilBoutAnu"/>
       </Grid>
+      <!-- ____________________reset du mot de passe visible uniquement si maj utilisateur________________________ -->
+      <StackPanel x:Name="resetMDP">
+        <TextBlock Text="Reset du mot de passe" FontWeight="UltraBold" TextAlignment="center" Background="black" Foreground="white" Padding="5" Margin="0, 25, 0, 0"/>
+        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 5">
+          <Label Content="Mot de passe: " Width="100"  HorizontalContentAlignment="right"/>
+          <TextBox x:Name="UtilNouvPss" Width="200"/>
+        </StackPanel>
+        <Button Margin="15,10,15,0" x:Name="UtilBoutReset" Content="Reset" Click="Click_UtilBoutReset"/>
+      </StackPanel>
 
     </StackPanel>
   </Grid>

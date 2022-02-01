@@ -1,0 +1,16 @@
+Besoin d'aide?
+
+En vert, les administrateurs.
+En rose, les utilisateurs non enregistrés et les sujets/publications non validés
+En mauve, les sujets/publications archivés
+
+Raccourcis clavier:
+Entrée: valider
+Delete: éffacer
+BackSpace: archiver
+F1: vous zêtes zici
+Échape: quitter
+
+
+
+Jérôme Camus - Formation Dotnet M2i - 2022.

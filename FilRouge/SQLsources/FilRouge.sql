@@ -27,7 +27,7 @@ INSERT INTO `utilisateur` VALUES
 (NULL, CURRENT_TIMESTAMP, "petit", "will", "legrand.petitwill@free.fr", "31.65.78.98.65", "willfrite", "toto", "urlavatar", 1),
 (NULL, CURRENT_TIMESTAMP, "dolphin", "mika", "mika.ledauphin@caramail.fr", "15.65.45.98.45", "flipper", "toto", "urlavatar", 1),
 (NULL, CURRENT_TIMESTAMP, "chamousse", "geronimus", "cham.gero@gmail.com", "31.64.16.91.82", "jazounette", "toto", "urlavatar", 0),
-(NULL, CURRENT_TIMESTAMP, "dipersio", "anthony", "anto.diper@gmail.com", "12.65.48.98.45", "legrandtony", "toto", "urlavatar", 2);
+(NULL, CURRENT_TIMESTAMP, "dipersio", "anthony", "anthony@utopios.net", "12.65.48.98.45", "legrandtony", "toto", "urlavatar", 2);
 
 CREATE TABLE `topic` (
 	`id_topic`	      INT NOT NULL AUTO_INCREMENT,

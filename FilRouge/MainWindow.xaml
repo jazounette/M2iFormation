@@ -17,12 +17,12 @@
           <MenuItem Header="Liste Utilisateur" Click="Click_ListeUtil"/>
           <MenuItem Header="Liste Totopic" Click="Click_ListeTopic"/>
         </MenuItem> -->
-        <MenuItem Header="Ajout Utilisateur" Click="Click_AjoutUtil"/>
+        <MenuItem Header="Ajouter" Click="Click_Ajout"/>
         <MenuItem Header="Éditer" Click="Click_Édit"/>
         <MenuItem Header="Archiver" Click="Click_Arch"/>
         <MenuItem Header="Supprimer" Click="Click_Supp"/>
         <MenuItem Header="Valider" Click="Click_Vali"/>
-        <MenuItem Header="Déconnexion" Click="Click_Déco"/>
+        <MenuItem Header="Aide" Click="Click_Aide"/>
         <MenuItem Header="Quitter" Click="Click_Quit"/>
       </Menu>
       
@@ -38,7 +38,7 @@
                   <Setter Property="Background" Value="LightPink" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Accèsinfo}" Value="Administrateur">
-                  <Setter Property="Background" Value="LightBlue" />
+                  <Setter Property="Background" Value="LightGreen" />
                 </DataTrigger>
               </Style.Triggers>
             </Style>
@@ -58,17 +58,17 @@
       </StackPanel>
       <!-- ______________________________________________panneau liste de topics____________________________________________ -->
       <StackPanel x:Name="PanneauTopic" Visibility="Collapsed">
-        <TextBlock x:Name="TitreTopic" Text="LISTE DES SUJETS" FontWeight="UltraBold" TextAlignment="center" Background="black" Foreground="white" Padding="5"/>
+        <TextBlock x:Name="TitreTopic" Text="LISTE DES SUJETS" FontWeight="UltraBold" TextAlignment="center" Background="midnightblue" Foreground="white" Padding="5"/>
         <ListView x:Name="ListeTopic" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="390" MouseDoubleClick="DoubleClick_Topic">
 
           <ListView.Resources>
             <Style TargetType="{x:Type ListViewItem}">
               <Style.Triggers>
-                <DataTrigger Binding="{Binding Arch_top}" Value="true">
-                  <Setter Property="Background" Value="LightGreen" />
-                </DataTrigger>
                 <DataTrigger Binding="{Binding Vali_top}" Value="false">
                   <Setter Property="Background" Value="LightPink" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Arch_top}" Value="true">
+                  <Setter Property="Background" Value="Thistle" />
                 </DataTrigger>
               </Style.Triggers>
             </Style>
@@ -91,21 +91,21 @@
       <!-- __________________________________________panneau liste des publications_________________________________________ -->
       <StackPanel x:Name="PanneauPubli" Visibility="Collapsed">
         <StackPanel Orientation="Horizontal">
-          <TextBlock x:Name="TitrePubliA" Width="300" FontWeight="UltraBold" TextAlignment="left" Background="black" Foreground="white" Padding="5"/>
-          <TextBlock x:Name="TitrePubliB" Width="600" FontWeight="UltraBold" TextAlignment="center" Background="black" Foreground="white" Padding="5"/>
-          <TextBlock x:Name="TitrePubliC" Width="290" FontWeight="UltraBold" TextAlignment="right" Background="black" Foreground="white" Padding="5"/>
+          <TextBlock x:Name="TitrePubliA" Width="300" FontWeight="UltraBold" TextAlignment="left" Background="indigo" Foreground="white" Padding="5"/>
+          <TextBlock x:Name="TitrePubliB" Width="600" FontWeight="UltraBold" TextAlignment="center" Background="indigo" Foreground="white" Padding="5"/>
+          <TextBlock x:Name="TitrePubliC" Width="290" FontWeight="UltraBold" TextAlignment="right" Background="indigo" Foreground="white" Padding="5"/>
         </StackPanel>
-        <TextBlock x:Name="TitrePubliD" Width="1190" FontWeight="UltraBold" TextAlignment="center" Background="black" Foreground="white" Padding="5"/>
+        <TextBlock x:Name="TitrePubliD" Width="1190" FontWeight="UltraBold" TextAlignment="center" Background="indigo" Foreground="white" Padding="5"/>
         <ListView x:Name="ListePubli" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="365" MouseDoubleClick="DoubleClick_Publi">
 
           <ListView.Resources>
             <Style TargetType="{x:Type ListViewItem}">
               <Style.Triggers>
-                <DataTrigger Binding="{Binding Arch_pub}" Value="true">
-                  <Setter Property="Background" Value="LightGreen" />
-                </DataTrigger>
                 <DataTrigger Binding="{Binding Vali_pub}" Value="false">
                   <Setter Property="Background" Value="LightPink" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Arch_pub}" Value="true">
+                  <Setter Property="Background" Value="Thistle" />
                 </DataTrigger>
               </Style.Triggers>
             </Style>
@@ -124,7 +124,10 @@
         </ListView>
       </StackPanel>
 
-      <TextBlock x:Name="BarreÉtat" Text="Salut les gens, c'est moi qui suis la barre des tas." Background="black" Foreground="white" Padding="5"/>
+      <StackPanel Orientation="Horizontal">
+        <TextBlock x:Name="BarreÉtat" Text="Greetings professor Falken, shall we play a game?" Width="900" Background="Black" Foreground="white" Padding="5"/>
+        <TextBlock x:Name="IlEstExactement" TextAlignment="right" Width="285" Background="Black" Foreground="white" Padding="5"/>
+      </StackPanel>
 
     </StackPanel>
   </Grid>

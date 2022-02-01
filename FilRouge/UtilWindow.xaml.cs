@@ -26,8 +26,14 @@ public partial class UtilWindow : Window   {
       // DateTime ilEstExactement = DateTime.Now;
       this.quoiquonfaitchef = quoiquonfaitchef;
       this.id_user = id_user;
-      if (quoiquonfaitchef =="nouv") {  UtilWin.Text = "AJOUT D'UN UTILISATEUR";  saisiMDP.Visibility = Visibility.Visible;  }
-      if (quoiquonfaitchef =="maj") {  UtilWin.Text = "MODIFICATION D'UN UTILISATEUR";  saisiMDP.Visibility = Visibility.Collapsed;  }
+      if (quoiquonfaitchef =="nouv") {
+         UtilWin.Text = "AJOUT D'UN UTILISATEUR";
+         saisiMDP.Visibility = Visibility.Visible;
+         resetMDP.Visibility = Visibility.Collapsed;  }
+      if (quoiquonfaitchef =="maj") {
+         UtilWin.Text = "MODIFICATION D'UN UTILISATEUR";
+         saisiMDP.Visibility = Visibility.Collapsed;
+         resetMDP.Visibility = Visibility.Visible;    }
       if (id_user == -1) JeSuisUnNuméro.Visibility = Visibility.Collapsed; else JeSuisUnNuméro.Text = $"Numéro: {id_user}";
       UtilCou.Text = courriel;
       UtilPse.Text = pseudo;
@@ -51,10 +57,14 @@ public partial class UtilWindow : Window   {
          this.Close();
       } else MessageBox.Show (ya_un_blem, "Crotteux deux biques", MessageBoxButton.OK, MessageBoxImage.Information);
    }
-
-   private void Click_UtilBoutAnu(object sender, RoutedEventArgs e)    {
-      this.Close();
+   private void Click_UtilBoutReset(object sender, RoutedEventArgs e)  {
+      if (UtilNouvPss.Text == "") MessageBox.Show("Veuillez saisir un mot de passe", "Erreur mot de passe", MessageBoxButton.OK, MessageBoxImage.Information);
+      else {
+         Dbm.MDPupdate(id_user, UtilNouvPss.Text);//////// int MDPupdate(int id_utilisateur, string MDP)
+         this.Close();
+      }
    }
+   private void Click_UtilBoutAnu(object sender, RoutedEventArgs e)    {   this.Close();   }
    private void OnKeyDownHandler(object sender, KeyEventArgs e)     {
       if (e.Key == Key.Escape)  {  Environment.Exit(0);    }
    }

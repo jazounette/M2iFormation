@@ -285,6 +285,32 @@ internal static class Dbm {
       FermeDBM();
       return 0;
    }
+////////////////////////////////////////////////////////////////////////change mot de passe d'un utilisateur
+   public static int MDPupdate(int id_utilisateur, string MDP){
+      OuvreDBM();
+      requête = conne.CreateCommand();
+      requête.CommandText = $"update utilisateur set motdepasse=\"{MDP}\" where id_user=@CeluiCi";
+      requête.Parameters.Add(new MySqlParameter("@CeluiCi", id_utilisateur));
+      requête.ExecuteNonQuery();
+      FermeDBM();
+      return 0; 
+   }
+////////////////////////////////////////////////////////verifi le couple login (pseudo/email) - mot de passe
+//select id_user, acces from utilisateur where (pseudo="jazounette" or email="cham.gero@gmail.com") and motdepasse="toto";
+   public static int VerifLogin(string login, string mdp, ref int id, ref int accès){
+      string[] titotable = { "pseudo", "email" };
+      OuvreDBM();
+      foreach (string table in titotable){
+         requête = conne.CreateCommand();
+         requête.CommandText = $"select id_user, acces from utilisateur where {table}=\"{login}\" and motdepasse=\"{mdp}\"";
+         lecteur = requête.ExecuteReader();
+         while (lecteur.Read()) {
+            id = lecteur.GetInt16(0);
+            accès = lecteur.GetInt16(1);     }
+         lecteur.Close();      }
+      FermeDBM();
+      return 0;
+   }
 ////////////////////////////////////////////////////////////////////////////valide une publication où un topic
    public static int ValideTruc(string àtable, int id_software, bool état){
       string genou = "", hibou = "";
