@@ -42,8 +42,6 @@ public partial class PubliWindow : Window   {
       }
    }
 
-/////////////////////////////////////////////////////gérer le nombre de réponse pour le toupic///////////////////////////////////////
-
    private void Validation(){
       Dbm.InjectPubli(quoiquonfaitchef, id_topic, id_user, id_pub, PubliMess.Text);
       Dbm.MajPubNombre(id_topic);
@@ -51,11 +49,11 @@ public partial class PubliWindow : Window   {
       this.Close();
    }
 
-   private void Click_PubliBoutVal(object sender, RoutedEventArgs e)    {  Validation();  }
-   private void Click_PubliBoutAnu(object sender, RoutedEventArgs e)    {  this.Close();  }
+   private void Click_PubliBoutVal(object sender, RoutedEventArgs e)  {  Validation();  }
+   private void Click_PubliBoutAnu(object sender, RoutedEventArgs e)  {  this.Close();  }
 
    private void OnKeyDownHandler(object sender, KeyEventArgs e)     {
       if (e.Key == Key.Escape)  {  Environment.Exit(0);    }
-      if (e.Key == Key.Enter)  {  Validation();  }/////////voir pour faire un controle+entré plutot
+      if (e.Key == Key.Enter)   {  Validation();  }/////////voir pour faire un controle+entré plutot
    }
 }

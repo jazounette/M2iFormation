@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:filrouge"
         mc:Ignorable="d"
         Title="Stack Underflow" Height="600" Width="400" KeyDown="OnKeyDownHandler"
-        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        FocusManager.FocusedElement="{Binding ElementName=PubliMess}">
   <Grid>
     <StackPanel Orientation="Vertical">
 

@@ -2,6 +2,8 @@
 namespace FilRouge.Classes;
 using MySql.Data.MySqlClient;
 using UtilitaireJC;
+using System.Security.Cryptography;
+using System.Text;
 
 
 internal static class Dbm {
@@ -86,23 +88,6 @@ internal static class Dbm {
       /////////////mettre une alerte box en lieu et place du Konzolo///////////////////////////////////////////
    }
    private static void FermeDBM(){    conne.Dispose();    conne.Close();    }
-///////////////////////////////////////////////////////////////////mise à jour du nombre de publication d'un sujet
-   public static void MajPubNombre (int heidi) {
-      int résultat = 0;
-      OuvreDBM();
-      requête = conne.CreateCommand();
-      requête.CommandText = $"select count(id_pub) from publication where id_topic={heidi};";
-      lecteur = requête.ExecuteReader();
-      while (lecteur.Read()) résultat = lecteur.GetInt16(0);
-      lecteur.Close();
-
-      requête = conne.CreateCommand();
-      requête.CommandText = $"update topic set nb_rep={résultat} where id_topic={heidi};";
-                           // update topic set nb_rep=1 where id_topic=10;
-      requête.ExecuteNonQuery();
-      FermeDBM();
-   }
-
 ///////////////////////////////////////////////////////////////////////////////////////////////lit un/des utilisateur(s)
    public static int LireUtil(List<Donnée> concombre, string champ = "*", string valeur = "*") { //valeur: ce que l'on cherche  /  champ: où on cherche
       string nom, prénom, courriel, tél, pseudo, skøll;
@@ -359,6 +344,31 @@ internal static class Dbm {
          requête.ExecuteNonQuery();      }
       FermeDBM();
    }
+///////////////////////////////////////////////////////////////////mise à jour du nombre de publication d'un sujet
+   public static void MajPubNombre (int heidi) {
+      int résultat = 0;
+      OuvreDBM();
+      requête = conne.CreateCommand();
+      requête.CommandText = $"select count(id_pub) from publication where id_topic=@IdToupic;";
+      requête.Parameters.Add(new MySqlParameter("@IdToupic", heidi));
+      lecteur = requête.ExecuteReader();
+      while (lecteur.Read()) résultat = lecteur.GetInt16(0);
+      lecteur.Close();
+
+      requête = conne.CreateCommand();
+      requête.CommandText = $"update topic set nb_rep=@Result where id_topic=@IdToupic;";
+      requête.Parameters.Add(new MySqlParameter("@Result", résultat));
+      requête.Parameters.Add(new MySqlParameter("@IdToupic", heidi));
+      requête.ExecuteNonQuery();
+      FermeDBM();
+   }
+///////////////////////////////////////////////////////////////////////////////////////////hash mot de passe
+public static string EncodePassword(string password){
+   byte[] bytes   = Encoding.Unicode.GetBytes(password);
+   byte[] inArray = HashAlgorithm.Create("SHA1").ComputeHash(bytes);
+   return Convert.ToBase64String(inArray);
+}
+
 
 
 ///////////////////////////////////compose la chaine qui limite le nombre de ligne renvoyé par la requête

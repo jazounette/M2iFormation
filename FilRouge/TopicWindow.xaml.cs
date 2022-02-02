@@ -60,7 +60,7 @@ public partial class TopicWindow : Window   {
    private void ChangeRadioBout(string langage){
       langage = langage.ToLower();
       switch (langage) {
-         case "csharp": RadBoutCsharp.IsChecked = true; break;
+         case "c#": RadBoutCsharp.IsChecked = true; break;
          case "php": RadBoutPHP.IsChecked = true; break;
          case "javascript": RadBoutJavS.IsChecked = true; break;
          case "html/css": RadBoutHTML.IsChecked = true; break;
@@ -73,7 +73,7 @@ public partial class TopicWindow : Window   {
 
    private string LitRadioBout (){
       string langage = "";
-      if (RadBoutCsharp.IsChecked == true) langage = "CSharp";
+      if (RadBoutCsharp.IsChecked == true) langage = "C#";
       if (RadBoutPHP.IsChecked == true) langage = "PHP";
       if (RadBoutJavS.IsChecked == true) langage = "JavaScript";
       if (RadBoutHTML.IsChecked == true) langage = "HTML/CSS";

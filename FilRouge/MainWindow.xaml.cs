@@ -26,9 +26,9 @@ public partial class MainWindow : Window   {
 
    public MainWindow()  {
       InitializeComponent();
-      // ConnexWindow winConnex = new ConnexWindow();////décommenter après les tests
-      // winConnex.ShowDialog();////////////////////////décommenter après les tests
-      admin_id = 4;////////////////////////////////////commenter après les tests
+      ConnexWindow winConnex = new ConnexWindow();////décommenter après les tests
+      winConnex.ShowDialog();////////////////////////décommenter après les tests
+      // admin_id = 4;////////////////////////////////////commenter après les tests
 
       DispatcherTimer LiveTime = new DispatcherTimer();
       LiveTime.Interval = TimeSpan.FromSeconds(1);

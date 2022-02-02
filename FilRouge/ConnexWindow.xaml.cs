@@ -26,7 +26,8 @@ public partial class ConnexWindow : Window   {
 
    private void Logingage(){
       int id=-1, accès=-1;
-      Dbm.VerifLogin(Login.Text, MDP.Password, ref id, ref accès);////int VerifLogin(string login, string mdp, ref int id, ref int accès)
+      string mdpHachée = Dbm.EncodePassword(MDP.Password);
+      Dbm.VerifLogin(Login.Text, mdpHachée, ref id, ref accès);////int VerifLogin(string login, string mdp, ref int id, ref int accès)
 
       if (id == -1) MessageBox.Show("Login où mot de passe incorrect", "Erreur", MessageBoxButton.OK, MessageBoxImage.Information);
       else if (accès != 0) MessageBox.Show("Privilège trop faible\nseule un administrateur peut utiliser cette application", "Erreur", MessageBoxButton.OK, MessageBoxImage.Information);

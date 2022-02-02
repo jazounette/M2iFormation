@@ -7,9 +7,11 @@
         mc:Ignorable="d"
         Title="Stack Underflow" Height="270" Width="400" KeyDown="OnKeyDownHandler"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        FocusManager.FocusedElement="{Binding ElementName=Login}"
         Closing="Fermeture_Fenêtre">
+        
   <Grid>
-    <StackPanel Orientation="Vertical" FocusManager.FocusedElement="{Binding ElementName=Login}">
+    <StackPanel Orientation="Vertical">
       <TextBlock Text="CONNEXION" FontWeight="UltraBold" TextAlignment="center" Background="black" Foreground="white" Padding="5"/>
 
       <Label Content="Login:" Width="200"  HorizontalContentAlignment="left" Margin="0, 10, 0, 0"/>

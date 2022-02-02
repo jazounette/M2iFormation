@@ -27,6 +27,7 @@ public partial class UtilWindow : Window   {
       this.quoiquonfaitchef = quoiquonfaitchef;
       this.id_user = id_user;
       if (quoiquonfaitchef =="nouv") {
+         this.Height-=100;
          UtilWin.Text = "AJOUT D'UN UTILISATEUR";
          saisiMDP.Visibility = Visibility.Visible;
          resetMDP.Visibility = Visibility.Collapsed;  }
@@ -52,7 +53,8 @@ public partial class UtilWindow : Window   {
          ya_un_blem = "Les Champs Pseudo et Courriel\nne peuvent pas être vide";
 
       if (ya_un_blem == "") {
-         Dbm.InjectUtil(quoiquonfaitchef, id_user, UtilCou.Text, UtilPse.Text, UtilPss.Text, UtilNom.Text, UtilPré.Text, UtilTél.Text, UtilAva.Text, Convert.ToInt16(UtilAcc.Text));
+         string mdpHachée = Dbm.EncodePassword(UtilPss.Text);
+         Dbm.InjectUtil(quoiquonfaitchef, id_user, UtilCou.Text, UtilPse.Text, mdpHachée, UtilNom.Text, UtilPré.Text, UtilTél.Text, UtilAva.Text, Convert.ToInt16(UtilAcc.Text));
          (Application.Current.MainWindow as MainWindow).RefreshUtilList();
          this.Close();
       } else MessageBox.Show (ya_un_blem, "Crotteux deux biques", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -60,7 +62,8 @@ public partial class UtilWindow : Window   {
    private void Click_UtilBoutReset(object sender, RoutedEventArgs e)  {
       if (UtilNouvPss.Text == "") MessageBox.Show("Veuillez saisir un mot de passe", "Erreur mot de passe", MessageBoxButton.OK, MessageBoxImage.Information);
       else {
-         Dbm.MDPupdate(id_user, UtilNouvPss.Text);//////// int MDPupdate(int id_utilisateur, string MDP)
+         string mdpHachée = Dbm.EncodePassword(UtilNouvPss.Text);
+         Dbm.MDPupdate(id_user, mdpHachée);//////// int MDPupdate(int id_utilisateur, string MDP)
          this.Close();
       }
    }

@@ -101,6 +101,7 @@
 
           <ListView.Resources>
             <Style TargetType="{x:Type ListViewItem}">
+              <Setter Property="VerticalContentAlignment" Value="Top"/><!-- alignement haut sur les céllules de plusieurs lignes -->
               <Style.Triggers>
                 <DataTrigger Binding="{Binding Vali_pub}" Value="false">
                   <Setter Property="Background" Value="LightPink" />

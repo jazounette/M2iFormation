@@ -23,11 +23,11 @@ CREATE TABLE `utilisateur` (
 );
 
 INSERT INTO `utilisateur` VALUES
-(NULL, CURRENT_TIMESTAMP, "cachet", "corentin", "cachet.corentin@monemail.com", "09.87.65.43.21", "biroute", "toto", "urlavatar", 1),
-(NULL, CURRENT_TIMESTAMP, "petit", "will", "legrand.petitwill@free.fr", "31.65.78.98.65", "willfrite", "toto", "urlavatar", 1),
-(NULL, CURRENT_TIMESTAMP, "dolphin", "mika", "mika.ledauphin@caramail.fr", "15.65.45.98.45", "flipper", "toto", "urlavatar", 1),
-(NULL, CURRENT_TIMESTAMP, "chamousse", "geronimus", "cham.gero@gmail.com", "31.64.16.91.82", "jazounette", "toto", "urlavatar", 0),
-(NULL, CURRENT_TIMESTAMP, "dipersio", "anthony", "anthony@utopios.net", "12.65.48.98.45", "legrandtony", "toto", "urlavatar", 2);
+(NULL, CURRENT_TIMESTAMP, "cachet", "corentin", "cachet.corentin@monemail.com", "09.87.65.43.21", "biroute", "fMFH8MtYT94bWSRT2MH/uKBV45Y=", "urlavatar", 1),
+(NULL, CURRENT_TIMESTAMP, "petit", "will", "legrand.petitwill@free.fr", "31.65.78.98.65", "willfrite", "fMFH8MtYT94bWSRT2MH/uKBV45Y=", "urlavatar", 1),
+(NULL, CURRENT_TIMESTAMP, "dolphin", "mika", "mika.ledauphin@caramail.fr", "15.65.45.98.45", "flipper", "fMFH8MtYT94bWSRT2MH/uKBV45Y=", "urlavatar", 1),
+(NULL, CURRENT_TIMESTAMP, "chamousse", "geronimus", "cham.gero@gmail.com", "31.64.16.91.82", "jazounette", "fMFH8MtYT94bWSRT2MH/uKBV45Y=", "urlavatar", 0),
+(NULL, CURRENT_TIMESTAMP, "dipersio", "anthony", "anthony@utopios.net", "12.65.48.98.45", "legrandtony", "fMFH8MtYT94bWSRT2MH/uKBV45Y=", "urlavatar", 2);
 
 CREATE TABLE `topic` (
 	`id_topic`	      INT NOT NULL AUTO_INCREMENT,
