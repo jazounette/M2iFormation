@@ -1,0 +1,62 @@
+<Window x:Class="filrouge.TopicWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:filrouge"
+        mc:Ignorable="d"
+        Title="Stack Underflow" Height="200" Width="1200" KeyDown="OnKeyDownHandler"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+  <Grid>
+    <StackPanel Orientation="Vertical">
+
+      <TextBlock x:Name="TitreWin" FontWeight="UltraBold" TextAlignment="center" Background="midnightblue" Foreground="white" Padding="5"/>
+      <StackPanel Orientation="Horizontal">
+        <TextBlock x:Name="SousTitreA" Width="600" TextAlignment="left" FontWeight="UltraBold" Background="midnightblue" Foreground="white" Padding="5"/>
+        <TextBlock x:Name="SousTitreB" Width="590" TextAlignment="right" FontWeight="UltraBold" Background="midnightblue" Foreground="white" Padding="5"/>
+      </StackPanel>
+
+      <!-- <Grid ShowGridLines="True"> -->
+      <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1000"/>
+            <ColumnDefinition Width="180"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0">
+          <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 5">
+            <Label Content="Langages: " Width="100"  HorizontalContentAlignment="right"/>
+
+            <GroupBox Width="890">
+                <StackPanel Orientation="Horizontal">
+                  <RadioButton x:Name="RadBoutCsharp" Content="C#" Width="80" Margin="20, 5, 0, 0" IsChecked="true"/>
+                  <RadioButton x:Name="RadBoutPHP" Content="PHP" Width="80" Margin="20, 5, 0, 0"/>
+                  <RadioButton x:Name="RadBoutJavS" Content="JavaScript" Width="80" Margin="20, 5, 0, 0"/>
+                  <RadioButton x:Name="RadBoutHTML" Content="HTML/CSS" Width="80" Margin="20, 5, 0, 0"/>
+                  <RadioButton x:Name="RadBoutJava" Content="Java" Width="80" Margin="20, 5, 0, 0"/>
+                  <RadioButton x:Name="RadBoutCob" Content="Cobol" Width="80" Margin="20, 5, 0, 0"/>
+                  <RadioButton x:Name="RadBoutPyt" Content="Python" Width="80" Margin="20, 5, 0, 0"/>
+                  <RadioButton x:Name="RadBoutLua" Content="Lua" Width="80" Margin="20, 5, 0, 0"/>
+                </StackPanel>
+            </GroupBox>
+          </StackPanel>
+
+          <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 5">
+            <Label Content="Titre: " Width="100"  HorizontalContentAlignment="right"/>
+            <TextBox x:Name="TopicTitre" Width="890"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 5">
+            <Label Content="Description: " Width="100"  HorizontalContentAlignment="right"/>
+            <TextBox x:Name="TopicDescri" Width="890"/>
+          </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1">
+          <Button x:Name="TopicBoutVal" Margin="15,5,15,0" Content="Valider" Click="Click_TopicBoutVal"/>
+          <Button x:Name="TopicBoutAnu" Margin="15,5,15,0" Content="Annuler" Click="Click_TopicBoutAnu"/>
+        </StackPanel>
+
+      </Grid>
+    </StackPanel>
+  </Grid>
+</Window>

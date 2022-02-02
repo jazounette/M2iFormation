@@ -26,9 +26,9 @@ public partial class MainWindow : Window   {
 
    public MainWindow()  {
       InitializeComponent();
-      ConnexWindow winConnex = new ConnexWindow();////décommenter après les tests
-      winConnex.ShowDialog();////////////////////////décommenter après les tests
-      // admin_id = 4;////////////////////////////////////commenter après les tests
+      // ConnexWindow winConnex = new ConnexWindow();////décommenter après les tests
+      // winConnex.ShowDialog();////////////////////////décommenter après les tests
+      admin_id = 4;////////////////////////////////////commenter après les tests
 
       DispatcherTimer LiveTime = new DispatcherTimer();
       LiveTime.Interval = TimeSpan.FromSeconds(1);
@@ -69,7 +69,7 @@ public partial class MainWindow : Window   {
       faireNomPrén(fourreTout);
       ListePubli.ItemsSource = fourreTout;
    }
-   private void Click_ListeUtil(object sender, RoutedEventArgs e)    {
+   private void AfficheListeUtil(){
       BarreÉtat.Text = lePatron;
       BarreÉtat.Background = Brushes.Black;  IlEstExactement.Background =  Brushes.Black;
       PanneauUtil.Visibility = Visibility.Visible;
@@ -78,7 +78,7 @@ public partial class MainWindow : Window   {
       bodyActive = 1;
       RefreshUtilList();
    }
-   private void Click_ListeTopic(object sender, RoutedEventArgs e)    {
+   private void AfficheListeTopic(){
       BarreÉtat.Text = lePatron;
       BarreÉtat.Background = Brushes.MidnightBlue;  IlEstExactement.Background =  Brushes.MidnightBlue;
       PanneauUtil.Visibility = Visibility.Collapsed;
@@ -96,9 +96,6 @@ public partial class MainWindow : Window   {
       bodyActive = 3;
       RefreshPubliList();
    }
-   private void DoubleClick_Util(object sender, RoutedEventArgs e)    {   ÉditUtil();   }
-   private void DoubleClick_Publi(object sender, RoutedEventArgs e)   {   MessageBox.Show("édition d'une publi");  }
-
    private void ÉditUtil(){
       Dbm.Donnée toto = (Dbm.Donnée)ListeUtil.SelectedItem;
       if (toto!=null) {
@@ -106,20 +103,39 @@ public partial class MainWindow : Window   {
          winAjout.ShowDialog();
       }
    }
+   private void ÉditPubli(){
+      Dbm.Donnée ct = (Dbm.Donnée)ListeTopic.SelectedItem;
+      Dbm.Donnée cp = (Dbm.Donnée)ListePubli.SelectedItem;
+      if (ct!=null && cp!=null) {
+         PubliWindow winAjoutPubli = new PubliWindow("maj", admin_id, ct.Id_topic, ct.Nom_topic, ct.Langage, ct.Date_top.ToString(), cp.Id_pub, cp.Nomprén, cp.Message);
+         winAjoutPubli.ShowDialog();
+      }        
+   }
    private void Click_Édit(object sender, RoutedEventArgs e)    {
+   Dbm.Donnée toto;
       switch (bodyActive) {
          case 1: ÉditUtil();  break;
-         case 2: MessageBox.Show("édition d'un toupic"); break;
-         case 3: MessageBox.Show("édition d'une publi"); break;
+         case 2: toto = (Dbm.Donnée)ListeTopic.SelectedItem;
+            if (toto!=null) {
+               TopicWindow winAjoutTopic = new TopicWindow("maj", admin_id, toto.Id_topic, toto.Date_top.ToString(), toto.Nomprén, toto.Nom_topic, toto.Description, toto.Langage, toto.Nb_rep);
+               winAjoutTopic.ShowDialog();            }
+         break;
+         case 3: ÉditPubli();  break;
       }
    }
    private void Click_Ajout(object sender, RoutedEventArgs e)    {
       switch (bodyActive) {
-         case 1: UtilWindow winAjout = new UtilWindow("nouv");
-                 winAjout.ShowDialog();
+         case 1: UtilWindow winAjoutUtil = new UtilWindow("nouv");
+                 winAjoutUtil.ShowDialog();
          break;
-         case 2: MessageBox.Show("ajout d'un toupic"); break;
-         case 3: MessageBox.Show("ajout d'une publi"); break;
+         case 2: TopicWindow winAjoutTopic = new TopicWindow("nouv", admin_id);
+                 winAjoutTopic.ShowDialog();
+         break;
+         case 3: Dbm.Donnée ct = (Dbm.Donnée)ListeTopic.SelectedItem;
+            if (ct!=null) {
+               PubliWindow winAjoutPubli = new PubliWindow("nouv", admin_id, ct.Id_topic, ct.Nom_topic, ct.Langage, ct.Date_top.ToString());
+               winAjoutPubli.ShowDialog();         }
+         break;
       }
    }
    private void Archivage(){
@@ -192,11 +208,15 @@ public partial class MainWindow : Window   {
       string textAide = System.IO.File.ReadAllText(@".\Aide.txt");
       MessageBox.Show(textAide);
    }
-   private void Click_Arch(object sender, RoutedEventArgs e)  {  Archivage();    }
-   private void Click_Supp(object sender, RoutedEventArgs e)  {  Suppression();  }
-   private void Click_Vali(object sender, RoutedEventArgs e)  {  Validation();   }
-   private void Click_Aide(object sender, RoutedEventArgs e)  {  Aidationage();  }
-   private void Click_Quit(object sender, RoutedEventArgs e)  {  Environment.Exit(0);  }
+   private void DoubleClick_Util(object sender, RoutedEventArgs e)    {   ÉditUtil();   }
+   private void DoubleClick_Publi(object sender, RoutedEventArgs e)   {   ÉditPubli();  }
+   private void Click_ListeUtil(object sender, RoutedEventArgs e)  {  AfficheListeUtil();   }
+   private void Click_ListeTopic(object sender, RoutedEventArgs e) {  AfficheListeTopic();  }
+   private void Click_Arch(object sender, RoutedEventArgs e)       {  Archivage();    }
+   private void Click_Supp(object sender, RoutedEventArgs e)       {  Suppression();  }
+   private void Click_Vali(object sender, RoutedEventArgs e)       {  Validation();   }
+   private void Click_Aide(object sender, RoutedEventArgs e)       {  Aidationage();  }
+   private void Click_Quit(object sender, RoutedEventArgs e)       {  Environment.Exit(0);  }
 
    private void OnKeyDownHandler(object sender, KeyEventArgs e)     {
       if (e.Key == Key.Escape)  Environment.Exit(0);
@@ -204,6 +224,8 @@ public partial class MainWindow : Window   {
       if (e.Key == Key.Delete)  Suppression();
       if (e.Key == Key.Enter)   Validation();
       if (e.Key == Key.F1)      Aidationage();
+      if (e.Key == Key.F2)      AfficheListeUtil();
+      if (e.Key == Key.F3)      AfficheListeTopic();
    }
 
    private void faireNomPrén(List<Dbm.Donnée> toto){  

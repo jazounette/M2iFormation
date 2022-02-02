@@ -1,0 +1,32 @@
+<Window x:Class="filrouge.PubliWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:filrouge"
+        mc:Ignorable="d"
+        Title="Stack Underflow" Height="600" Width="400" KeyDown="OnKeyDownHandler"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+  <Grid>
+    <StackPanel Orientation="Vertical">
+
+      <TextBlock x:Name="TitreWin" FontWeight="UltraBold" TextAlignment="center" Background="indigo" Foreground="white" Padding="5"/>
+      <TextBlock x:Name="SousTitreA" TextAlignment="center" FontWeight="UltraBold" Background="indigo" Foreground="white" Padding="5"/>
+      <StackPanel Orientation="Horizontal">
+        <TextBlock x:Name="SousTitreB" Width="200" TextAlignment="left" FontWeight="UltraBold" Background="indigo" Foreground="white" Padding="5"/>
+        <TextBlock x:Name="SousTitreC" Width="190" TextAlignment="right" FontWeight="UltraBold" Background="indigo" Foreground="white" Padding="5"/>
+      </StackPanel>
+
+      <TextBox x:Name="PubliMess" TextWrapping="Wrap" AcceptsReturn="True" Height="450"/>
+
+      <TextBlock x:Name="Auteur" TextAlignment="right" FontWeight="UltraBold" Background="indigo" Foreground="white" Padding="5"/>
+
+      <Grid>
+        <Grid.ColumnDefinitions><ColumnDefinition Width="1*"/><ColumnDefinition Width="1*"/></Grid.ColumnDefinitions>
+        <Button Grid.Column="0" x:Name="PubliBoutVal" Margin="20,10,10,0" Content="Valider" Click="Click_PubliBoutVal"/>
+        <Button Grid.Column="1" x:Name="PubliBoutAnu" Margin="10,10,20,0" Content="Annuler" Click="Click_PubliBoutAnu"/>
+      </Grid>
+
+    </StackPanel>
+  </Grid>
+</Window>

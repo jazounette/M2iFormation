@@ -16,7 +16,7 @@
       <TextBox x:Name="Login" Width="200"/>
       <TextBlock Text="(pseudo où email)" FontStyle="Italic" Foreground="gray" Width="200"/>
       <Label Content="Mot de passe: " Width="200"  HorizontalContentAlignment="left" Margin="0, 10, 0, 0"/>
-      <TextBox x:Name="MDP" Width="200"/>
+      <PasswordBox x:Name="MDP" Width="200"/>
 
       <Grid>
         <Grid.ColumnDefinitions><ColumnDefinition Width="1*"/><ColumnDefinition Width="1*"/></Grid.ColumnDefinitions>

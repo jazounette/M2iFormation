@@ -47,7 +47,7 @@
           <ListView.View>
             <GridView>
               <GridViewColumn Width="40" Header="Id" DisplayMemberBinding="{Binding Id_user}"/>
-              <GridViewColumn Width="150" Header="Date Enregistrement" DisplayMemberBinding="{Binding Date_user, StringFormat=dd/MM/yyyy hh:mm:ss}"/>
+              <GridViewColumn Width="150" Header="Date Enregistrement" DisplayMemberBinding="{Binding Date_user, StringFormat=dd/MM/yyyy HH:mm:ss}"/>
               <GridViewColumn Width="310" Header="Prénom &quot;Pseudo&quot; Nom" DisplayMemberBinding="{Binding Nomprén}"/>
               <GridViewColumn Width="310" Header="Courriel" DisplayMemberBinding="{Binding Courriel}"/>
               <GridViewColumn Width="175" Header="Téléphone" DisplayMemberBinding="{Binding Tél}"/>
@@ -77,11 +77,12 @@
           <ListView.View>
             <GridView>
               <GridViewColumn Width="40" Header="Id" DisplayMemberBinding="{Binding Id_topic}"/>
-              <GridViewColumn Width="150" Header="Date Création" DisplayMemberBinding="{Binding Date_top, StringFormat=dd/MM/yyyy hh:mm:ss}"/>
+              <GridViewColumn Width="150" Header="Date Création" DisplayMemberBinding="{Binding Date_top, StringFormat=dd/MM/yyyy HH:mm:ss}"/>
               <GridViewColumn Width="300" Header="Crée Par" DisplayMemberBinding="{Binding Nomprén}"/>
               <GridViewColumn Width="535" Header="Sujet" DisplayMemberBinding="{Binding Nom_topic}"/>
               <GridViewColumn Width="70" Header="Langage" DisplayMemberBinding="{Binding Langage}"/>
               <GridViewColumn Width="60" Header="Réponse" DisplayMemberBinding="{Binding Nb_rep}"/>
+              <GridViewColumn Width="0" DisplayMemberBinding="{Binding Description}"/>
               <GridViewColumn Width="0" DisplayMemberBinding="{Binding Arch_top}"/>
               <GridViewColumn Width="0" DisplayMemberBinding="{Binding Vali_top}"/>
             </GridView>
@@ -114,7 +115,7 @@
           <ListView.View>
             <GridView>
               <GridViewColumn Width="40" Header="Id" DisplayMemberBinding="{Binding Id_pub}"/>
-              <GridViewColumn Width="150" Header="Date Création" DisplayMemberBinding="{Binding Date_pub, StringFormat=dd/MM/yyyy hh:mm:ss}"/>
+              <GridViewColumn Width="150" Header="Date Création" DisplayMemberBinding="{Binding Date_pub, StringFormat=dd/MM/yyyy HH:mm:ss}"/>
               <GridViewColumn Width="300" Header="Crée Par" DisplayMemberBinding="{Binding Nomprén}"/>
               <GridViewColumn Width="665" Header="Message" DisplayMemberBinding="{Binding Message}"/>
               <GridViewColumn Width="0" DisplayMemberBinding="{Binding Arch_pub}"/>

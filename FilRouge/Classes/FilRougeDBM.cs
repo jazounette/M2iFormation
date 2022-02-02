@@ -86,16 +86,23 @@ internal static class Dbm {
       /////////////mettre une alerte box en lieu et place du Konzolo///////////////////////////////////////////
    }
    private static void FermeDBM(){    conne.Dispose();    conne.Close();    }
-///////////////////////////////////////////////////////////////////////////////////////////lit le nombre de topic
-   public static int CompteTopic () {
-      int topicMax = 0;
+///////////////////////////////////////////////////////////////////mise à jour du nombre de publication d'un sujet
+   public static void MajPubNombre (int heidi) {
+      int résultat = 0;
       OuvreDBM();
-      requête.CommandText = "SELECT COUNT(id_topic) FROM topic;";
+      requête = conne.CreateCommand();
+      requête.CommandText = $"select count(id_pub) from publication where id_topic={heidi};";
       lecteur = requête.ExecuteReader();
-      while (lecteur.Read()) topicMax = lecteur.GetInt16(0);
-      lecteur.Close();      FermeDBM();
-      return topicMax;
+      while (lecteur.Read()) résultat = lecteur.GetInt16(0);
+      lecteur.Close();
+
+      requête = conne.CreateCommand();
+      requête.CommandText = $"update topic set nb_rep={résultat} where id_topic={heidi};";
+                           // update topic set nb_rep=1 where id_topic=10;
+      requête.ExecuteNonQuery();
+      FermeDBM();
    }
+
 ///////////////////////////////////////////////////////////////////////////////////////////////lit un/des utilisateur(s)
    public static int LireUtil(List<Donnée> concombre, string champ = "*", string valeur = "*") { //valeur: ce que l'on cherche  /  champ: où on cherche
       string nom, prénom, courriel, tél, pseudo, skøll;
@@ -211,12 +218,16 @@ internal static class Dbm {
       FermeDBM();
       return nbLigne;
    }
-////////////////////////////////////////////////////////////////injecte un topic dans la base de donnée
-   public static int InjectTopic(int id_user, string lang="", string nomtop="", string descrip="", int nb_rep=0){
+////////////////////////////////////////////////////////////////injecte/update un topic dans la base de donnée
+   public static int InjectTopic(string quoiquonfaitchef, int id_user, int id_topic=-1, string lang="", string nomtop="", string descrip="", int nb_rep=0){
+      string reukékette = "";
+      if (quoiquonfaitchef=="nouv") reukékette = "insert into topic values (NULL, CURRENT_TIMESTAMP, @IdUser, @Lang, @NomTop, @Descrip, @NbRep, @Archive, @Valide);";
+      if (quoiquonfaitchef=="maj") reukékette = "update topic set langage=@Lang, nom_topic=@NomTop, description=@Descrip where id_topic=@IdTopic;";
       OuvreDBM();
       requête = conne.CreateCommand();
-      requête.CommandText = "insert into topic values (NULL, CURRENT_TIMESTAMP, @IdUser, @Lang, @NomTop, @Descrip, @NbRep, @Archive, @Valide);";
+      requête.CommandText = reukékette;
       requête.Parameters.Add(new MySqlParameter("@IdUser", id_user));
+      requête.Parameters.Add(new MySqlParameter("@IdTopic", id_topic));
       requête.Parameters.Add(new MySqlParameter("@Lang", lang));
       requête.Parameters.Add(new MySqlParameter("@NomTop", nomtop));
       requête.Parameters.Add(new MySqlParameter("@Descrip", descrip));
@@ -227,13 +238,17 @@ internal static class Dbm {
       FermeDBM();
       return nbLigne;
    }
-///////////////////////////////////////////////////////////injecte une publication dans la base de donnée
-   public static int InjectPubli(int id_topic, int id_user, string message) {
+///////////////////////////////////////////////////////////injecte/update une publication dans la base de donnée
+   public static int InjectPubli(string quoiquonfaitchef, int id_topic, int id_user, int id_pub, string message) {
+      string reukékette = "";
+      if (quoiquonfaitchef=="nouv") reukékette = "insert into publication values (NULL, CURRENT_TIMESTAMP, @IdTopic, @IdUser, @Archive, @Valide, @Message);";
+      if (quoiquonfaitchef=="maj") reukékette = "update publication set message=@Message where id_pub=@IdPub;";
       OuvreDBM();
       requête = conne.CreateCommand();
-      requête.CommandText = "insert into publication values (NULL, CURRENT_TIMESTAMP, @IdTopic, @IdUser, @Archive, @Valide, @Message);";
+      requête.CommandText = reukékette;
       requête.Parameters.Add(new MySqlParameter("@IdTopic", id_topic));
       requête.Parameters.Add(new MySqlParameter("@IdUser", id_user));
+      requête.Parameters.Add(new MySqlParameter("@IdPub", id_pub));
       requête.Parameters.Add(new MySqlParameter("@Archive", false));/////////par défaut non archivé à la création
       requête.Parameters.Add(new MySqlParameter("@Valide", false));//////////une publication être validé par admin, donc false à la création
       requête.Parameters.Add(new MySqlParameter("@Message", message));

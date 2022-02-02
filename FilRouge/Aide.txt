@@ -9,6 +9,8 @@ Entrée: valider
 Delete: éffacer
 BackSpace: archiver
 F1: vous zêtes zici
+F2: affiche la liste des utilisateurs
+F3: affiche la liste des sujets
 Échape: quitter
 
 
