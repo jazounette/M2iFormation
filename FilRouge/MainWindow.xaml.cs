@@ -22,7 +22,6 @@ public partial class MainWindow : Window   {
    internal List<Dbm.Donnée> fourreTout;
    byte bodyActive = 1;/////1-utilisateurlist 2-topiclist 3-publilist
    int admin_id = -1;
-   string lePatron = "";
 
    public MainWindow()  {
       InitializeComponent();
@@ -35,17 +34,19 @@ public partial class MainWindow : Window   {
       LiveTime.Tick += timer_Tick;
       LiveTime.Start();      
 
-      string logtime = DateTime.Now.ToString("HH:mm:ss");
-
-      fourreTout = new List<Dbm.Donnée>();
-      Dbm.LireUtil(fourreTout, "id_user", admin_id.ToString());
-      faireAccèsInfo (fourreTout);
-      lePatron = $"{fourreTout[0].Prénom} {fourreTout[0].Nom} ({fourreTout[0].Pseudo}) - {fourreTout[0].Accèsinfo} - logger à: {logtime}";
+      WelcomeSir();
 
       RefreshUtilList();
    }
    void timer_Tick(object sender, EventArgs e){  IlEstExactement.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy - HH:mm:ss");  }
    public void SetAdmin(int admin_id){   this.admin_id = admin_id;   }
+   public void WelcomeSir(){
+      string logtime = DateTime.Now.ToString("HH:mm:ss");
+      fourreTout = new List<Dbm.Donnée>();
+      Dbm.LireUtil(fourreTout, "id_user", admin_id.ToString());
+      faireAccèsInfo (fourreTout);
+      BarreÉtat.Text = $"{fourreTout[0].Prénom} {fourreTout[0].Nom} ({fourreTout[0].Pseudo}) - {fourreTout[0].Accèsinfo} - logger à: {logtime}";
+   }
    public void RefreshUtilList(){
       fourreTout = new List<Dbm.Donnée>();
       Dbm.LireUtil(fourreTout);
@@ -70,7 +71,6 @@ public partial class MainWindow : Window   {
       ListePubli.ItemsSource = fourreTout;
    }
    private void AfficheListeUtil(){
-      BarreÉtat.Text = lePatron;
       BarreÉtat.Background = Brushes.Black;  IlEstExactement.Background =  Brushes.Black;
       PanneauUtil.Visibility = Visibility.Visible;
       PanneauTopic.Visibility = Visibility.Collapsed;
@@ -79,7 +79,6 @@ public partial class MainWindow : Window   {
       RefreshUtilList();
    }
    private void AfficheListeTopic(){
-      BarreÉtat.Text = lePatron;
       BarreÉtat.Background = Brushes.MidnightBlue;  IlEstExactement.Background =  Brushes.MidnightBlue;
       PanneauUtil.Visibility = Visibility.Collapsed;
       PanneauTopic.Visibility = Visibility.Visible;
@@ -88,7 +87,6 @@ public partial class MainWindow : Window   {
       RefreshTopicList();
    }
    private void DoubleClick_Topic(object sender, RoutedEventArgs e)    {
-      BarreÉtat.Text = lePatron;
       BarreÉtat.Background = Brushes.Indigo;  IlEstExactement.Background =  Brushes.Indigo;
       PanneauUtil.Visibility = Visibility.Collapsed;
       PanneauTopic.Visibility = Visibility.Collapsed;
@@ -137,6 +135,11 @@ public partial class MainWindow : Window   {
                winAjoutPubli.ShowDialog();         }
          break;
       }
+   }
+   private void Click_Conn(object sender, RoutedEventArgs e)    {
+      ConnexWindow winConnex = new ConnexWindow();
+      winConnex.ShowDialog();
+      WelcomeSir();
    }
    private void Archivage(){
       Dbm.Donnée toto;
@@ -218,7 +221,11 @@ public partial class MainWindow : Window   {
    private void Click_Aide(object sender, RoutedEventArgs e)       {  Aidationage();  }
    private void Click_Quit(object sender, RoutedEventArgs e)       {  Environment.Exit(0);  }
 
-   private void OnKeyDownHandler(object sender, KeyEventArgs e)     {
+   private void RetourArrière(object sender, MouseButtonEventArgs e) {
+      if(e.ChangedButton==MouseButton.XButton1 && bodyActive==3) AfficheListeTopic();
+      e.Handled = true;
+   }
+   private void OnKeyDownHandler(object sender, KeyEventArgs e) {
       if (e.Key == Key.Escape)  Environment.Exit(0);
       if (e.Key == Key.Back)    Archivage();
       if (e.Key == Key.Delete)  Suppression();

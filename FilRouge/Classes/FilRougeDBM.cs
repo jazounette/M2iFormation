@@ -362,12 +362,24 @@ internal static class Dbm {
       requête.ExecuteNonQuery();
       FermeDBM();
    }
+////////////////////////////////////////test si le pseudo ou le mot de passe existe déjà dans la base de donnée
+   public static bool UtilDéjàExist (int id_user, string courriel, string pseudo) {
+      bool jaiTrouvéChef = false;
+      OuvreDBM();
+      requête = conne.CreateCommand();
+      requête.CommandText = $"select id_user from utilisateur where email=\"{courriel}\" or pseudo=\"{pseudo}\";";
+      lecteur = requête.ExecuteReader();
+      while (lecteur.Read())    if (lecteur.GetInt16(0) != id_user) jaiTrouvéChef = true;
+      lecteur.Close();
+      FermeDBM();
+      return (jaiTrouvéChef);
+   }
 ///////////////////////////////////////////////////////////////////////////////////////////hash mot de passe
-public static string EncodePassword(string password){
-   byte[] bytes   = Encoding.Unicode.GetBytes(password);
-   byte[] inArray = HashAlgorithm.Create("SHA1").ComputeHash(bytes);
-   return Convert.ToBase64String(inArray);
-}
+   public static string EncodePassword(string password){
+      byte[] bytes   = Encoding.Unicode.GetBytes(password);
+      byte[] inArray = HashAlgorithm.Create("SHA1").ComputeHash(bytes);
+      return Convert.ToBase64String(inArray);
+   }
 
 
 

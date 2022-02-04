@@ -52,6 +52,8 @@ public partial class UtilWindow : Window   {
       if (quoiquonfaitchef == "maj" && (UtilCou.Text=="" || UtilPse.Text=="")) 
          ya_un_blem = "Les Champs Pseudo et Courriel\nne peuvent pas être vide";
 
+      if (Dbm.UtilDéjàExist(id_user, UtilCou.Text, UtilPse.Text)) ya_un_blem = "Ce courriel où ce pseudo existe déjà";
+
       if (ya_un_blem == "") {
          string mdpHachée = Dbm.EncodePassword(UtilPss.Text);
          Dbm.InjectUtil(quoiquonfaitchef, id_user, UtilCou.Text, UtilPse.Text, mdpHachée, UtilNom.Text, UtilPré.Text, UtilTél.Text, UtilAva.Text, Convert.ToInt16(UtilAcc.Text));

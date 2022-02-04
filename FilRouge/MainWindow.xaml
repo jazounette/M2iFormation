@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:filrouge"
         mc:Ignorable="d"
-        Title="Stack Underflow" Height="500" Width="1200" KeyDown="OnKeyDownHandler"
-        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Stack Underflow" Height="500" Width="1200"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        KeyDown="OnKeyDownHandler" MouseUp="RetourArrière">
   <Grid>
     <StackPanel Orientation="Vertical">
 
@@ -23,6 +24,7 @@
         <MenuItem Header="Supprimer" Click="Click_Supp"/>
         <MenuItem Header="Valider" Click="Click_Vali"/>
         <MenuItem Header="Aide" Click="Click_Aide"/>
+        <MenuItem Header="Déco" Click="Click_Conn"/>
         <MenuItem Header="Quitter" Click="Click_Quit"/>
       </Menu>
       
