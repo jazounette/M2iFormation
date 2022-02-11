@@ -47,7 +47,7 @@ INSERT INTO `topic` VALUES
 (NULL, CURRENT_TIMESTAMP, 1, "PHP", "jy connais rien au PHP, de l'aide j'vous en supli", "hier j'ai essayé d'apprendre ce langage des enfers, mais j'ai rien compris", 4, FALSE, TRUE),
 (NULL, CURRENT_TIMESTAMP, 2, "javascript", "de l'aide JPP", "le javascript c'est trop dur, je vais me pendre", 2, FALSE, TRUE),
 (NULL, CURRENT_TIMESTAMP, 5, "c#", "au secour!!!!", "chui dans une formation dotnet, le formateur il me parle dans une langue que je ne comprend pas, help me please", 2, FALSE, TRUE),
-(NULL, CURRENT_TIMESTAMP, 3, "htlm/css", "c'est quoi cette balise<prout>", "ya une balise <prout> dans mon code, je sais pas comment elle est arrivé là, j'arrive pas à l'enlever", 2, FALSE, TRUE),
+(NULL, CURRENT_TIMESTAMP, 3, "html/css", "c'est quoi cette balise<prout>", "ya une balise <prout> dans mon code, je sais pas comment elle est arrivé là, j'arrive pas à l'enlever", 2, FALSE, TRUE),
 (NULL, CURRENT_TIMESTAMP, 4, "java", "c'est quoi la différence avec le javascript?", "bah quoi! ya juste scrypt en plus, c'est pareil non?", 3, FALSE, TRUE),
 (NULL, CURRENT_TIMESTAMP, 1, "c#", "dans c# le # en vrai... c'est quatre + ?", "en plus # ça ce dit diese et pas hashtag, nananère", 3, FALSE, FALSE),
 (NULL, CURRENT_TIMESTAMP, 5, "java", "titre", "description", 1, FALSE, TRUE);

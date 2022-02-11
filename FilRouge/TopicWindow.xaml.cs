@@ -53,7 +53,7 @@ public partial class TopicWindow : Window   {
    private void Click_TopicBoutAnu(object sender, RoutedEventArgs e)    {  this.Close();  }
 
    private void OnKeyDownHandler(object sender, KeyEventArgs e)     {
-      if (e.Key == Key.Escape)  {  Environment.Exit(0);    }
+      if (e.Key == Key.Escape)  {  this.Close();  }
       if (e.Key == Key.Enter)   {  Validation();  }
    }
 

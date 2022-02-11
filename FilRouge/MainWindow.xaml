@@ -93,12 +93,22 @@
       </StackPanel>
       <!-- __________________________________________panneau liste des publications_________________________________________ -->
       <StackPanel x:Name="PanneauPubli" Visibility="Collapsed">
-        <StackPanel Orientation="Horizontal">
-          <TextBlock x:Name="TitrePubliA" Width="300" FontWeight="UltraBold" TextAlignment="left" Background="indigo" Foreground="white" Padding="5"/>
-          <TextBlock x:Name="TitrePubliB" Width="600" FontWeight="UltraBold" TextAlignment="center" Background="indigo" Foreground="white" Padding="5"/>
-          <TextBlock x:Name="TitrePubliC" Width="290" FontWeight="UltraBold" TextAlignment="right" Background="indigo" Foreground="white" Padding="5"/>
-        </StackPanel>
-        <TextBlock x:Name="TitrePubliD" Width="1190" FontWeight="UltraBold" TextAlignment="center" Background="indigo" Foreground="white" Padding="5"/>
+
+        <Grid>
+          <Grid.ColumnDefinitions><ColumnDefinition Width="1135"/><ColumnDefinition Width="50"/></Grid.ColumnDefinitions>
+          <StackPanel Grid.Column="0" >
+            <StackPanel Orientation="Horizontal">
+              <TextBlock x:Name="TitrePubliA" Width="270" FontWeight="UltraBold" TextAlignment="left" Background="indigo" Foreground="white" Padding="5"/>
+              <TextBlock x:Name="TitrePubliB" Width="600" FontWeight="UltraBold" TextAlignment="center" Background="indigo" Foreground="white" Padding="5"/>
+              <TextBlock x:Name="TitrePubliC" Width="270" FontWeight="UltraBold" TextAlignment="right" Background="indigo" Foreground="white" Padding="5"/>
+            </StackPanel>
+            <TextBlock x:Name="TitrePubliD" Width="1140" FontWeight="UltraBold" TextAlignment="center" Background="indigo" Foreground="white" Padding="5"/>
+          </StackPanel>
+          <StackPanel Grid.Column="1" Background="indigo">
+            <Image x:Name="LangImg" Height="52" Width="50"/>
+          </StackPanel>
+        </Grid>
+
         <ListView x:Name="ListePubli" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="365" MouseDoubleClick="DoubleClick_Publi">
 
           <ListView.Resources>

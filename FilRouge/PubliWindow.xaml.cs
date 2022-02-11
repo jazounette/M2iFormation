@@ -53,7 +53,7 @@ public partial class PubliWindow : Window   {
    private void Click_PubliBoutAnu(object sender, RoutedEventArgs e)  {  this.Close();  }
 
    private void OnKeyDownHandler(object sender, KeyEventArgs e)     {
-      if (e.Key == Key.Escape)  {  Environment.Exit(0);    }
+      if (e.Key == Key.Escape)  {  this.Close();  }
       if (e.Key == Key.Enter)   {  Validation();  }/////////voir pour faire un controle+entré plutot
    }
 }

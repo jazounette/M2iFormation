@@ -1,18 +1,18 @@
 Besoin d'aide?
 
 En vert, les administrateurs.
-En rose, les utilisateurs non enregistrés et les sujets/publications non validés
-En mauve, les sujets/publications archivés
+En rose, les utilisateurs non enregistrÃ©s et les sujets/publications non validÃ©s
+En mauve, les sujets/publications archivÃ©s
 
 Raccourcis clavier:
-Entrée: valider
-Delete: éffacer
+EntrÃ©e: valider
+Delete: Ã©ffacer
 BackSpace: archiver
-F1: vous zêtes zici
-F2: affiche la liste des utilisateurs
-F3: affiche la liste des sujets
-Échape: quitter
+Tabulation: bascule entre liste utilisateurs/sujets
+F1: vous zÃªtes zici
+F2: Ã©diter un sujet
+Ã©chape: quitter
 
 
 
-Jérôme Camus - Formation Dotnet M2i - 2022.
+JÃ©rÃ´me Camus - Formation Dotnet M2i - 2022.

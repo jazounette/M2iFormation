@@ -9,6 +9,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\csharp.jpg"/>
+    <Resource Include="Images\php.jpg"/>
+    <Resource Include="Images\javascript.jpg"/>
+    <Resource Include="Images\htmlcss.jpg"/>
+    <Resource Include="Images\java.jpg"/>
+    <Resource Include="Images\cobol.jpg"/>
+    <Resource Include="Images\python.jpg"/>
+    <Resource Include="Images\lua.jpg"/>
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Images\stackunderflow.ico" />
   </ItemGroup>
   <PropertyGroup>

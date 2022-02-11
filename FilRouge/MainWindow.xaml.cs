@@ -65,6 +65,9 @@ public partial class MainWindow : Window   {
       TitrePubliB.Text = $"Sujet {toto.Id_topic} - {toto.Langage} - {toto.Nom_topic}";
       TitrePubliC.Text = $"{toto.Date_top}    ";
       TitrePubliD.Text = $"{toto.Description}";
+
+      LangImg.Source = new BitmapImage(new Uri($"Images/{ImgFile(toto.Langage)}", UriKind.Relative));
+
       fourreTout = new List<Dbm.Donnée>();
       Dbm.LirePubli(toto.Id_topic,fourreTout);
       faireNomPrén(fourreTout);
@@ -101,6 +104,13 @@ public partial class MainWindow : Window   {
          winAjout.ShowDialog();
       }
    }
+   private void ÉditSujet(){
+      Dbm.Donnée toto = (Dbm.Donnée)ListeTopic.SelectedItem;
+      if (toto!=null) {
+         TopicWindow winAjoutTopic = new TopicWindow("maj", admin_id, toto.Id_topic, toto.Date_top.ToString(), toto.Nomprén, toto.Nom_topic, toto.Description, toto.Langage, toto.Nb_rep);
+         winAjoutTopic.ShowDialog();
+      }
+   }
    private void ÉditPubli(){
       Dbm.Donnée ct = (Dbm.Donnée)ListeTopic.SelectedItem;
       Dbm.Donnée cp = (Dbm.Donnée)ListePubli.SelectedItem;
@@ -110,16 +120,10 @@ public partial class MainWindow : Window   {
       }        
    }
    private void Click_Édit(object sender, RoutedEventArgs e)    {
-   Dbm.Donnée toto;
       switch (bodyActive) {
-         case 1: ÉditUtil();  break;
-         case 2: toto = (Dbm.Donnée)ListeTopic.SelectedItem;
-            if (toto!=null) {
-               TopicWindow winAjoutTopic = new TopicWindow("maj", admin_id, toto.Id_topic, toto.Date_top.ToString(), toto.Nomprén, toto.Nom_topic, toto.Description, toto.Langage, toto.Nb_rep);
-               winAjoutTopic.ShowDialog();            }
-         break;
-         case 3: ÉditPubli();  break;
-      }
+         case 1: ÉditUtil();   break;
+         case 2: ÉditSujet();  break;
+         case 3: ÉditPubli();  break;      }
    }
    private void Click_Ajout(object sender, RoutedEventArgs e)    {
       switch (bodyActive) {
@@ -226,15 +230,19 @@ public partial class MainWindow : Window   {
       e.Handled = true;
    }
    private void OnKeyDownHandler(object sender, KeyEventArgs e) {
-      if (e.Key == Key.Escape)  Environment.Exit(0);
-      if (e.Key == Key.Back)    Archivage();
-      if (e.Key == Key.Delete)  Suppression();
-      if (e.Key == Key.Enter)   Validation();
-      if (e.Key == Key.F1)      Aidationage();
-      if (e.Key == Key.F2)      AfficheListeUtil();
-      if (e.Key == Key.F3)      AfficheListeTopic();
+      if (e.Key == Key.Escape)   Environment.Exit(0);
+      if (e.Key == Key.Back)     Archivage();
+      if (e.Key == Key.Delete)   Suppression();
+      if (e.Key == Key.Enter)    Validation();
+      if (e.Key == Key.F1)       Aidationage();
+      if (e.Key == Key.F2)       ÉditSujet();
+      if (e.Key == Key.Tab)      SwichePage();
    }
-
+   private void SwichePage(){
+      byte feuilleDeChoux = bodyActive;
+      if (feuilleDeChoux==1) {  bodyActive=2; AfficheListeTopic();  }
+      if (feuilleDeChoux==2) {  bodyActive=1; AfficheListeUtil();   }
+   }
    private void faireNomPrén(List<Dbm.Donnée> toto){  
       for (int i=0; i<toto.Count; i++) toto[i].Nomprén = $"{toto[i].Prénom} \"{toto[i].Pseudo}\" {toto[i].Nom}";    }
 
@@ -245,5 +253,18 @@ public partial class MainWindow : Window   {
             case 1: toto[i].Accèsinfo = "Utilisateur"; break;
             case 2: toto[i].Accèsinfo = "Enreg. en attente"; break;
             default: toto[i].Accèsinfo = "Circulez, ya rien à voir"; break;         }         }
+   }
+   private string ImgFile (string langage) {
+      langage = langage.ToLower();
+      switch (langage) {
+         case "c#": return "csharp.jpg";
+         case "php": return "php.jpg";
+         case "javascript": return "javascript.jpg";
+         case "html/css": return "htmlcss.jpg";
+         case "java": return "java.jpg";
+         case "cobol": return "cobol.jpg";
+         case "python": return "python.jpg";
+         case "lua": return "lua.jpg";
+         default: return "";               }
    }
 }

@@ -71,6 +71,6 @@ public partial class UtilWindow : Window   {
    }
    private void Click_UtilBoutAnu(object sender, RoutedEventArgs e)    {   this.Close();   }
    private void OnKeyDownHandler(object sender, KeyEventArgs e)     {
-      if (e.Key == Key.Escape)  {  Environment.Exit(0);    }
+      if (e.Key == Key.Escape)  {  this.Close();   }
    }
 }
