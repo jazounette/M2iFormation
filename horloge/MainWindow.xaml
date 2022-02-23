@@ -1,0 +1,27 @@
+﻿<Window x:Class="horloge.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:horloge"
+        mc:Ignorable="d"
+        Title="Horloge" Width="410" Height="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        KeyUp="ToucheRelachage">
+  <Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="auto"/>
+    </Grid.RowDefinitions>
+    <Canvas Grid.Row="0"  x:Name="matoile" Width="400" Height="400" Background="#000033" ClipToBounds="True">
+      <Border Width="160" Height="50" Margin="120, 240, 0, 0" BorderThickness="2" BorderBrush="White" Background="#003300" CornerRadius="6">
+      </Border>
+      <TextBlock x:Name="digitheure" Foreground="Yellow" Width="160" Height="40"
+          HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,240,0,0"
+          FontSize="28" FontFamily="Consolas" TextAlignment="Center"/>
+      <TextBlock x:Name="digitcalen" Foreground="Yellow" Width="160" Height="20"
+          HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,270,0,0" Padding="5, 2, 5, 0"
+          FontSize="12" TextAlignment="Right"/>
+    </Canvas>
+    <TextBlock Grid.Row="1" x:Name="choupinette" Background="Black" Foreground="White" Padding="20, 0"/>
+  </Grid>
+</Window>

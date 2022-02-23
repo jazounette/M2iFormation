@@ -5,20 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:conwayWPF"
         mc:Ignorable="d"
-        Title="MainWindow" WindowState="Maximized" WindowStartupLocation="CenterScreen"
+        Title="Conway's Game Of Life" WindowState="Maximized" WindowStartupLocation="CenterScreen"
         KeyDown="ToucheAppuyage" KeyUp="ToucheRelachage" MouseMove="MouvementSouris"
         MouseLeftButtonDown="ClickGaucheBas" MouseLeftButtonUp="ClickGaucheHaut" MouseWheel="ScrollMolette">
-    <Grid>
-      <Grid.RowDefinitions>
-          <RowDefinition Height="*"/>
-          <RowDefinition Height="auto"/>
-      </Grid.RowDefinitions>
-      <Canvas Grid.Row="0"  x:Name="matoile" Width="1534" Height="786" Background="Green" ClipToBounds="True">
-      </Canvas>
-      <TextBlock Grid.Row="0" x:Name="tartiflette" Width="200" Height="200" Background="Gray" Foreground="White"
-                 HorizontalAlignment="Left" VerticalAlignment="Top" Padding="10, 10" Visibility="Collapsed"/>
-      <TextBlock Grid.Row="1" x:Name="choupinette" Background="MidnightBlue" Foreground="Lime" Padding="20, 0"/>
-    </Grid>
+  <Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="auto"/>
+    </Grid.RowDefinitions>
+    <Canvas Grid.Row="0"  x:Name="matoile" Width="1534" Height="786" Background="DarkGreen" ClipToBounds="True">
+    </Canvas>
+    <StackPanel x:Name="tartiflette" Grid.Row="0" Width="220" Height="auto" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed">
+      <TextBlock x:Name="tartiAideu" Background="Gray" Foreground="White" Padding="10, 5"/>
+      <TextBlock x:Name="tartiHyper" Background="Gray" Foreground="White" Padding="10, 5">
+        <Hyperlink RequestNavigate="Hyperlink_RequestNavigate"/>
+      </TextBlock>
+      <TextBlock x:Name="tartiSigne" Background="White" Foreground="Gray" Padding="10, 5" TextAlignment="Right"/>
+    </StackPanel>
+    <TextBlock Grid.Row="1" x:Name="choupinette" Background="MidnightBlue" Foreground="Lime" Padding="20, 0"/>
+  </Grid>
 
 </Window>
 
