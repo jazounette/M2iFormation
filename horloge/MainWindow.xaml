@@ -13,12 +13,12 @@
         <RowDefinition Height="auto"/>
     </Grid.RowDefinitions>
     <Canvas Grid.Row="0"  x:Name="matoile" Width="400" Height="400" Background="#000033" ClipToBounds="True">
-      <Border Width="160" Height="50" Margin="120, 240, 0, 0" BorderThickness="2" BorderBrush="White" Background="#003300" CornerRadius="6">
+      <Border Width="160" Height="50" Margin="120, 240, 0, 0" BorderThickness="2" BorderBrush="White" Background="#002200" CornerRadius="6">
       </Border>
-      <TextBlock x:Name="digitheure" Foreground="Yellow" Width="160" Height="40"
+      <TextBlock x:Name="digitHeure" Foreground="Yellow" Width="160" Height="40"
           HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,240,0,0"
-          FontSize="28" FontFamily="Consolas" TextAlignment="Center"/>
-      <TextBlock x:Name="digitcalen" Foreground="Yellow" Width="160" Height="20"
+          FontSize="28" FontFamily="Consolas" TextAlignment="Center" Padding="5, 0, 5, 0"/>
+      <TextBlock x:Name="digitCalen" Foreground="Yellow" Width="160" Height="20"
           HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,270,0,0" Padding="5, 2, 5, 0"
           FontSize="12" TextAlignment="Right"/>
     </Canvas>
