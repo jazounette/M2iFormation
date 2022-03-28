@@ -1,7 +1,8 @@
 ﻿// using System.Data.SqlClient;  //version Microsoft
 using MySql.Data.MySqlClient;
 using UtilitaireJC;
-using SQL.Classes;
+using System.Text.RegularExpressions;
+// using SQL.Classes;
 
 
 // /////////////////////////////////////////////////////TEST madame Gragnanski, TEST!!!
@@ -98,56 +99,56 @@ using SQL.Classes;
 ////////////// gerer le hash du mot de passe utilisateur
 
 
-Console.BackgroundColor = ConsoleColor.DarkCyan;
-Console.Clear();
+// Console.BackgroundColor = ConsoleColor.DarkCyan;
+// Console.Clear();
 
-////////////////////////////////////test methode liretopic
-string nomprén = "";
-List<Dbm.donnée> prout = new List<Dbm.donnée>();
-Dbm.LireTopic(prout); //////////////lit tous les topics
-// Dbm.LireTopic(prout, 3,3); //////lit 3 topics à partir du topic 3
-foreach (Dbm.donnée val in prout ) {
-   nomprén = $"{val.Nom}, {val.Prénom} dit {val.Pseudo}";
-   Console.BackgroundColor = ConsoleColor.Black;
-   Console.WriteLine($"   {val.Id_topic,3} - {nomprén,-55} {val.Date_top} {val.Langage,16}   ");
-   Console.BackgroundColor = ConsoleColor.DarkCyan;
-   Console.WriteLine($"\t{val.Nom_topic}");
-   Console.WriteLine($"\t{val.Description}\n");
-}
+// ////////////////////////////////////test methode liretopic
+// string nomprén = "";
+// List<Dbm.donnée> prout = new List<Dbm.donnée>();
+// Dbm.LireTopic(prout); //////////////lit tous les topics
+// // Dbm.LireTopic(prout, 3,3); //////lit 3 topics à partir du topic 3
+// foreach (Dbm.donnée val in prout ) {
+//    nomprén = $"{val.Nom}, {val.Prénom} dit {val.Pseudo}";
+//    Console.BackgroundColor = ConsoleColor.Black;
+//    Console.WriteLine($"   {val.Id_topic,3} - {nomprén,-55} {val.Date_top} {val.Langage,16}   ");
+//    Console.BackgroundColor = ConsoleColor.DarkCyan;
+//    Console.WriteLine($"\t{val.Nom_topic}");
+//    Console.WriteLine($"\t{val.Description}\n");
+// }
 
-/////////////////////////////////////test methode comptetopic
-int choix = 0;
-int choixmax = Dbm.CompteTopic();
-while (Konzolo.LireInt36("\nquel sujet voulez-vous lire: ", ref choix)) {   if (choix>0  && choix<=choixmax) break;   }
+// /////////////////////////////////////test methode comptetopic
+// int choix = 0;
+// int choixmax = Dbm.CompteTopic();
+// while (Konzolo.LireInt36("\nquel sujet voulez-vous lire: ", ref choix)) {   if (choix>0  && choix<=choixmax) break;   }
 
-Console.Clear();
+// Console.Clear();
 
-///////////////////////////////////////test methode LirePubli
-List<Dbm.donnée> géraldine = new List<Dbm.donnée>();
-Dbm.LirePubli(choix, géraldine); //////////////////lit toutes les publications
-// Dbm.LirePubli(choix, géraldine, 2, 2); /////////lit deux publis à partir de la publi 2
-foreach(Dbm.donnée val in géraldine) {
-   nomprén = $"{val.Nom}, {val.Prénom} dit {val.Pseudo}";
-   Console.BackgroundColor = ConsoleColor.Black;
-   Console.WriteLine($"    pub:{val.Id_pub:000} - {val.Date_pub}{nomprén,66}    ");
-   Console.BackgroundColor = ConsoleColor.DarkCyan;
-   Console.WriteLine($"{val.Message}\n");
-}
+// ///////////////////////////////////////test methode LirePubli
+// List<Dbm.donnée> géraldine = new List<Dbm.donnée>();
+// Dbm.LirePubli(choix, géraldine); //////////////////lit toutes les publications
+// // Dbm.LirePubli(choix, géraldine, 2, 2); /////////lit deux publis à partir de la publi 2
+// foreach(Dbm.donnée val in géraldine) {
+//    nomprén = $"{val.Nom}, {val.Prénom} dit {val.Pseudo}";
+//    Console.BackgroundColor = ConsoleColor.Black;
+//    Console.WriteLine($"    pub:{val.Id_pub:000} - {val.Date_pub}{nomprén,66}    ");
+//    Console.BackgroundColor = ConsoleColor.DarkCyan;
+//    Console.WriteLine($"{val.Message}\n");
+// }
 
-///////////////////////////////////////////test methode LireUtil
-List<Dbm.donnée> guendoline = new List<Dbm.donnée>();
-string typeCompte="";
-int erreur = Dbm.LireUtil(guendoline, "nom", "chamousse");////////////recherche un utilisateur dont le nom est chamousse
-foreach(Dbm.donnée val in guendoline) {
-   nomprén = $"{val.Nom}, {val.Prénom} dit {val.Pseudo}";
-   switch (val.Accès) {
-      case 0: typeCompte="Administrateur"; break;
-      case 1: typeCompte="Utilisateur"; break;
-      case 2: typeCompte="En attente d'enregistrement"; break;
-   }
-   Console.WriteLine($"utilisateur:{val.Id_user:000}\n{nomprén}\nInscrit le: {val.Date_user}\nCourriel: {val.Courriel}\nTéléphone: {val.Tél}");
-   Console.WriteLine($"Niveau d'accès: {typeCompte}\n");
-}
+// ///////////////////////////////////////////test methode LireUtil
+// List<Dbm.donnée> guendoline = new List<Dbm.donnée>();
+// string typeCompte="";
+// int erreur = Dbm.LireUtil(guendoline, "nom", "chamousse");////////////recherche un utilisateur dont le nom est chamousse
+// foreach(Dbm.donnée val in guendoline) {
+//    nomprén = $"{val.Nom}, {val.Prénom} dit {val.Pseudo}";
+//    switch (val.Accès) {
+//       case 0: typeCompte="Administrateur"; break;
+//       case 1: typeCompte="Utilisateur"; break;
+//       case 2: typeCompte="En attente d'enregistrement"; break;
+//    }
+//    Console.WriteLine($"utilisateur:{val.Id_user:000}\n{nomprén}\nInscrit le: {val.Date_user}\nCourriel: {val.Courriel}\nTéléphone: {val.Tél}");
+//    Console.WriteLine($"Niveau d'accès: {typeCompte}\n");
+// }
 
 //////////////////////////////////////////test methode archivage publication
 // Dbm.ArchivPubli(4);////////////////////////archive la publication 4
@@ -175,5 +176,137 @@ foreach(Dbm.donnée val in guendoline) {
 
 
 
+/////////////////////////////////////////////////////////////// tp regex valencienne
+int id_user;
+string prénom, nom, courriel, tél;
+int choisir=0, quiçadonc=0, retour=0;
+bool quitter = false;
 
+string chaineDeConne = "server=localhost;database=m2iformation;uid=root;pwd=toto;";
+MySqlConnection conne = new MySqlConnection(chaineDeConne);
+MySqlCommand requête;
+MySqlDataReader lecteur;
+
+while (!quitter){
+   Console.Clear();
+   Menu();
+   while (!Konzolo.LireInt36("choix:", ref choisir));
+   switch (choisir) {
+      case 0: quitter = true; break;
+      case 1: LireUtil();  Konzolo.Attendre();  break;///////////////affiche la liste des gens
+      case 2: Konzolo.Affiche($"ajoutage\n"); //////////////////////////////////ajoute une gen
+         do {  nom = Konzolo.LireString("Nom: ");  } while (!SuisJe("nom", nom));
+         do {  prénom = Konzolo.LireString("Prénom: ");  } while (!SuisJe("prénom", prénom));
+         do {  courriel = Konzolo.LireString("Adresse email: ");  } while (!SuisJe("email", courriel));
+         do {  tél = Konzolo.LireString("Numéro de téléphone: ");  } while (!SuisJe("tél", tél));
+         retour = InjectUtil(prénom, nom, courriel, tél);
+         if (retour == -1) Konzolo.Affiche($"Erreur de base de donnée\n");
+         else Konzolo.Affiche($"{retour} personne a été ajouté\n");
+         Konzolo.Attendre();
+      break;
+      case 3: Konzolo.Affiche($"supprimage\n"); ////////////////////////////////enléve une gen
+         while (!Konzolo.LireInt36("ID de lutilisateur à éffacer: ", ref quiçadonc));
+         retour = DelUtil(quiçadonc);
+         if (retour == -1) Konzolo.Affiche($"Erreur de base de donnée\n");
+         else if (retour == 0) Konzolo.Affiche($"ID introuvable\n");
+         else Konzolo.Affiche($"l'Opération éffaçage est un franc succès\n");
+         Konzolo.Attendre();
+      break;
+   }
+}
+Konzolo.Affiche($"@+ bisou :o)\n");
+
+void Menu(){
+   Konzolo.Affiche($"\n\t\tAU MENU DU JOUR\n");
+   Konzolo.Affiche($"\t1-affiche toutes les personnes\n");
+   Konzolo.Affiche($"\t2-ajoute une personne\n");
+   Konzolo.Affiche($"\t3-supprime une personne\n");
+   Konzolo.Affiche($"\t0-quitter\n\n");
+}
+
+void OuvreDBM(){
+   try{  conne.Open();  }
+   catch (Exception ex){   Konzolo.Affiche($"croustonne? ici base de donnée, ya un problème!!!\n{ex}\n");   }
+}
+void FermeDBM(){    conne.Dispose();    conne.Close();    }
+
+int LireUtil() {
+   Konzolo.Affiche($" ID         Nom           Prénom                      Courriel               Téléphone\n");
+   try {
+      OuvreDBM();
+      requête = conne.CreateCommand();
+      requête.CommandText = $"select * from personne;";
+      lecteur = requête.ExecuteReader();
+      while (lecteur.Read()) {
+         id_user =  lecteur.GetInt16(0);
+         // titre =  lecteur.GetString(1);
+         prénom =  lecteur.GetString(2);
+         nom =  lecteur.GetString(3);
+         courriel =  lecteur.GetString(4);
+         tél =  lecteur.GetString(5);
+         Konzolo.Affiche($"{id_user,4:000} {nom,15} {prénom,15} {courriel,30} {tél,20}\n");
+      }
+      lecteur.Close();      FermeDBM();
+      return 0;
+   } catch {  return -1;  }
+}
+
+int InjectUtil(string prénom, string nom, string email, string tél) {
+   tél = FormatTélStr(tél);////////formatage du num de tél
+   try {
+      OuvreDBM();
+      requête = conne.CreateCommand();
+      requête.CommandText = "insert into personne values (NULL, NULL, @Prenom, @Nom, @eMail, @Tel);";
+      requête.Parameters.Add(new MySqlParameter("@Prenom", prénom));
+      requête.Parameters.Add(new MySqlParameter("@Nom", nom));
+      requête.Parameters.Add(new MySqlParameter("@eMail", email));
+      requête.Parameters.Add(new MySqlParameter("@Tel", tél));
+      int nbLigne = requête.ExecuteNonQuery();
+      FermeDBM();
+      return nbLigne;
+   } catch {  return -1;  }
+}
+
+int DelUtil(int id_user){
+   try {
+      OuvreDBM();
+      requête = conne.CreateCommand();
+      requête.CommandText = "delete from personne where id=@CeluiLà;";
+      requête.Parameters.Add(new MySqlParameter("@CeluiLà", id_user));
+      int nbLigne = requête.ExecuteNonQuery();
+      FermeDBM();
+      return nbLigne;
+   } catch {  return -1; }
+}
+
+bool SuisJe (string zun, string testmadamegraniansky){
+   string patron;
+   switch (zun){
+      case "nom" : patron = @"^[A-ZÉÈÊÔÖÀÂÎÏ_\s\-]*$"; break;
+      case "prénom" : patron = @"^[A-ZÉÈÊËÔÖÀÂÎÏ]{1}[a-zA-Zéèëêôöàâîï_\s\-]*$"; break;
+      case "email" : patron =  @"^([a-zA-Z0-9\.\-_]+)@([a-zA-Z0-9\-_]+)(\.)?([a-zA-Z0-9\-_]+)?(\.){1}([a-zA-Z]{2,11})$"; break;
+      case "tél" : patron = @"^([0|\+33|33]+)(\.|\-|\s)?([1-9]{1})((\.|\-|\s)?[0-9]{2}){4}$"; break;
+      default: return false;
+   }
+   return Regex.IsMatch(testmadamegraniansky, patron);
+}
+
+string FormatTélStr (string titi) {
+            // +33 6 59 78 65 32 => Le Bon Format
+            // 33 6 59 78 65 32
+            // 03 20 45 69 87
+            // 06-23-45-69-87
+            // 06.23.45.69.87
+            // 0723456987
+   titi = Regex.Replace(titi, @"[\.\-\s]+", "");
+   titi = Regex.Replace(titi, @"^0|^33|^\+33", "+33 ");
+   for (int i=5; i<=14; i+=3) titi = titi.Insert(i, " ");
+   return titi;
+}
+
+string FormatTél (string toto){///////////////marche pas si tel de la forme: 0612345678  donne: +33 612345678   manque les espaces
+   List<(string pat, string rep)> titi = new List<(string pat, string rep)> {(@"[\.\-]+", " "), (@"^(0|33)", "+33 "),  (@"\s+", " ")};
+   foreach (var S in titi) toto = Regex.Replace(toto, S.pat, S.rep);
+   return toto;
+}
 

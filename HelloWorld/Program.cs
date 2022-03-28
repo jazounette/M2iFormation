@@ -1,6 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 // Console.Clear();
 
+using System.Text.RegularExpressions;
+
 static void attendre() { 
    Console.WriteLine("Appuyez sur une touche pour continuer...");
    Console.ReadLine();
@@ -926,91 +928,122 @@ static bool lireInt36 (string message, ref int valeur) {
 // }
 
 ///////////////////////////////////////////////////////////exercice 39
-List<string> tabOrig = new List<string> {"Anthony \"the C# BOSS\" Di Persio", "Corentin", "Jamila", "Mickael", "Wilfried", "Youness", "Fabien", "Meriem", "Olive", "Patrick", "Tarik", "Denis", "Jerome"};
-List<byte> tabOrigGenre = new List<byte> {1, 1, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1};
-List<string> tabDest = new List<string>();
-List<byte> tabDestGenre = new List<byte>();
-int choix = 0;
-int gagnang = 0;
-string idefix = "", panoramix = "";
-Random hazard = new Random();
+// List<string> tabOrig = new List<string> {"Anthony \"the C# BOSS\" Di Persio", "Corentin", "Jamila", "Mickael", "Wilfried", "Youness", "Fabien", "Meriem", "Olive", "Patrick", "Tarik", "Denis", "Jerome"};
+// List<byte> tabOrigGenre = new List<byte> {1, 1, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1};
+// List<string> tabDest = new List<string>();
+// List<byte> tabDestGenre = new List<byte>();
+// int choix = 0;
+// int gagnang = 0;
+// string idefix = "", panoramix = "";
+// Random hazard = new Random();
 
-do {
-   Console.Clear();
-   couleur("blanc");
-   print("--- Le grand tirage au sort ---\n\n");
-   print("1- Effectuer un tirage\n");
-   print("2- Voir la liste des personnes déjà tirées\n");
-   print("3- Voir la liste des personnes restantes\n");
-   print("0- Quitter\n");
-   while(!lireInt36("Faites votre choix: ", ref choix));
-   switch (choix) {
-      case 1:  if (tabOrig.Count == 0) { 
-                  couleur("jaune");
-                  print("Le grand tirage recommence, tout le monde gagne, faite vos jeux.\n");
-                  couleur("blanc");
-                  tabOrig = tabDest;
-                  tabOrigGenre = tabDestGenre;
-                  tabDest = new List<string>();
-                  tabDestGenre = new List<byte>();
-                  attendre();
-                  break;
-               }
-               gagnang = hazard.Next(0, tabOrig.Count);
-               if (tabOrigGenre[gagnang] == 2) {  idefix = "se gagnante"; panoramix = "**";  }
-               if (tabOrigGenre[gagnang] == 1) {  idefix = "x gagnant"; panoramix = "";  }
-               couleur("vert");
-               print($"{panoramix}****************************{asterix(tabOrig[gagnang].Length)}\n");
-               print($"* L'heureu{idefix} est : {tabOrig[gagnang]} *\n");
-               print($"{panoramix}****************************{asterix(tabOrig[gagnang].Length)}\n");
-               couleur("blanc");
-               tabDest.Add(tabOrig[gagnang]);
-               tabDestGenre.Add(tabOrigGenre[gagnang]);
-               tabOrig.RemoveAt(gagnang);
-               tabOrigGenre.RemoveAt(gagnang);
-               attendre();
-               break;
-      case 2:  couleur("rouge");
-               print("***********************************\n");
-               print($"* Liste des personnes déjà tirés: *\n");
-               print("***********************************\n");
-               couleur("blanc");
-               if (tabDest.Count == 0) print("personne ne s'est encore fait tirer.\n");
-               else M2iChampions(tabDest);
-               print($"total:{tabDest.Count}\n");
-               attendre(); 
-               break;
-      case 3:  couleur("cyan");
-               print("****************************************\n");
-               print($"* N'ont pas encore fait de correction: *\n");
-               print("****************************************\n");
-               couleur("blanc");
-               if (tabOrig.Count == 0) print("il n'ya plus personne ici, c'est vide est froid.\n");
-               else M2iChampions(tabOrig);
-               print($"total:{tabOrig.Count}\n");
-               attendre(); 
-               break;
-      case 0: Environment.Exit(0); break;
-      default : couleur("rouge"); 
-               print("Erreur 404 - votre choix n'est pas au menu.\n");
-               couleur("blanc");
-               attendre(); 
-               break;
-   }
-} while (true);
+// do {
+//    Console.Clear();
+//    couleur("blanc");
+//    print("--- Le grand tirage au sort ---\n\n");
+//    print("1- Effectuer un tirage\n");
+//    print("2- Voir la liste des personnes déjà tirées\n");
+//    print("3- Voir la liste des personnes restantes\n");
+//    print("0- Quitter\n");
+//    while(!lireInt36("Faites votre choix: ", ref choix));
+//    switch (choix) {
+//       case 1:  if (tabOrig.Count == 0) { 
+//                   couleur("jaune");
+//                   print("Le grand tirage recommence, tout le monde gagne, faite vos jeux.\n");
+//                   couleur("blanc");
+//                   tabOrig = tabDest;
+//                   tabOrigGenre = tabDestGenre;
+//                   tabDest = new List<string>();
+//                   tabDestGenre = new List<byte>();
+//                   attendre();
+//                   break;
+//                }
+//                gagnang = hazard.Next(0, tabOrig.Count);
+//                if (tabOrigGenre[gagnang] == 2) {  idefix = "se gagnante"; panoramix = "**";  }
+//                if (tabOrigGenre[gagnang] == 1) {  idefix = "x gagnant"; panoramix = "";  }
+//                couleur("vert");
+//                print($"{panoramix}****************************{asterix(tabOrig[gagnang].Length)}\n");
+//                print($"* L'heureu{idefix} est : {tabOrig[gagnang]} *\n");
+//                print($"{panoramix}****************************{asterix(tabOrig[gagnang].Length)}\n");
+//                couleur("blanc");
+//                tabDest.Add(tabOrig[gagnang]);
+//                tabDestGenre.Add(tabOrigGenre[gagnang]);
+//                tabOrig.RemoveAt(gagnang);
+//                tabOrigGenre.RemoveAt(gagnang);
+//                attendre();
+//                break;
+//       case 2:  couleur("rouge");
+//                print("***********************************\n");
+//                print($"* Liste des personnes déjà tirés: *\n");
+//                print("***********************************\n");
+//                couleur("blanc");
+//                if (tabDest.Count == 0) print("personne ne s'est encore fait tirer.\n");
+//                else M2iChampions(tabDest);
+//                print($"total:{tabDest.Count}\n");
+//                attendre(); 
+//                break;
+//       case 3:  couleur("cyan");
+//                print("****************************************\n");
+//                print($"* N'ont pas encore fait de correction: *\n");
+//                print("****************************************\n");
+//                couleur("blanc");
+//                if (tabOrig.Count == 0) print("il n'ya plus personne ici, c'est vide est froid.\n");
+//                else M2iChampions(tabOrig);
+//                print($"total:{tabOrig.Count}\n");
+//                attendre(); 
+//                break;
+//       case 0: Environment.Exit(0); break;
+//       default : couleur("rouge"); 
+//                print("Erreur 404 - votre choix n'est pas au menu.\n");
+//                couleur("blanc");
+//                attendre(); 
+//                break;
+//    }
+// } while (true);
 
-static void M2iChampions (List<string> tabloche) {
-   string unDentTaChion = "";
-   foreach(string val in tabloche) {
-      print($"{unDentTaChion}{val}\n");
-      unDentTaChion += "  ";
-   }
+// static void M2iChampions (List<string> tabloche) {
+//    string unDentTaChion = "";
+//    foreach(string val in tabloche) {
+//       print($"{unDentTaChion}{val}\n");
+//       unDentTaChion += "  ";
+//    }
+// }
+// static string asterix (int obelix){
+//    string retour = "";
+//    for (int i=0; i<obelix; i++) retour += "*";
+//    return retour;
+// }
+
+
+///////////////////////////////////////////////////////////////////////// exo regex
+string agePatron = @"^[1-9]{1,2}$";
+string ageNetPatran = "";
+string courrielPatron = @"^([a-z0-9\.]+)@([a-z0-9\.]+)$";
+string courrielNetPatron = @"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$";
+string telPatron = @"^([0-9]{2}(\.|\s|\-)?){4}[0-9]{2}$";
+string telNetPatron = @"^([+33|0]+)(\s|\.|\-)?([1-9]{1})(\.|\s|\-)?([0-9]{2}(\.|\s|\-)?){4}$";
+
+// if (MailRegex ("toto.titi@free.fr")) print ("courriel corrext\n"); else print ("courriel INCORREXT\n");
+// if (AgeRegex ("11")) print ("age correct\n"); else print ("age INCORRECT\n");
+// if (TelRegex ("06.41.76 4403")) print ("téléphone correct\n"); else print ("téléphone INCORRECT\n");
+string testoto = "06 41 76-44.03";
+print (testoto); print ("\n");
+print (FormatTel(testoto));     // +33 6 41 76 44 03
+print ("\n");
+
+bool MailRegex (string toto){  return Regex.IsMatch(toto, courrielPatron);  }
+
+bool TelRegex (string toto){  return Regex.IsMatch(toto, telPatron);  }
+
+bool AgeRegex (string toto){  return Regex.IsMatch(toto, agePatron);  }
+
+string FormatTel (string toto){
+   List<(string pat, string rep)> titi = new List<(string pat, string rep)> {(@"[\.\-]+", " "), (@"^(0|33)", "+33 "),  (@"\s+", " ")};
+   foreach (var S in titi) toto = Regex.Replace(toto, S.pat, S.rep);
+   return toto;
 }
-static string asterix (int obelix){
-   string retour = "";
-   for (int i=0; i<obelix; i++) retour += "*";
-   return retour;
-}
+
+
 
 
 

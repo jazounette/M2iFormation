@@ -98,11 +98,11 @@ public partial class MainWindow : Window{
          minRad -= (float)Math.PI/2;
          heuRad -= (float)Math.PI/2;
 
-         aiguilleSec = LigneMov(aiguilleSec, 200 - Math.Cos(secRad) * 40, 200 - Math.Sin(secRad) * 40, 200 + Math.Cos(secRad) * 155, 200 + Math.Sin(secRad) * 155, 3);
-         aiguilleSec2 = DisqueMov(aiguilleSec2, 200 + Math.Cos(secRad) * 140, 200 + Math.Sin(secRad) * 140, 15, "#FF0000");
          aiguilleMin = LigneMov(aiguilleMin, 200, 200, 200 + Math.Cos(minRad) * 140, 200 + Math.Sin(minRad) * 140, 4);
          aiguilleHeu1 = LigneMov(aiguilleHeu1, 200, 200, 200 + Math.Cos(heuRad) * 100, 200 + Math.Sin(heuRad) * 100, 5);
          aiguilleHeu2 = LigneMov(aiguilleHeu2, 200 + Math.Cos(heuRad) * 100, 200 + Math.Sin(heuRad) * 100, 200 + Math.Cos(heuRad) * 120, 200 + Math.Sin(heuRad) * 120, 5, "#FF0000");
+         aiguilleSec = LigneMov(aiguilleSec, 200 - Math.Cos(secRad) * 40, 200 - Math.Sin(secRad) * 40, 200 + Math.Cos(secRad) * 155, 200 + Math.Sin(secRad) * 155, 3);
+         aiguilleSec2 = DisqueMov(aiguilleSec2, 200 + Math.Cos(secRad) * 140, 200 + Math.Sin(secRad) * 140, 15, "#FF0000");
 
          if (!ionoChrono && !affInfo) {
             doudot = ((secMem % 2) == 0) ? ":": " ";
@@ -118,17 +118,17 @@ public partial class MainWindow : Window{
       CercleAdd(200, 200, 344, 2);
       CercleAdd(200, 200, 382, 2);
       int j=0;
-      (int mu, int ep, string co) vk;
+      (int ra, int ep, string co) vk;//ra:rayon, ep:épaisseur, co:couleur
       DisqueAdd (200, 200, 20);
-      for (double i=0; i<(10*Math.PI); i+=(Math.PI/30) ) {
-         (vk.mu, vk.ep, vk.co) = (j%5 == 0) ? (156,4,"#FF0000") : (160,2,"#FFFFFF");
-         LigneAdd(200 + Math.Cos(i) * vk.mu, 200 + Math.Sin(i) * vk.mu, 200 + Math.Cos(i) * 170, 200 + Math.Sin(i) * 170, vk.ep, vk.co);
+      for (double i=0; i<(10*Math.PI); i+=(Math.PI/30) ) {//trace les graduations du cadran
+         (vk.ra, vk.ep, vk.co) = (j%5 == 0) ? (156,4,"#FF0000") : (160,2,"#FFFFFF");
+         LigneAdd(200 + Math.Cos(i) * vk.ra, 200 + Math.Sin(i) * vk.ra, 200 + Math.Cos(i) * 170, 200 + Math.Sin(i) * 170, vk.ep, vk.co);
          j++;
       }
       double ang = -Math.PI/3;      int angDeg = 30;
-      for (int i=1; i<=12; i++){
+      for (int i=1; i<=12; i++){//trace les chiffres autour du cadran
          TextBlock chiffre = new TextBlock();
-         chiffre.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#000000");//#99FF99
+         chiffre.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#000000");
          chiffre.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFF");
          chiffre.Height = 20;    chiffre.Width = 20;
          chiffre.TextAlignment = TextAlignment.Center;
