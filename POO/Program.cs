@@ -329,48 +329,83 @@ using Newtonsoft.Json;
 
 
 ////////////////////////////////////////////////////////////TPX1 (la banque peu populaire)version2
-Compte[] clienTest = new Compte[99];
-// List<Compte> clienTest = new List<Compte> { 
-//       new Compte(new Client("rodriguez", "raoul", "06.12.33.80.75", 1, 1F)),
-//       new Compte(new Client("fabre", "denize", "06.22.33.44.55", 2, 5.5F))    };
+// Compte[] clienTest = new Compte[99];
+// // List<Compte> clienTest = new List<Compte> { 
+// //       new Compte(new Client("rodriguez", "raoul", "06.12.33.80.75", 1, 1F)),
+// //       new Compte(new Client("fabre", "denize", "06.22.33.44.55", 2, 5.5F))    };
 
-clienTest[0] = new Compte(new Client("rodriguez", "raoul", "06.12.33.80.75", 1, 1F));
-clienTest[1] = new Compte(new Client("fabre", "denize", "06.22.33.44.55", 2, 5.5F));
-clienTest[2] = new Compte(new Client("Lagaffe", "Gaston", "03.32.46.57.39", 3, 2.2F));
+// clienTest[0] = new Compte(new Client("rodriguez", "raoul", "06.12.33.80.75", 1, 1F));
+// clienTest[1] = new Compte(new Client("fabre", "denize", "06.22.33.44.55", 2, 5.5F));
+// clienTest[2] = new Compte(new Client("Lagaffe", "Gaston", "03.32.46.57.39", 3, 2.2F));
 
-// Konzolo.Affiche($"{clienTest[0].Numéro}\n");
-// Konzolo.Affiche($"{clienTest[1].Numéro}\n");
+// // Konzolo.Affiche($"{clienTest[0].Numéro}\n");
+// // Konzolo.Affiche($"{clienTest[1].Numéro}\n");
 
-//////////////gérer les comptes en négatif
-//////////////gérer la persistance avec un fichier json
-//////////////mettre dans afficher compte, le taux pour les différents compte
-//////////////lire fichier ligne par ligne et bourré le tableau avec jsonconvert (à teste pour recup les données du fichier)
-
-
-clienTest[0].Opération(1111.11F);
-clienTest[0].Opération(-222.1234F);
-clienTest[0].Opération(333F);
-clienTest[0].Opération(-11);
-clienTest[1].Opération(3333);
-clienTest[1].Opération(-444);
-clienTest[1].Opération(-55);
+// //////////////gérer les comptes en négatif
+// //////////////gérer la persistance avec un fichier json
+// //////////////mettre dans afficher compte, le taux pour les différents compte
+// //////////////lire fichier ligne par ligne et bourré le tableau avec jsonconvert (à teste pour recup les données du fichier)
 
 
-int choix = -1;
-do {
-   Console.Clear();
-   Konzolo.Couleur("blanc");
-   choix = IHM.Menu();
-   switch (choix) {
-      case 1: IHM.NouveauClient(clienTest); break;
-      case 2: IHM.Opération("dépot", clienTest); break;
-      case 3: IHM.Opération("retrait", clienTest); break;
-      case 4: IHM.AfficherCompte(clienTest); break;
-      case 5: IHM.ListeCompte(clienTest); break;
-      case 6: IHM.CalculInterets(clienTest); break;
-      case 0: IHM.Quitter(clienTest); break;
-      default: Konzolo.Affiche("ya rien à voir ici, circulé\n"); break;
+// clienTest[0].Opération(1111.11F);
+// clienTest[0].Opération(-222.1234F);
+// clienTest[0].Opération(333F);
+// clienTest[0].Opération(-11);
+// clienTest[1].Opération(3333);
+// clienTest[1].Opération(-444);
+// clienTest[1].Opération(-55);
+
+
+// int choix = -1;
+// do {
+//    Console.Clear();
+//    Konzolo.Couleur("blanc");
+//    choix = IHM.Menu();
+//    switch (choix) {
+//       case 1: IHM.NouveauClient(clienTest); break;
+//       case 2: IHM.Opération("dépot", clienTest); break;
+//       case 3: IHM.Opération("retrait", clienTest); break;
+//       case 4: IHM.AfficherCompte(clienTest); break;
+//       case 5: IHM.ListeCompte(clienTest); break;
+//       case 6: IHM.CalculInterets(clienTest); break;
+//       case 0: IHM.Quitter(clienTest); break;
+//       default: Konzolo.Affiche("ya rien à voir ici, circulé\n"); break;
+//    }
+
+// } while(true);
+
+
+
+/////////////////////////////////////////valencienne delegate TP
+double n1=0, n2=0;
+int choix=0;
+
+while (true) {
+   while (!Konzolo.LireDouble36("premier nombre: ", ref n1));
+   while (!Konzolo.LireDouble36("deuxième nombre: ", ref n2));
+   while (true){
+      Konzolo.Affiche($"1-addition  2-soustrac  3-multiplic  4-division  0-quitter  5-nouvelle saisi\n");
+      do {
+         while (!Konzolo.LireInt36("choix: ", ref choix));
+      } while (choix<0 || choix>5);
+      if (choix == 5) break;
+      switch (choix) {
+         case (0): Environment.Exit(0); break;
+         case (1): Calculage (n1, n2, Addition); break;
+         case (2): Calculage (n1, n2, Soustraction); break;
+         case (3): Calculage (n1, n2, Multiplication); break;
+         case (4): Calculage (n1, n2, Division); break;
+         default: Konzolo.Affiche($"Prout!!!\n"); break;
+      }
    }
+}
 
-} while(true);
+void Calculage (double a, double b, Func<double, double, double> methodeGéné){
+   Konzolo.Affiche($"{methodeGéné(a,b)}\n");   }
+
+double Addition(double a, double b) {  return a + b;  }
+double Soustraction(double a, double b) {  return a - b;  }
+double Multiplication(double a, double b) {  return a * b;  }
+double Division(double a, double b) { return a / b;  }
+
 

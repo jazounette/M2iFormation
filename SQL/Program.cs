@@ -192,7 +192,7 @@ while (!quitter){
    Menu();
    while (!Konzolo.LireInt36("choix:", ref choisir));
    switch (choisir) {
-      case 0: quitter = true; break;
+      case 0: quitter = true; break;////ici faire plutôt un environement.exit comme ça pas besoin de gérer le bool quitter
       case 1: LireUtil();  Konzolo.Attendre();  break;///////////////affiche la liste des gens
       case 2: Konzolo.Affiche($"ajoutage\n"); //////////////////////////////////ajoute une gen
          do {  nom = Konzolo.LireString("Nom: ");  } while (!SuisJe("nom", nom));

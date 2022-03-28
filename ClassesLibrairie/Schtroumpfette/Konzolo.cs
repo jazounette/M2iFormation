@@ -27,6 +27,9 @@ public static class Konzolo{
    public static bool LireFloat36 (string message, ref float valeur) {
       Console.Write(message);  return (float.TryParse(Console.ReadLine(), out valeur));   }
 
+   public static bool LireDouble36 (string message, ref double valeur) {
+      Console.Write(message);  return (double.TryParse(Console.ReadLine(), out valeur));   }
+
    public static bool Couleur (string couleur, bool background = false) {    //par défaut on change la couleur du texte, sinon le fond
       static int vaChercheCoul(string[] chimay, string leff) {
          for (int goudal=0; goudal<chimay.Length; goudal++) if (leff == chimay[goudal]) return goudal;
